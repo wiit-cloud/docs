@@ -38,14 +38,14 @@ footer_external_links:
     - label: Website
       url: https://wiit.cloud
     - label: Impressum
-      url: https://gec.io/impressum/
+      url: https://www.myloc.de/impressum.html
     - label: Datenschutz
       url: https://gec.io/datenschutz/
   en:
     - label: Website
       url: https://wiit.cloud
     - label: Imprint
-      url: https://gec.io/impressum/
+      url: https://www.myloc.de/impressum.html
     - label: Data Privacy
       url: https://gec.io/datenschutz/
 
