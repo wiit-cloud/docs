@@ -10,4 +10,4 @@
 /docs/_optimist @wiit-cloud/optimist
 /docs/_gks      @wiit-cloud/cks
 /docs/_edge     @wiit-cloud/enop-sre
-/docs/_ece      @wiit-cloud/plapps
+/docs/_ece      @wiit-cloud/clapps
