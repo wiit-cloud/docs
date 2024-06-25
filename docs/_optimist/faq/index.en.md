@@ -131,7 +131,7 @@ systemctl enable qemu-guest-agent
 
 Once the qemu-guest-agent is running, the snapshot can be created.
 
-Additionally, when [uploading your own images](https://docs.gec.io/optimist/specs/images/#uploading-your-own-images), we recommend that you include `--property hw_qemu_guest_agent=True` to install this upon creation of the new image.
+Additionally, when [uploading your own images](https://docs.wiit-cloud.io/optimist/specs/images/#uploading-your-own-images), we recommend that you include `--property hw_qemu_guest_agent=True` to install this upon creation of the new image.
 
 The second option is to stop the running instance, create the snapshot, then start the instance again. This can be done via the Horizon Dashboard or on the CLI as follows:
 
