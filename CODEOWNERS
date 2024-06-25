@@ -7,6 +7,7 @@
 # In this example, @doctocat owns any file in the `/docs`
 # directory in the root of your repository and any of its
 # subdirectories.
-/docs/_optimist @gecio/optimist
-/docs/_gks      @gecio/gks
-/docs/_edge      @gecio/ooe
+/docs/_optimist @wiit-cloud/optimist
+/docs/_gks      @wiit-cloud/cks
+/docs/_edge     @wiit-cloud/enop-sre
+/docs/_ece      @wiit-cloud/clapps
