@@ -2,9 +2,9 @@
 
 <div align="center">
 
-# GEC Customer Documentation
+# WIIT AG Customer Documentation
 
-This repository contains the customer documentation for GEC.
+This repository contains the customer documentation for WIIT AG.
 </div>
 
 <br><br>
