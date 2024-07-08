@@ -109,9 +109,6 @@ collections:
   optimist:
     output: true
     sort_by: nav_order
-  gks:
-    output: true
-    sort_by: nav_order
   edge:
     output: true
     sort_by: nav_order
@@ -136,13 +133,6 @@ defaults:
     values:
       layout: "default"
 
-  - scope:
-      path: "**/*.md"
-      type: "gks"
-    values:
-      layout: "default"
-
-
 just_the_docs:
   # Define which collections are used in just-the-docs
   collections:
@@ -150,14 +140,6 @@ just_the_docs:
     ece:
       name: Elastic Cloud Enterprise
       nav_exclude: false
-      search_exclude: false
-    gks:
-      name: GKS
-      # Exclude the collection from the navigation
-      # Supports true or false (default)
-      nav_exclude: false
-      # Exclude the collection from the search
-      # Supports true or false (default)
       search_exclude: false
     edge:
       name: Oncite Open Edition
