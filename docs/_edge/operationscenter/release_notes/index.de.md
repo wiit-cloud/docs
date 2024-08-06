@@ -27,7 +27,7 @@ parent: Operations Center
         Flavor für VMs können für das Operations Center verborgen werden.
         Um einen Flavor zu verbergen muss im Openstack die Metadata mit einen Custom Feld visibility ergänzt und dieses auf false gesetzt werden.
         Der Flavor ist jetzt nicht mehr in Operations Center sichtbar.
-        Hinweis: Der Flavor ist nur in der Auswahl für neue VMs verborgen. VMs dieden Flavor bereits nutzen sind davon nicht beeinflusst und können weiterhin im Operations Center verwaltet werden.
+        Hinweis: Der Flavor ist nur in der Auswahl für neue VMs verborgen. VMs die den Flavor bereits nutzen sind davon nicht beeinflusst und können weiterhin im Operations Center verwaltet werden.
 
 
 ## 1.5.6
