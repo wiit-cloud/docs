@@ -9,11 +9,15 @@ parent: Operations Center
 
 # Release Notes
 
+## 1.5.12
+
+#### Fehlerbehebung
+- Limitierung von Projektnamen auf 25 Character (vorher 50)
+
 ## 1.5.11
 
 #### Fehlerbehebung:
 - Backups sind nicht mehr wegen alte VMs mit Leerzeichen am Anfang blockiert
-- Limitierung von Projektnamen funktioniert jetzt wie vorgesehen
 
 ## 1.5.9
 

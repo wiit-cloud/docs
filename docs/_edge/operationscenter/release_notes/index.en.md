@@ -9,6 +9,9 @@ parent: Operations Center
 
 # Release Notes
 
+## 1.5.12
+- limit project names to 25 chars (previously: 50)
+
 ## 1.5.11
 
 #### Fixes:
