@@ -9,7 +9,7 @@ parent: Operations Center
 
 # Release Notes
 
-## 1.5.12
+## 1.5.13
 
 #### Fehlerbehebung
 - Limitierung von Projektnamen auf 25 Character (vorher 50)
