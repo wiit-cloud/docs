@@ -9,6 +9,9 @@ has_children: false
 
 # Compute localstorage for your instances
 
+{: .warning }
+L1 / Localstorage Flavors can be requested from <support@gec.io>.
+
 ## What exactly is Compute Localstorage?
 
 With Localstorage, the storage of your instances is located directly on the hypervisor (server). The localstorage feature (available through our l1 flavors) is intended for use with applications that require low latency.
@@ -34,7 +37,3 @@ OpenStack provides many ways to handle your instances, such as resizing, shelvin
 _Resize:_ The resize option will be displayed, but it is technically not possible to resize an instance based on an l1 flavor. However, you can address this by doing a cluster setup (application based) with l1 flavors, running larger l1 flavors in parallel and rolling your data from the old l1 to the new l1 flavors.
 
 _Shelving/Snapshotting:_ Both features are possible, but due to the larger disk size within l1 flavors we do not recommend this, as the associated upload will take much longer. In this case we recommend using your external backup solution.
-
-## Requesting Localstorage Flavours
-
-L1 / Localstorage Flavors can be requested from <support@gec.io>
