@@ -76,3 +76,5 @@ For more information please see [Storage → Localstorage](/optimist/storage/loc
 | l1.large    |    8   |  64 GB |  2500 GB |          100000 / 100000 |            1000 MB/s / 500 MB/s |          4 Gbit/s |
 | l1.xlarge   |   16   | 128 GB |  5000 GB |          100000 / 100000 |           2000 MB/s / 1125 MB/s |          4 Gbit/s |
 | l1.2xlarge  |   30   | 256 GB | 10000 GB |          100000 / 100000 |           2000 MB/s / 2000 MB/s |          4 Gbit/s |
+
+L1 / Localstorage Flavors can be requested from <support@gec.io>
