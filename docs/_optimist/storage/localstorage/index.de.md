@@ -10,7 +10,7 @@ has_children: false
 # Compute Localstorage für Ihre Instanzen
 
 {: .warning }
-L1 / Localstorage-Flavours können bei <support@gec.io> angefordert werden.
+L1 / Localstorage-Flavors können bei <support@gec.io> angefordert werden.
 
 ## Was genau ist Compute Localstorage?
 

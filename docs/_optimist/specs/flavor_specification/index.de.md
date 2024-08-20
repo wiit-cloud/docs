@@ -14,7 +14,7 @@ sind diverse Standard-Hardwareprofile (Flavors) eingerichtet. Diese haben unters
 verfügbaren Flavors aufgelistet sind.
 
 {: .warning }
-L1 / Localstorage-Flavours können bei <support@gec.io> angefordert werden.
+L1 / Localstorage-Flavors können bei <support@gec.io> angefordert werden.
 
 ## Migration zwischen Flavor-Typen
 
