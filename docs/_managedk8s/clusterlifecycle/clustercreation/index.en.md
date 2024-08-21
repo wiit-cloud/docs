@@ -18,13 +18,9 @@ default values, which are described below.
 
 You should have an existing or newly created openstack tenant. You should create in your openstack tenant and provide the following:
 
-* Application credentials
+* [Application credentials](/managedk8s/clusterlifecycle/appcredentials/)
 
-bounded to the project where you want the new cluster to be created. For security reasons, please make sure to provide these
-
-details to us via bitwarden and not directly into your request.
-
-TODO: link appcreds topic and move all docs there
+bounded to the project where you want the new cluster to be created. 
 
 ### Required information for the new cluster
 
@@ -32,23 +28,15 @@ TODO: link appcreds topic and move all docs there
 
 * Customer ID - defaults to the company id number if not specified for customer
 
-* K8S version - cluster will be deployed in the latest kubernetes minor version if not specified.
+* Application Creds - as Discussed in prerequisites
 
- 
-TODO:  link kubernetesversion and move info to it
- We currently support the following Kubernetes versions:
 
-  ```bash
-  v1.25.x
-  v1.26.x
-  v1.27.x
-  v1.28.x
-  v1.29.x
-  ```
+## Optional requirements or configurable features with a sane default
 
-  Please select **at max from the three latest kubernetes versions** for your new cluster, which are still supported by the upstream
-  [k8s version](https://endoflife.date/kubernetes)
-  and we use the latest patch from each supported minor version of Kubernetes.
+# K8S version
+If not specified, cluster will be deployed in the latest supported kubernetes minor version.
+
+For more infromation about supported versions and Deprecations/EOL or other concern regarding the versions [look here](managedk8s/about/kubernetesverions/)
 
 
 ## Optional requirements
@@ -152,12 +140,10 @@ default values.
 
 ```bash
 # required values
-openstack_application_cred_id: # bitwarden link with the values
-openstack_application_cred_secret: # bitwarden link with the values
 cluster_name:
 customer_id:
-k8s_version:
 # optional values
+k8s_version:
 ## controlplane
 flavor:
 use_custom_disk:

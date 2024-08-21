@@ -8,7 +8,7 @@ parent: Cluster Lebenszyklus
 <!-- LTeX:  language=de-DE -->
 # Deprecation Policy
 
-## Deprecation Policy in GKS
+## Deprecation Policy
 
 Das offizielle Kubernetes Project veröffentlicht ungefähr vier Kubernetes Versionen pro Jahr und markiert die gleiche Anzahl an alten Versionen als veraltet. Bis einschließlich Version 1.18 hatte Kubernetes eine N-2 Supportrichtlinie, sprich die drei neuesten Versionen haben Sicherheits- und Fehlerkorrekturen erhalten.
 
@@ -18,7 +18,7 @@ Eine gute Visualisierung des Zeitraums, für den die einzelnen Versionen unterst
 
 [![K8sVersionSupport](../images/k8s_version_support.png)](https://endoflife.date/kubernetes)
 
-GKS folgt diesem Lebenszyklus, indem fortlaufend neue Versionen eingeführt und ältere aus dem Support genommen werden.
+Managed Kubernetes folgt diesem Lebenszyklus, indem fortlaufend neue Versionen eingeführt und ältere aus dem Support genommen werden.
 
 Nachdem eine bestimmte Kubernetes-Version das End-of-Life erreicht hat, werden keine Bugfixes oder Sicherheitsupdates mehr veröffentlicht. Daher können wir diese auch nicht mehr unterstützen und müssen sie aus dem Support nehmen.
 
@@ -26,9 +26,9 @@ Nachdem eine bestimmte Kubernetes-Version das End-of-Life erreicht hat, werden k
 
 Wenn wir eine Kubernetes-Version aus dem Support nehmen, informieren wir die Kunden im Voraus über die Deprecation ("End-of-Life Ankündigung"), damit sie genügend Zeit haben, das Kubernetes-Upgrade selbst einzuplanen, vorzubereiten und durchzuführen.
 
-Zu dem Zeitpunkt des angekündigten End-of-Life Datums wird dann die genannte Kubernetes-Version aus GKS entfernt.
+Zu dem Zeitpunkt des angekündigten End-of-Life Datums wird dann die genannte Kubernetes-Version entfernt.
 
-Die Liste der unterstützten Kubernetes-Versionen und ihre geplanten End-of-Life Daten finden Sie [hier](/gks/about/kubernetesversions). Eine ausführliche Dokumentation zum Ausführen von Cluster-Upgrades finden Sie [hier](../upgradingacluster/).
+Die Liste der unterstützten Kubernetes-Versionen und ihre geplanten End-of-Life Daten finden Sie [hier](/managek8s/about/kubernetesversions). Eine ausführliche Dokumentation zum Ausführen von Cluster-Upgrades finden Sie [hier](../upgradingacluster/).
 
 **Was bedeutet eine End-of-Life Ankündigung für mich?**
 
@@ -42,13 +42,13 @@ Wenn ein Kundencluster vor dem Entfernen einer veralteten Kubernetes-Version nic
 
 Nein, da dies in der Zukunft möglicherweise zu schwerwiegenden Sicherheitsproblemen führen könnte.
 
-## GKS Force-Upgrade Richtlinie
+## Force-Upgrade Richtlinie
 
 Wenn eine Kubernetes-Version das End-of-Life erreicht, müssen wir ihre Unterstützung von GKS entfernen, da sie keine Bugfixes oder Sicherheitsupdates mehr erhält. Ab diesem Zeitpunkt ist es nicht mehr möglich, neue Cluster mit dieser Version zu erstellen.
 
 > **Hinweis:** Beachten Sie die folgenden technischen Einschränkungen in Kubernetes:
 
-* Ein Kubernetes-Cluster (bzw. seine Controlplane) kann jeweils um eine Version aktualisiert werden, z. B. von v1.21 → v1.22.
+* Ein Kubernetes-Cluster (bzw. seine Controlplane) kann jeweils um eine Version aktualisiert werden, z.B. von v1.21 → v1.22.
 * Es ist nicht möglich, mehrere Versionen in einem Schritt zu aktualisieren.
 * Es ist nicht möglich, einen Cluster downzugraden.
 

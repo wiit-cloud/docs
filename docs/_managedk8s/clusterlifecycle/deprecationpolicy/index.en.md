@@ -16,7 +16,7 @@ A good visualization of the support period for each release is available below:
 
 [![K8sVersionSupport](../images/k8s_version_support.png)](https://endoflife.date/kubernetes)
 
-GKS aligns loosely to this lifecycle by continuously introducing new versions and deprecating older ones.
+Managed Kubernetes aligns loosely to this lifecycle by continuously introducing new versions and deprecating older ones.
 
 After a given Kubernetes version has reached End-of-Life, it will not get any bugfixes or security updates. Hence, we cannot support it anymore either and have to deprecate it.
 
