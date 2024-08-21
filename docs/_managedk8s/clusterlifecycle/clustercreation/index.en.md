@@ -3,14 +3,13 @@ title: Cluster Creation
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/clustercreation/
 nav_order: 3100
-has_children: true
 parent: Cluster Lifecycle
 ---
+# Cluster creation
 This section of the documentation describes what needs to be provided so that we successfully create a cluster for you.
 The following requirement values should be provided before the cluster creation. You may also add the optional values if you
 need customized features in your cluster such as using custom root disk or enabling autoscaler, otherwise they will get the
 default values, which are described below.
-
 
 ## Prerequisites
 
@@ -22,7 +21,7 @@ You should have an existing or newly created openstack tenant. You should create
 
 bounded to the project where you want the new cluster to be created. 
 
-### Required information for the new cluster
+## Required information for the new cluster
 
 * Cluster name - it should have a maximum of 22 characters
 
@@ -33,27 +32,46 @@ bounded to the project where you want the new cluster to be created.
 
 ## Optional requirements or configurable features with a sane default
 
-# K8S version
+### K8S version
 If not specified, cluster will be deployed in the latest supported kubernetes minor version.
 
-For more infromation about supported versions and Deprecations/EOL or other concern regarding the versions [look here](managedk8s/about/kubernetesverions/)
+For more information about supported versions and Deprecations/EOL or other concern regarding the versions [look here](/managedk8s/about/kubernetesverions/)
 
 
-## Optional requirements
-TODO: create docu for root disks and link here where needed
+### ControlPlane
+There are always 3 Control Plane nodes in any cluster, distributed on all AZs for maximum reliability
 
-### ControlPlane values
-TODO: add that the vm are shown in there tenent
-TODO: link to openstack flavor list docu
-TODO: state tat we habe a 3 AZ HA CP
+#### Flavor 
+The default flavor is: s1.medium (`4 cores`, `8GB RAM` and `20GB` disk size)
 
-* Flavor - default flavor type s1.medium (`4 cores`, `8GB RAM` and `20GB` disk size)
-  You can select each flavor that you can see in your OpenStack project, but make sure the flavor:
+You can select each flavor that you can see in your OpenStack project or mostly all from the [official list](/optimist/specs/flavor_specification/), but make sure the flavor:
   * has at least 2 cores and 2 GB RAM
   * is not a windows image
-* Custom root disk size and/or volume type - defaults are the flavor standard limits (volume type options: `low-iops`, `high-iops`, `default`)
+ 
+#### Custom root disk 
 
-### Worker nodes values
+size and/or volume type - defaults are the flavor standard limits (volume type options: `low-iops`, `high-iops`, `default`)
+  TODO: create docu for root disks and link here where needed
+
+#### custom oidc
+TODO: add docu vor oidc
+You can add a custom oidc configuration in the values.yaml for the cluster. This can only be done in the cluster creation process.
+
+```yaml
+oidc_ca_file: "path_to_file"
+oidc_client_id: "12345"
+oidc_groups_claim: "email"
+oidc_groups_prefix: "oidc:"
+oidc_issuer_url: "https://..."
+oidc_required_claims:
+- 'key=value'
+oidc_signing_algs: "RS256"
+oidc_username_claim: "sub"
+oidc_username_prefix: "..."
+```
+
+
+### Machinedeployments and Worker nodes
 TODO: add workernode docu with a lot more details -> multiaz howto, roles/restrictuions and link disk again
 
 * Provide the machineDeployment name (in case of multiple ones), the format of the machineDeployment name will be `md-name-az-md` for example `md-autoscaler-test-ix1-md`.
@@ -96,34 +114,9 @@ TODO: create extra topic for autoscaler and add here
 * If enabled, provide the desired `min` and `max` number of worker nodes
 
 
-### custom oidc
-TODO: add docu vor oidc
-You can add a custom oidc configuration in the values.yaml for the cluster. This can only be done in the cluster creation process.
 
-```yaml
-oidc_ca_file: "path_to_file"
-oidc_client_id: "12345"
-oidc_groups_claim: "email"
-oidc_groups_prefix: "oidc:"
-oidc_issuer_url: "https://..."
-oidc_required_claims:
-- 'key=value'
-oidc_signing_algs: "RS256"
-oidc_username_claim: "sub"
-oidc_username_prefix: "..."
-```
 
 The global defaults are filled with the configuration for this gitlab.
-
-### Maintenance Window
-TODO: remove for offical docs, as we need more time to see if it really works
-TODO: add a flacar update policie/effect docu
-
-We support Maintenance windows for Clusters on cron style syntax. The default is `* * * * *`
-You can provide us with a more suitable window.
-
-Try to honor this windows for all automatic updates. At the moment that includes flatcar image updates and updates of base components installed in the cluster.
-
 
 ## How to request for a new Cluster
 TODO: move channel discusson to support topic
@@ -163,7 +156,6 @@ use_autoscaler:
 min_size:
 max_size:
 ```
-
 
 ## Conclusion
 
