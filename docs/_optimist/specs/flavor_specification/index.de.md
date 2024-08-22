@@ -13,6 +13,9 @@ last_modified_date: 2022-03-29
 sind diverse Standard-Hardwareprofile (Flavors) eingerichtet. Diese haben unterschiedliche Limits und Begrenzungen, welche hier für alle
 verfügbaren Flavors aufgelistet sind.
 
+{: .warning }
+L1 / Localstorage-Flavors können bei <support@gec.io> angefordert werden.
+
 ## Migration zwischen Flavor-Typen
 
 Um die Flavors bestehender Instanzen zu ändern, kann die OpenStack-Option [„Resize Instance“](/optimist/faq/#wie-kann-ich-den-flavor-einer-instanz-ändern-instance-resize) entweder über das Dashboard oder die CLI verwendet werden. Dies führt zu einem Neustart der Instanz, aber der Inhalt der Instanz bleibt erhalten. Bitte beachten Sie, dass ein Wechsel der Flavors von den großen Root-Disk-Typen zu einem Flavor mit einer kleineren Root-Disk nicht möglich ist.
