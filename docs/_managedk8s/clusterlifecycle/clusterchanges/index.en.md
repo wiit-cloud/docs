@@ -2,7 +2,7 @@
 title: Cluster Changes
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/clustercanges/
-nav_order: 3200
+nav_order: 3800
 parent: Cluster Lifecycle
 ---
 This section of the documentation describes what can we support to be updated in a running GKSv3 cluster:

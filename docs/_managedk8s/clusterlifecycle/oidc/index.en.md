@@ -2,7 +2,7 @@
 title: OIDC
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/oidc/
-nav_order: 3200
+nav_order: 3350
 parent: Cluster Lifecycle
 ---
 # OIDC

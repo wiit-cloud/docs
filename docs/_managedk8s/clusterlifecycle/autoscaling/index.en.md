@@ -2,7 +2,7 @@
 title: Cluster Autoscaler
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/autoscaling/
-nav_order: 3200
+nav_order: 3510
 parent: Cluster Lifecycle
 ---
 # Cluster Node Autoscaler

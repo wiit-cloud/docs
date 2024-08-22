@@ -2,7 +2,7 @@
 title: Root Disks
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/rootdisk/
-nav_order: 3200
+nav_order: 3350
 parent: Cluster Lifecycle
 ---
 # Root Disks

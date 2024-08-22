@@ -2,7 +2,7 @@
 title: Deprecation Policy
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/deprecationpolicy/
-nav_order: 3500
+nav_order: 3700
 parent: Cluster Lifecycle
 ---
 

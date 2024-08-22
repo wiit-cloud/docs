@@ -2,7 +2,7 @@
 title: Machine Deployments
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/machinedeployments/
-nav_order: 3200
+nav_order: 3500
 parent: Cluster Lifecycle
 ---
 # Machine Deployments

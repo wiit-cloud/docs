@@ -2,7 +2,7 @@
 title: Cluster Deletion
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/clusterdeletion/
-nav_order: 3300
+nav_order: 3900
 parent: Cluster Lifecycle
 ---
 mabye not a topic, bit just we need a hint wenn we should delete the cluster.
