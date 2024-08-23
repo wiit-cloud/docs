@@ -9,6 +9,47 @@ parent: Cluster Lifecycle
 This section of the documentation describes what needs to be provided so that we successfully create a cluster for you.
 The following required information should be provided before the cluster creation.
 
+Copy the block below and provide all the needed information for your new cluster.
+
+```
+# required infromation
+cluster_name
+customer_id
+
+
+# other k8s version (default: latest Minor)
+kubernetes_version:
+
+## different controlplane flavor (default: s1.medium)
+flavor:
+
+## extra root disk for teh control plane (default: flavor default)
+disk_size:
+volume_type:
+
+## Machine deployments one block per MD (default: 3 replicas, s1.large, random AZ)
+md_name:
+replicas:
+flavor:
+availability_zone:
+
+### different root disk (default: flavor default)
+disk_size:
+volume_type:
+
+## add the autoscaler (default: disabled)
+min_size:
+max_size:
+```
+Detailed information about options can be found below.
+
+### What will get back (better line)
+After cluster creation you will get a admin kubeconfig via as secure way and a Cluster ID
+
+**For further communication we need the cluster id and cluster name to identify your cluster.**
+
+# Detailed Information
+
 ## Prerequisites
 
 ### Openstack credentials
@@ -63,48 +104,3 @@ Details can be found [here](/managedk8s/clusterlifecycle/oidc/)
 /managedk8s/clusterlifecycle/machinedeployments/
 #### Cluster autoscaler  (the same for each machineDeployment if more than one)
 /managedk8s/clusterlifecycle/autoscaling/
-
-## How to request for a new Cluster
-
-Copy the block below and provide all the desired values for your new cluster. For the Openstack credentials, please provide a
-bitwarden link we can access where we you have saved the credentials.
-You can update the values list by removing or leaving the optional values empty if you don't need something customized from the
-default values.
-
-```
-# required values
-cluster_name:
-customer_id:
-# optional values
-k8s_version:
-## controlplane
-flavor:
-use_custom_disk:
-disk_size:
-volume_type:
-## workers
-md_name:
-replicas:
-flavor:
-use_custom_disk:
-disk_size:
-volume_type:
-availability_zone:
-## cluster autoscaler
-md_name:
-use_autoscaler:
-min_size:
-max_size:
-```
-
-## Conclusion
-
-All the above steps should enable us to create capi cluster for you in your OpenStack tenant.
-
-We will notify you when it is created, and you will receive the kubeconfig of the newly created
-cluster and you will be able to set the KUBECONFIG:
-
-```bash
-export KUBECONFIG=$(pwd)/customer-kubeconfig
-```
-TODO: add that they need to have the clusterid/clustername pair, for further requests
