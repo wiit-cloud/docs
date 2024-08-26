@@ -27,7 +27,7 @@ flavor:
 disk_size:
 volume_type:
 
-## Machine deployments one block per MD (default: 3 replicas, s1.large, random AZ)
+## Machine deployments one block per MD (default: 1 md, 3 replicas, s1.large, random AZ)
 md_name:
 replicas:
 flavor:
