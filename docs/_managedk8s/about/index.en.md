@@ -5,8 +5,6 @@ permalink: /managedk8s/about/
 nav_order: 1000
 has_children: true
 ---
-Short description what they get
-
 # About Our Managed Kubernetes
 We provide a Hosted CNCF Certified Kubernetes Cluster tailored to your needs. Unlike self-service Kubernetes offerings, we take full responsibility for creating, updating, and managing your Kubernetes clusters. Once the cluster is set up, we provide you with a kubeconfig file that grants you secure access to the cluster.
 
