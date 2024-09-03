@@ -8,7 +8,9 @@ parent: About Managed Kubernetes
 
 ## Supported Kubernetes Versions
 
-Current supported Kubernetes versions.
+As part of our Managed Kubernetes service, we ensure that your clusters are always running on supported and stable Kubernetes versions.
+
+To provide clarity on our version support policy, here is an overview of our supported Kubernetes versions, deprecation, and end-of-life (EOL).
 
 | Version | Deprecation | End-of-Life |
 |---------|-------------|-------------|
