@@ -5,5 +5,9 @@ permalink: /managedk8s/clusterlifecycle/clusterdeletion/
 nav_order: 3900
 parent: Cluster Lifecycle
 ---
-mabye not a topic, bit just we need a hint wenn we should delete the cluster.
-add problels like please cleanup service type loadblancer, stop automaic install process, etc.....
+
+As a customer, you are responsible for cleaning up all applications and resources, and stopping any automation running inside the cluster before requesting its deletion.
+
+Once all applications, resources, and automation processes have been deleted or stopped, you can request cluster deletion via your preferred support channel (Microsoft Teams, Slack, Email) with providing the cluster ID and name. Then, we will proceed with deleting the cluster.
+
+If any applications or resources are still running inside the cluster, we will perform a forced deletion. You will then be responsible for manually cleaning up any leftover resources in Openstack.
