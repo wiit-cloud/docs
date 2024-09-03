@@ -18,7 +18,7 @@ If your organization prefers Slack, we can set up a private Slack channel for di
 
 Availability: During standard business hours.
 ### Email
-For formal communication, you can reach our support team via email at mailto:cks.de@wiit.cloud.
+For formal communication, you can reach our support team via email.
 
 Response Time: Typically, you will receive a response during the working hours. The response time may vary depending on the nature and severity of the issue.
 
