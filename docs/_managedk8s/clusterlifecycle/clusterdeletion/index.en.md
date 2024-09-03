@@ -10,4 +10,4 @@ As a customer, you are responsible for cleaning up all applications and resource
 
 Once all applications, resources, and automation processes have been deleted or stopped, you can request cluster deletion via your preferred support channel (Microsoft Teams, Slack, Email) with providing the cluster ID and name. Then, we will proceed with deleting the cluster.
 
-If any applications or resources are still running inside the cluster, we will perform a forced deletion. You will then be responsible for manually cleaning up any leftover resources in Optimist.
+If any applications or resources are still running inside the cluster, we will perform a forced deletion. You will then be responsible for manually cleaning up any leftover resources in Openstack.
