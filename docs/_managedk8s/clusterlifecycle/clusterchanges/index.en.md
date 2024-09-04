@@ -39,7 +39,7 @@ We can support the following updates in a running GKSv3 cluster:
 - Adjust the minimum and maximum size of worker nodes to enable autoscaling.
 
 ## How to request support for your GKSv3 cluster
-You can find the list of the Support [here](/gks/about/support/)
+You can find the list of the Support [here](/managedk8s/about/support/)
 
 **In case of requesting changes in the machineDeployment, please specify the machineDeployment where the changes should be applied. A format like `md-name-az-md`**
 **or `cluster-name-az-md`is required so that we refer to the correct machineDeployment.**

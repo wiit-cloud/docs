@@ -23,7 +23,7 @@ After a given Kubernetes version has reached End-of-Life, it will not get any bu
 
 If we decide to deprecate a specific Kubernetes version, we will notify you well in advance. The notification will include an End-of-Life announcement outlining the version's deprecation timeline. During that time you should plan and prepare for the upgrade of your cluster to a supported Kubernetes version before the deprecated version is removed.
 
-You can find the list of supported Kubernetes versions and their planned End-of-Life dates [here](/gks/about/kubernetesversions/). A detailed documentation about how to upgrade clusters is available [here](../upgradingacluster/).
+You can find the list of supported Kubernetes versions and their planned End-of-Life dates [here](/managedk8s/about/kubernetesversions/).
 
 **What Does an End-of-Life Announcement Mean for Me?**
 
