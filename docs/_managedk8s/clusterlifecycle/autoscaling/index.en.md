@@ -15,7 +15,7 @@ When the autoscaler detects that some pods cannot be scheduled due to insufficie
 **Scaling Down:**
 If the autoscaler identifies nodes that are underutilized or completely not used for a configurable period, it will remove those nodes to optimize resource usage and reduce costs. Before scaling down, it ensures that there are no critical pods running on those nodes and that workloads can be safely moved to other nodes.
 
-The Cluster Nodes Autoscaler is not enabled by default. To enable it, please contact us using the instructions provided [here](/about/support/).
+The Cluster Nodes Autoscaler is not enabled by default. To enable it, please contact us using the instructions provided [here](/managedk8s/about/support/).
 
 When reaching out, include the following information:
 - The cluster ID and Name
