@@ -6,11 +6,10 @@ nav_order: 3300
 parent: Cluster Lifecycle
 ---
 
-We need a pair of openstack application credential, so we can create the cluster in the right Openstack Project.
+To set up a managed Kubernetes cluster on OpenStack, we require a pair of OpenStack application credentials to ensure proper access within the OpenStack project. Follow the guidelines [Openstack Documentation](/optimist/specs/application_credentials/) to create and manage these credentials securely.
 
-Look into the [Openstack Documentation](/optimist/specs/application_credentials/), how to create them.
 
-For security reasons don't send the Credentials over unsecure ways, and only use tools that are agreed on while onboarding.
-
-Please be aware that App Creds a bound to a user, so app creds for our tools should never be created via personalized User, as the creds will be revoked on any off boarding.
-That leads to problems in the kubernetes cluster.
+Please be aware :
+ - Do not send the credentials through unsecured channels, use only the tools and methods agreed upon during onboarding.
+ - Application credentials should be associated with a dedicated service account, not a personalized user account. This is to avoid issues related to credentials being revoked when a user is offboarded.
+ - If needed, we can rotate the application credentials within the cluster.
