@@ -31,3 +31,6 @@ The default value schould be `default` and only be changed if you know that you 
 * While choosing a disksize make sure you take in to account that the pulled docker images are living on this disks. So if you have a lot of big docekr images adjust your disk size accordingly. 
 * If you use a lot of [ephemeral-volumes](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) or store / process large amounts of data adjust your disk size accordingly. 
 * if you know you have a lot of k8s API `changes` consider a higher iops controle plane root disk.
+* If you specify a root disk it will create the corresponding disks in your tenant.
+
+**Hint:** The default volume is if nothing is specified type: default and size: 20GB
