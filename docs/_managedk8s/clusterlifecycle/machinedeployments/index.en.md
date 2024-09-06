@@ -48,4 +48,21 @@ If you need any other changes in the configuration, please mention them when req
 - Critical updates will be prioritized and carried out outside the scheduled maintenance windows to ensure the highest level of security and stability.
 
 ## Node Rotation
-Node rotation is the process of replacing or refreshing nodes within a machine deployment to maintain the infrastructure's health and performance. The process involves systematically draining workloads from nodes scheduled for rotation, terminating these nodes, and replacing them with new ones.
+Node rotation is the process of replacing nodes within a machine deployment to maintain the infrastructure's health and performance. The process involves systematically draining workloads from node scheduled for rotation, creating new one, terminating old one, and replacing it with new one.
+
+We are rotating the nodes in your Kubernetes cluster to ensure optimal performance, security, and reliability. Node rotation is necessary for several reasons, including:
+
+**Security Updates:** Applying critical security patches and updates to the operating system or underlying infrastructure to protect against vulnerabilities.
+
+**Performance Improvements:** Upgrading to newer versions of the Kubernetes node that enhance performance and efficiency.
+
+**Resource Optimization:** Adjusting node configurations to better utilize resources, balance workloads, and improve overall cluster health.
+
+## What You Need to Take Care Of:
+**Workload Stability:** Ensure that your applications are resilient to potential disruptions. Kubernetes will attempt to reschedule your workloads automatically, but some applications may experience brief downtime or require manual intervention.
+
+**Pod Disruption Budgets:** Review and, if necessary, update your Pod Disruption Budgets (PDBs) to control the number of pods that can be safely evicted during the rotation without impacting application availability.
+
+**Monitoring and Alerts:** Keep monitoring and alerting systems active to detect and respond to any unexpected issues that might arise during the rotation process.
+
+By taking these steps, you can help ensure a smooth node rotation with minimal impact on your services. If you have any questions or need further assistance, please let us know.
