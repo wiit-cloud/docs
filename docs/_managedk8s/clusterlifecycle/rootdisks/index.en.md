@@ -7,27 +7,25 @@ parent: Cluster Lifecycle
 ---
 # Root Disks
 
-There are 2 places in the `values.yaml` where you can define your VM Storage. For the controle plane use:
+You can define disk size and disk type for the controle plane and the worker groups. Please provide this information in the following format:
 
-```yaml
-use_custom_disk_cp: false
-disk_size_cp: 0
-volume_type_cp: ''
+```
+# Controle plane
+disk_size_cp: <INT>
+volume_type_cp: <vType>
+
+# Worker
+# default
+disk_size: <INT>
+volume_type: <vType>
 ```
 
-And for the workers (can be configured per worker group) use:
-```yaml
-workers:
-- name: example
-  use_custom_disk: false
-  disk_size: 20
-  volume_type: <vType>
-```
+`<INT>` replace this with in positive integer. This is the size of the root disk in Gigabyte. 
 
 `<vType>` is dependent on the used plattform. Please consult the plattform documentation for this information.
 - [optimist](/optimist/specs/volume_specification/)
 
-The default value schould be `default` and only be changed if you know that you have different requirements. 
+The default value schould be `default` and only be changed if you know that you have different requirements.
 
 # Considerations
 * While choosing a disksize make sure you take in to account that the pulled docker images are living on this disks. So if you have a lot of big docekr images adjust your disk size accordingly. 

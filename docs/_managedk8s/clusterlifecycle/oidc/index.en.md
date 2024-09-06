@@ -7,9 +7,9 @@ parent: Cluster Lifecycle
 ---
 # OIDC
 
-You can add a custom oidc configuration in the values.yaml for the cluster. **This can only be done in the cluster creation process**.
+You can add a custom oidc configuration for the cluster. **This can only be done in the cluster creation process**.
 
-Available variables:
+Available variables that can be passed to the kubernetes API:
 ```yaml
 oidc_ca_file: "path_to_file"
 oidc_client_id: "12345"
