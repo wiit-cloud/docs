@@ -11,7 +11,7 @@ We provide a Hosted CNCF Certified Kubernetes Cluster tailored to your needs. Un
 # What We Manage for You
 As part of our managed Kubernetes service, we handle the following tasks:
 
-- Cluster Creation: We set up a Kubernetes cluster that meets CNCF certification standards, ensuring compatibility with the latest Kubernetes ecosystem.
+- Cluster Creation: We set up a Kubernetes cluster that meets CNCF certification standards, ensuring compatibility with the latest Kubernetes versions.
 - Cluster Updates: We regularly update the cluster to the latest stable version, ensuring security and performance enhancements.
 - Cluster Management: We monitor the health and performance of the cluster control plane.
 
