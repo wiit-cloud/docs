@@ -112,6 +112,9 @@ collections:
   edge:
     output: true
     sort_by: nav_order
+  managedk8s:
+    output: true
+    sort_by: nav_order
 
 collections_dir: docs
 
@@ -130,6 +133,11 @@ defaults:
   - scope:
       path: "**/*.md"
       type: "edge"
+    values:
+      layout: "default"
+  - scope:
+      path: "**/*.md"
+      type: "managedk8s"
     values:
       layout: "default"
 
@@ -153,6 +161,10 @@ just_the_docs:
       nav_exclude: false
       # Exclude the collection from the search
       # Supports true or false (default)
+      search_exclude: false
+    managedk8s:
+      name: Managed Kubernetes
+      nav_exclude: false
       search_exclude: false
 
 # To disable support for mermaid diagrams (https://mermaid-js.github.io/mermaid/),
