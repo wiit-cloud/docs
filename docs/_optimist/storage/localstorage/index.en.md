@@ -9,6 +9,9 @@ has_children: false
 
 # Compute localstorage for your instances
 
+{: .warning }
+L1 / Localstorage Flavors can be requested from <support@gec.io>.
+
 ## What exactly is Compute Localstorage?
 
 With Localstorage, the storage of your instances is located directly on the hypervisor (server). The localstorage feature (available through our l1 flavors) is intended for use with applications that require low latency.

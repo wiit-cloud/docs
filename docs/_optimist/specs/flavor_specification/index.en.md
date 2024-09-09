@@ -12,6 +12,9 @@ last_modified_date: 2022-03-29
 In the OpenStack context the term "flavor" refers to a hardware profile that can be used for a virtual machine. In Optimist we have set up
 various standard hardware profiles (flavors). These have different limits, which are listed below for all available flavors.
 
+{: .warning }
+L1 / Localstorage Flavors can be requested from <support@gec.io>.
+
 ## Migrating between Flavor Types
 
 To change the flavors of existing instances, the OpenStack ["Resize Instance"](/optimist/faq/#how-can-i-change-the-flavor-of-a-virtual-machine-instance-resize) Option can be used either via the Dashboard or the CLI. This will result in a reboot of the Instance but the content of the instance will be preserved. Please note that changing Flavors from Large Root Disk Types to a Flavor with a smaller Root Disk is not possible.
