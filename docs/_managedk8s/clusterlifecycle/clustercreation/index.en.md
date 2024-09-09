@@ -101,6 +101,13 @@ Details can be found [here](/managedk8s/clusterlifecycle/oidc/)
 
 
 ### Machine Deployments, Worker Nodes and Autoscaling
-/managedk8s/clusterlifecycle/machinedeployments/
+For Machine Deployment look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/)
+
+As ther are a some more options. 
+
+Default will get you a single Machine Deployment with 3 Nodes on 1 AZ
+
 #### Cluster autoscaler  (the same for each machineDeployment if more than one)
-/managedk8s/clusterlifecycle/autoscaling/
+We support the Cluster Autoscalar which we can activate seperatly for each Machine Deploment.
+
+Details can be found [here](/managedk8s/clusterlifecycle/autoscaling/)
