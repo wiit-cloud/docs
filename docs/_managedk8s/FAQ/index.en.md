@@ -40,11 +40,11 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-  loadBalancerIP: 122.112.219.229  # Specific floating IP to be reserved for the service
+  loadBalancerIP: 45.94.08.9 # Specific floating IP to be reserved for the service
 ```
 
 ## Can We Create a Kubernetes Service with a Specific Floating IP?
-Yes, you can create a Kubernetes Service that uses a specific floating IP by setting the loadBalancerIP field in the service definition. This configuration is particularly useful when you want to use a pre-allocated static IP address for your service.
+Yes, you can create a Kubernetes Service that uses a specific floating IP by setting the loadBalancerIP field in the service definition. The IP you specify as loadBalancerIP must already be allocated as a floating IP in OpenStack.
 
 Here's an example of how you can specify a floating IP for a Kubernetes Service:
 ```bash 
@@ -59,6 +59,6 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-  loadBalancerIP: 122.112.219.229 # Specific floating IP to be reserved for the service
+  loadBalancerIP: 45.94.08.9 # Specific floating IP to be reserved for the service
 ```
 By using the loadBalancerIP field, you ensure that the service will use the specified floating IP when a load balancer is provisioned.
