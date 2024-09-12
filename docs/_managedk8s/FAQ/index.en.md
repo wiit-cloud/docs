@@ -12,6 +12,15 @@ For high availability and fault tolerance, a common recommendation is to have:
 - 3 control plane Nodes.
 - 3 Worker Nodes: Having at least two worker nodes per machine deployment helps distribute the workload and provides redundancy. If one worker node fails, the other can continue to run the applications, minimizing downtime.
 
+The recommended approach for machine deployment is to create separate machine deployments in each Availability Zones (AZs). This helps ensure that your application remains available even if one or more AZs experience failures.
+
+For example, create three machine deployments:
+ * Machine Deployment in ix1
+ * Machine Deployment in ix2
+ * Machine Deployment in es1
+
+For each machine deployment, configure at least 2 replicas. This ensures that there is redundancy within each AZ.
+
 ## What is Cluster Autoscaler?
 Cluster Autoscaler is a standalone program that adjusts the size of a Kubernetes cluster to meet the current needs.
 
