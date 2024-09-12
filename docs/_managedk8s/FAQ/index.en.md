@@ -1,11 +1,12 @@
 ---
-title: OIDC
+title: FAQ
 lang: "en"
 permalink: /managedk8s/faq/
 nav_order: 3350
-parent: Managed k8s
+parent: Managed k8s 
 ---
 # Frequently Asked Questions
+
 ## What's the recommanded cluster size?
 For high availability and fault tolerance, a common recommendation is to have:
 - 3 control plane Nodes.
