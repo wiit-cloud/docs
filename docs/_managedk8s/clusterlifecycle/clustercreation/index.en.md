@@ -6,6 +6,7 @@ nav_order: 3100
 parent: Cluster Lifecycle
 ---
 # Cluster creation
+
 To successfully create a cluster, please provide the required information outlined below. Ensure all details are filled correctly before proceeding with the cluster creation.
 Copy the block below and complete it with the necessary information for your new cluster:
 ```

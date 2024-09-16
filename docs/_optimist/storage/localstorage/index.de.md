@@ -9,6 +9,9 @@ has_children: false
 
 # Compute Localstorage für Ihre Instanzen
 
+{: .warning }
+L1 / Localstorage-Flavors können bei <support@gec.io> angefordert werden.
+
 ## Was genau ist Compute Localstorage?
 
 Beim Localstorage befindet sich der Storage Ihrer Instanzen direkt auf dem Hypervisor (Server). Die Localstorage Funktion ist über unsere l1 Flavors verfügbar und für Anwendungen vorgesehen, die eine geringe Latenz erfordern.
