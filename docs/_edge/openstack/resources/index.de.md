@@ -7,20 +7,20 @@ nav_order: 3200
 parent: Openstack
 ---
 
-## Metriken aus Libvirt und Operations Center
+# Metriken aus Libvirt und Operations Center
 
-### Übersicht
+## Übersicht
 
 Das Feature ermöglicht die Bereitstellung von Metriken aus Libvirt und dem Operations Center.
 Diese Metriken umfassen Informationen zur Nutzung von Flavors, CPU, RAM und weiteren Ressourcen sowie Daten zu den Projektbesitzern.
 
-### Endpunkt
+## Endpunkt
 
 URL: `https://https://resources._EDGE_.gecgo.net/federate`
 
 Für den Zugriff werden Zugangsdaten benötigt. Die können über den Helpdesk bezogen werden.
 
-#### Beispielkonfiguration Prometheus
+### Beispielkonfiguration Prometheus
 
 Weitere Details in der Prometheus Dokumentation zu [Federation](https://prometheus.io/docs/prometheus/latest/federation/) und [scrape Konfiguration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
@@ -44,7 +44,7 @@ scrape_configs:
         - 'resources._EDGE_.gecgo.net'
 ```
 
-### Metriken aus Libvirt
+## Metriken aus Libvirt
 
 Die Metriken aus Libvirt bieten detaillierte Informationen zu den virtuellen Maschinen (VMs), einschließlich:
 
@@ -53,7 +53,7 @@ Die Metriken aus Libvirt bieten detaillierte Informationen zu den virtuellen Mas
 - **RAM-Nutzung:** Aktuelle Auslastung des Arbeitsspeichers.
 - **Weitere Metriken:** Zusätzliche Informationen zu den VMs, die über Libvirt verfügbar sind.
 
-### Metriken aus dem Operations Center
+## Metriken aus dem Operations Center
 
 Zusätzlich zu den Libvirt-Metriken werden auch Metriken zu den Projektbesitzern aus dem Operations Center bereitgestellt. Ein Beispiel für eine solche Metrik ist:
 
@@ -69,7 +69,7 @@ Diese Metrik enthält folgende Informationen:
 - **Project Name:** Der Name des Projekts (projectname-dea9e633-9a03-4130-900b-dfde07734bff).
 - **Wert:** Der Wert der Metrik (1).
 
-## Metriken
+# Metriken
 
 |Name|Beschreibung|Typ|
 |----|------------|---|
