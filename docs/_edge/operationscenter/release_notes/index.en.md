@@ -9,6 +9,11 @@ parent: Operations Center
 
 # Release Notes
 
+## 1.5.14
+
+#### Improvements:
+- VPNaaS: Improved monitoring of Server and Gateway VMs
+  
 ## 1.5.13
 
 #### Fixes:
