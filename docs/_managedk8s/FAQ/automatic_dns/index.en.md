@@ -3,6 +3,7 @@ title: Can I use external-dns and openstack designate for automatic dns?
 lang: "en"
 permalink: /managedk8s/faq/automatic_dns
 nav_order: 4100
+parent: FAQ
 ---
 1. Login with your **service user** into your openstack project.
 1. Create application credentials via WebGui **Identity -> Application Credentials**
@@ -16,7 +17,9 @@ nav_order: 4100
       metadata:
         name: external-dns
       ```
+
     * RBAC:
+
       ```yaml
       ---
       apiVersion: v1
@@ -56,7 +59,9 @@ nav_order: 4100
           name: external-dns
           namespace: external-dns
       ```
+
     * Secret:
+
       ```yaml
       apiVersion: v1
       kind: Secret
@@ -71,7 +76,9 @@ nav_order: 4100
         OS_APPLICATION_CREDENTIAL_ID: <appcred_id>
         OS_APPLICATION_CREDENTIAL_SECRET: <appcred_secret>
       ```
+
     * Deployment:
+
       ```yaml
       apiVersion: apps/v1
       kind: Deployment
@@ -109,13 +116,15 @@ nav_order: 4100
       ```
 
 1. **Annotate** the service or ingress with `external-dns.alpha.kubernetes.io/hostname: my-app.example.gec.io` e.g.
+    
     ```yaml
-    ---
     apiVersion: v1
     kind: Namespace
     metadata:
       name: my-app
-    ---
+    ```
+
+    ```yaml
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -135,7 +144,9 @@ nav_order: 4100
             name: nginx
             ports:
             - containerPort: 80
-    ---
+    ```
+
+    ```yaml
     apiVersion: v1
     kind: Service
     metadata:
@@ -152,6 +163,7 @@ nav_order: 4100
           port: 80
           targetPort: 80
     ```
+
 1. Make the dns record will be looked up correct:
     ```sh
     $ openstack recordset list example.gec.io.
@@ -160,7 +172,7 @@ nav_order: 4100
 
 For setting further information, please have a look at:
 
-* https://docs.openstack.org/python-designateclient/latest/
-* https://kubernetes-sigs.github.io/external-dns/latest/docs/tutorials/designate/
-* https://github.com/kubernetes-sigs/external-dns
 
+* [kubernetes-sigs.github.io/external-dns/latest/docs/tutorials/designate](https://kubernetes-sigs.github.io/external-dns/latest/docs/tutorials/designate)
+* [github.com/kubernetes-sigs/external-dns](https://github.com/kubernetes-sigs/external-dns)
+* [docs.openstack.org/python-designateclient](https://docs.openstack.org/python-designateclient/latest)

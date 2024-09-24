@@ -3,6 +3,7 @@ title: FAQ
 lang: "en"
 permalink: /managedk8s/faq/
 nav_order: 4000
+has_children: true
 ---
 # Frequently Asked Questions
 
