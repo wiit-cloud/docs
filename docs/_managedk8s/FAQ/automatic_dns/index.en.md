@@ -232,6 +232,7 @@ Make the dns record will be looked up correct:
 ```sh
 $ openstack recordset list example.foo.
 $ dig my-app.example.foo @dns1.ddns.innovo.cloud.
+$ dig my-app.example.foo @dns2.ddns.innovo.cloud.
 $ dig my-app.example.foo
 ```
 
