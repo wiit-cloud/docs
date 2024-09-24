@@ -65,8 +65,8 @@ $ openstack application credential create <name_of_app_credentials>
 ## Install [external-dns](https://github.com/kubernetes-sigs/external-dns) into your cluster
 
 > **Note:**
-> Don't forget to change the openstack application credentials and the command line arguments in the [external-dns](https://github.com/kubernetes-sigs/external-dns) deployment `--domain-filter=example.example.foo` and the `--txt-owner-id=<owner-id>`.
->The domain-filter is the dns zone. With the txt-owner-id external-dns can identify the entries managed by itself. You should change the image to a fixed version (and shedule updates) if you want to use it in production.
+> Don't forget to change the openstack application credentials and the command line arguments in the [external-dns](https://github.com/kubernetes-sigs/external-dns) deployment `--domain-filter=example.foo` and the `--txt-owner-id=<owner-id>`.
+>The domain-filter is the dns zone. With the txt-owner-id external-dns can identify the entries managed by itself. You should change the image to a new version if available (and shedule updates) if you want to use it in production.
 
 * Namespace:
 
@@ -129,8 +129,8 @@ metadata:
   name: designate-openstack-credentials
   namespace: external-dns
 stringData:
-  OS_AUTH_URL: https://identity.optimist.innovo.cloud/v3
-  OS_REGION_NAME: fra
+  OS_AUTH_URL: <auth-url>
+  OS_REGION_NAME: <region>
   OS_AUTH_TYPE: v3applicationcredential
   OS_APPLICATION_CREDENTIAL_ID: <appcred_id>
   OS_APPLICATION_CREDENTIAL_SECRET: <appcred_secret>
@@ -168,14 +168,14 @@ spec:
           envFrom:
             - secretRef:
                 name: designate-openstack-credentials
-          image: registry.k8s.io/external-dns/external-dns:latest
+          image: registry.k8s.io/external-dns/external-dns:v0.14.2
           imagePullPolicy: IfNotPresent
           name: external-dns
 ```
 
 ## Annotate the service or ingress
 
-Do add the dns entry to designate the service or ingress needs to be annotated with `external-dns.alpha.kubernetes.io/hostname: my-app.example.example.foo`.
+To add the dns entry to designate the service or ingress needs to be annotated with `external-dns.alpha.kubernetes.io/hostname: my-app.example.foo`.
 For example:
 
 ```yaml
@@ -214,7 +214,7 @@ metadata:
   name: nginx
   namespace: my-app
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: my-app.example.example.foo
+    external-dns.alpha.kubernetes.io/hostname: my-app.example.foo
 spec:
   selector:
     app: nginx
@@ -230,9 +230,9 @@ spec:
 Make the dns record will be looked up correct:
 
 ```sh
-$ openstack recordset list example.example.foo.
-$ dig my-app.example.example.foo @dns1.ddns.innovo.cloud.
-$ dig my-app.example.example.foo
+$ openstack recordset list example.foo.
+$ dig my-app.example.foo @dns1.ddns.innovo.cloud.
+$ dig my-app.example.foo
 ```
 
 ## Further information
