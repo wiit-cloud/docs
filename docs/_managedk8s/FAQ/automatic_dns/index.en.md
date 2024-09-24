@@ -2,7 +2,7 @@
 title: Can I use external-dns and openstack designate for automatic dns?
 lang: "en"
 permalink: /managedk8s/faq/automatic_dns
-nav_order: 4000
+nav_order: 4100
 ---
 1. Login with your **service user** into your openstack project.
 1. Create application credentials via WebGui **Identity -> Application Credentials**
