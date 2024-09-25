@@ -3,6 +3,7 @@ title: FAQ
 lang: "en"
 permalink: /managedk8s/faq/
 nav_order: 4000
+has_children: true
 ---
 # Frequently Asked Questions
 
@@ -70,3 +71,7 @@ spec:
   loadBalancerIP: 45.94.08.9 # Specific floating IP to be reserved for the service
 ```
 By using the loadBalancerIP field, you ensure that the service will use the specified floating IP when a load balancer is provisioned.
+
+## Can I use external-dns and openstack designate for automatic dns?
+
+Yes, a few installation and configuration steps are necessary for this which are explained [here](/managedk8s/faq/automatic_dns).
