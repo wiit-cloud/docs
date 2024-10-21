@@ -14,9 +14,9 @@ To provide clarity on our version support policy, here is an overview of our sup
 
 | Version | Deprecation | End-of-Life |
 |---------|-------------|-------------|
+| v1.31   |             |             |
 | v1.30   |             |             |
 | v1.29   |             |             |
-| v1.28   |             |             |
 
 ## Force Upgrade Policy
 
