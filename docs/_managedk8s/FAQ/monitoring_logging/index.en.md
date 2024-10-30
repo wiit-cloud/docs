@@ -8,10 +8,11 @@ parent: FAQ
 # User Guide for Logging and Metrics
 
 This document provides an overview of logging and metrics capabilities in our Managed Kubernetes Service. Please note that we only monitor the control plane, we do not collect or store any user application data or user-generated logs from within customer-deployed workloads.
+
 Our focus is exclusively on metrics and logs related to the cluster control plane’s health, performance, and operational efficiency.
 Please note that you can access all logs/metrics endpoints even from the control plane.
 
-# Customer Responsibility
+
 Customers are responsible for managing their application logs, pod metrics, and data generated within their workloads. This includes:
 
 - Collecting Application Logs: Customer may need to configure their logging solutions (e.g., Fluentd, Filebeat) to gather logs from applications and store them in a preferred location.
@@ -23,4 +24,3 @@ We recommend the following practices for managing application logs and metrics i
 
 - Set Up Prometheus and Grafana: For a complete metrics solution, deploy Prometheus and Grafana to monitor and visualize resource usage, custom metrics, and application performance.
 
-He can also access all logs/metrics endpoints even from the control plane.
