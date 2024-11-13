@@ -25,7 +25,11 @@ The Openstack volume types sorted by maximum possible IOPS:
 * default <- used in the default class
 * high-iops
 
-### Adding Your Own Classes
+## Volume Features
+
+We don't provide `Read-Write-Many` Volumes. All Volumes are `Read-Write-Once`!
+
+## Adding Your Own Classes
 
 If you need use one of the other types, you can add your own definitions.
 
