@@ -12,6 +12,7 @@ parent: Cluster Lifecycle
 - Each machine deployment will be configured to meet specific needs such as compute capacity, storage, and availibily zone.
 - Please provide the name of the machineDeployment(s). If the machine deployment name is not provided, the name will default to the format clusterName-az-md (e.g., cluster-test-ix2-md).
 - We can enable autoscaler for you, please see (here) [/managedk8s/clusterlifecycle/autoscaling/]
+- We can enable pre cordoned (clusterwide) so all nodes get cordoned before rotating. Detail see Node Rotation Section.
 * The default machine deployment configuration is the following:
 ```yaml
 workers:
@@ -58,8 +59,9 @@ Please be aware that we only accept this format for role and restriction: **node
 ## Node Rotation
 We are rotating the nodes in your Kubernetes cluster to ensure optimal performance, security, and reliability. 
 We are rotating the nodes of all the machinedeployments on the same time. The process is the following: 
-* Draining the nodes(s): We start by safely draining each node(s) to gracefully evict all running pods.
+* if configured all nodes in the machinedeployment will be cordoned (only triggered by an image update)
 * Creating a new one(s): A new node(s) is created to replace the drained one
+* Draining the nodes(s): We start by safely draining each node(s) to gracefully evict all running pods.
 * Deleting the old node(s): Once the new node is fully operational and all workloads are running smoothly, the old node is deleted. 
 
 This process is applied to all nodes in the cluster's machine deployments, and it's performed periodically or whenever needed to maintain the desired state of the cluster.
@@ -79,3 +81,8 @@ Node rotation is necessary for several reasons, including:
 
 
 By taking these steps, you can help ensure a smooth node rotation with minimal impact on your services. If you have any questions or need further assistance, please let us know.
+
+## pre cordoned
+This optinal feature was implemented to reduce the pod restarts in an node rotation triggered by an image update. 
+
+New nodes didn't get cordoned. That results in the following behavior: Drained pods are only sheduled on new nodes. So there should be only one restart per pod per node rotation (if the pods are stable and there is no other reason a pod restart is triggered).
