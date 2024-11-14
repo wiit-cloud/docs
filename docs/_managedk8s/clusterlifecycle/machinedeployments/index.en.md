@@ -84,3 +84,5 @@ By taking these steps, you can help ensure a smooth node rotation with minimal i
 
 ## pre cordoned
 This optinal feature was implemented to reduce the pod restarts in an node rotation triggered by an image update. 
+
+New nodes didn't get cordoned. That results in the following behavior: Drained pods are only sheduled on new nodes. So there should be only one restart per pod per node rotation (if the pods are stable and there is no other reason a pod restart is triggered).
