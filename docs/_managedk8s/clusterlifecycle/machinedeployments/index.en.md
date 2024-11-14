@@ -59,7 +59,7 @@ Please be aware that we only accept this format for role and restriction: **node
 ## Node Rotation
 We are rotating the nodes in your Kubernetes cluster to ensure optimal performance, security, and reliability. 
 We are rotating the nodes of all the machinedeployments on the same time. The process is the following: 
-* if configured all nodes in the machinedeployment will be cordoned
+* if configured all nodes in the machinedeployment will be cordoned (only triggered by an image update)
 * Creating a new one(s): A new node(s) is created to replace the drained one
 * Draining the nodes(s): We start by safely draining each node(s) to gracefully evict all running pods.
 * Deleting the old node(s): Once the new node is fully operational and all workloads are running smoothly, the old node is deleted. 
