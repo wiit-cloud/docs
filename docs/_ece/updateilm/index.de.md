@@ -153,8 +153,6 @@ Die neu erstellte Richtlinie kann dann über das Menü **Index Lifecycle Policie
 
 ![assignPolicy1](images/updILM_assignpol1.png)
 
-![assignPolicy2](images/updILM_assignpol2.png)
-
 ## Rollover des Data Streams
 
 Damit die neue ILM-Richtlinie sofort benutzt wird, muss ein Rollover für den Datenstrom angestoßen werden. Dies kann auch in den Dev Tools von Kibana erfolgen, hier am Beispiel für den Datenstrom auditbeat-8.5.0:

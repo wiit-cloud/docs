@@ -8,14 +8,14 @@ nav_order: 1000
 
 # Introduction
 
-Elastic Cloud Enterprise by German Edge Cloud (ECE) is a cloud platform hosted and operated by GEC, on which you can run your Elastic workloads in the form of deployments.
+Elastic Cloud Enterprise by WIIT (ECE) is a cloud platform hosted and operated by WIIT, on which you can run your Elastic workloads in the form of deployments.
 
 A deployment is an isolated Elastic Cluster managed by ECE. It consists of several components of the Elastic Stack. For each deployment you can specify the following individually:
 
 - Which of the Elastic Stack components below to use
 - The size of each component
 - The number of Availability Zones (1 through 3) over which to distribute them
-- Which of the GEC provided versions for the Elastic Stack to use
+- Which of the WIIT provided versions for the Elastic Stack to use
 
 Each deployment gets its own publicly accessible URLs for Elasticsearch, Kibana, Fleet, and Enterprise Search.
 
@@ -51,21 +51,21 @@ The Elasticsearch and machine learning components come with autoscaling enabled.
 
 For each component with autoscaling, an upper limit for scaling can be defined. This way, your invoice amount does not get out of control, e.g. in case of a misconfiguration.
 
-## Your Advantages with ECE from GEC
+## Your Advantages with ECE from WIIT
 
-With the ECE solution from GEC you get all the functionalities of the software from Elastic, the market leader in search, SIEM and observability, including the enterprise license. GEC hosts exclusively in highly secure German data centers and carries out all operational tasks from Germany. You get everything from one source from a German contractual partner. In contrast to a "classic" deployment of the Elastic Stack in a cluster with virtual machines, which are limited to the sizes specified by the respective cloud platform, ECE uses Docker containers. These can scale automatically and quickly, if necessary. Fine-grained autoscaling allows you to use resources efficiently and run workloads cost-effectively.
+With the ECE solution from WIIT you get all the functionalities of the software from Elastic, the market leader in search, SIEM and observability, including the enterprise license. WIIT hosts exclusively in highly secure German data centers and carries out all operational tasks from Germany. You get everything from one source from a German contractual partner. In contrast to a "classic" deployment of the Elastic Stack in a cluster with virtual machines, which are limited to the sizes specified by the respective cloud platform, ECE uses Docker containers. These can scale automatically and quickly, if necessary. Fine-grained autoscaling allows you to use resources efficiently and run workloads cost-effectively.
 
-## Services Offered by GEC
+## Services Offered by WIIT
 
-- GEC provides the cloud environment on which your Elastic workloads run in its secure and certified data centers in Germany.
-- GEC allows you to distribute your workloads across 3 Availability Zones for high availability.
-- GEC takes care that enough resources are available, in case your deployment needs to scale up.
-- GEC monitors the ECE environment and ensures that it is available (99.85 %). Outside office hours, an on-call service is automatically alerted to solve unforeseen problems with the ECE platform as quickly as possible.
-- GEC ensures regular updates and security patches for the servers.
-- GEC makes new versions of the Elastic Stack available for installation, typically only a few days after Elastic releases them. However, we do not perform automatic or unsolicited version updates of your deployment (except for EOL versions).
-- GEC provides URLs that can be reached from the Internet for all deployments, including a TLS certificate for encrypted communication (customer-specific certificates are unfortunately not possible).
-- GEC offers backup and snapshot storage in the redundant GEC Object Storage Cluster. By default, each deployment has a snapshot policy enabled (which you can change) that automatically backs up your Elasticsearch data to the object storage at regular intervals. This protects you very well against data loss.
-- All your deployments in the GEC ECE cloud come with the Elastic Enterprise license. You don't have to buy licenses from Elastic. GEC provides you with everything from a single source.
+- WIIT provides the cloud environment on which your Elastic workloads run in its secure and certified data centers in Germany.
+- WIIT allows you to distribute your workloads across 3 Availability Zones for high availability.
+- WIIT takes care that enough resources are available, in case your deployment needs to scale up.
+- WIIT monitors the ECE environment and ensures that it is available (99.85 %). Outside office hours, an on-call service is automatically alerted to solve unforeseen problems with the ECE platform as quickly as possible.
+- WIIT ensures regular updates and security patches for the servers.
+- WIIT makes new versions of the Elastic Stack available for installation, typically only a few days after Elastic releases them. However, we do not perform automatic or unsolicited version updates of your deployment (except for EOL versions).
+- WIIT provides URLs that can be reached from the Internet for all deployments, including a TLS certificate for encrypted communication (customer-specific certificates are unfortunately not possible).
+- WIIT offers backup and snapshot storage in the redundant WIIT Object Storage Cluster. By default, each deployment has a snapshot policy enabled (which you can change) that automatically backs up your Elasticsearch data to the object storage at regular intervals. This protects you very well against data loss.
+- All your deployments in the WIIT ECE cloud come with the Elastic Enterprise license. You don't have to buy licenses from Elastic. WIIT provides you with everything from a single source.
 
 ## Your Responsibilities as a Customer
 
@@ -79,7 +79,7 @@ As a customer, you are responsible for everything that happens **within** your d
 - Restore snapshots when needed
 - Monitoring the performance of your deployment if you have special requirements for this. We cannot know which performance is acceptable for your application or use case.
 
-More provisions can be found in the General Terms and Conditions of GEC.
+More provisions can be found in the General Terms and Conditions of WIIT.
 
 ## Service Description
 
@@ -105,11 +105,11 @@ We recommend performing the following steps to increase the security of your ECE
 - In Kibana, review your index templates and lifecycle policies so you can assign your data to your desired Hot, Warm, Cold, Frozen (and delete) tiers. The lifecycle policies automatically created by Elastic often only have one hot tier configured without an expiry date (see: [https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)). This applies in particular to the automatically deployed lifecycle policies **logs** and **metrics**, which are the most relevant policies when using the Elastic Agent.
 For an example of configuring a policy that deletes data after 70 days, see: [Update the "Default" ILM](/ece/updateilm/).
 
-## Support Services by GEC
+## Support Services by WIIT
 
 For support requests, you can contact our support team, which is available on workdays from 8 a.m. to 6 p.m.
 
-The GEC Support can assist you with all topics that are GEC's responsibility within the scope of the ECE service:
+The WIIT Support can assist you with all topics that are WIIT's responsibility within the scope of the ECE service:
 
 - Availability and accessibility of the platform
 - Questions about using ECE
@@ -123,7 +123,7 @@ While we are working on providing you with a self-service interface for managing
 - Configuration of traffic filters for your deployment
 - Configuration of trust relationships between deployments so you can use cross-cluster search or cross cluster replication
 
-The following is **not** covered by GEC Support:
+The following is **not** covered by WIIT Support:
 
 - General consulting about the Elastic software or using it in your deployment
 
