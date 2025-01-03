@@ -152,8 +152,6 @@ The newly created policy can then be assigned to an Index Template from the **In
 
 ![assignPolicy1](images/updILM_assignpol1.png)
 
-![assignPolicy2](images/updILM_assignpol2.png)
-
 ## Rollover the Data Stream
 
 In order to use the new ILM Policy immediately, we need to trigger a rollover for the data stream. This can be done in the Dev Tools, here for the data stream auditbeat-8.5.0:
