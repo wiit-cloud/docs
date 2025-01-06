@@ -9,5 +9,5 @@
 # subdirectories.
 /docs/_optimist   @wiit-cloud/optimist
 /docs/_managedk8s @wiit-cloud/cks
-/docs/_edge       @wiit-cloud/enop-sre
-/docs/_ece        @wiit-cloud/clapps
+/docs/_edge       @wiit-cloud/edge-stack
+/docs/_ece        @wiit-cloud/cloud-applications
