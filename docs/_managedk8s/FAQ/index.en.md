@@ -28,7 +28,7 @@ In general you can:
 * set the replicas per Machine Deployment
 * set the AZ's per Machine Deployment
 
-Generall your final VM count is based on replicas, Machine Deployments and Availability Zones. The Replica count can be different per Machine Deployment. For example 
+General your final VM count is based on replicas, Machine Deployments and Availability Zones. The Replica count can be different per Machine Deployment. For example 
 * if you have one Machine Deployment in all 3 AZ's with a replica count of 3 for your normal workload you end up with: 1 (Machine Deployment) * 3 (AZ's) * 3 (replicas) = 9 Nodes.
 * if you have one Machine Deployment in all 3 AZ's with a replica count of 2 for your infrastructure tools you end up with: 1 (Machine Deployment) * 3 (AZ's) * 2 (replicas) = 6 Nodes.
 
