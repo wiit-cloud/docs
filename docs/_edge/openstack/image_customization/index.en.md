@@ -25,21 +25,20 @@ OpenStack Instances can be injected with a custom cloud-init template which will
 
 During instance creation the cloud-init template needs to be passed via the `user_data` property. In Horizon OpenStack Dashboard there is a textbox to pass a custom cloud-init template in the Instance Creation Wizard.
 
+The cloud-init template of OperationsCenter VMs cannot be adjusted.
+
 ## Create images manually
 
-In cases where more customization is needed or the OS is not available as a prebuilt template a custom image can be built.
-However unless required we recommend to use pre-built cloud images and pass a cloud-init template for customization.
+In cases where more customization is needed or the OS is not available as a prebuilt template a custom image can be built and uploaded to the edge by every Openstack user.
 
-[Create Images Manually](https://docs.openstack.org/image-guide/create-images-manually.html)
+Openstack has a great documentation on how to [create images manually](https://docs.openstack.org/image-guide/create-images-manually.html).
 
 After successfully building the image you can upload it to OpenStack with the following command:
 
 ```bash
 openstack image create \
   --property hw_disk_bus=scsi \
-  --property hw_qemu_guest_agent=True \
   --property hw_scsi_model=virtio-scsi \
-  --property os_require_quiesce=True \
   --private \
   --disk-format qcow2 \
   --container-format bare \
@@ -53,7 +52,9 @@ The command to upload images requires these fields at a minimum:
 - `--file`: The source file on your machine
 - Name of the Image: `my-image` for example.
 
-Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image.
+Images uploaded with `--private` can only be used in the project. Upload images with `--public` flag, if you want to allow every openstack user and OperationsCenter users to use this image for servers.
+
+Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` and `--property os_require_quiesce=True` on the images you create. This requires a running `qemu-guest-agent` for a successfull snapshot.
 
 You can also use the dashboard to upload images. Make sure to use the same properties there.
 
