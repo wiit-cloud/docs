@@ -41,6 +41,7 @@ kind: StorageClass
 metadata:
   name: my-high-iops-class
 provisioner: cinder.csi.openstack.org
+volumeBindingMode: WaitForFirstConsumer
 parameters:
   type: high-iops
 ```
@@ -50,5 +51,10 @@ Apply with `kubectl apply -f storage-class.yaml`.
 * `name`: Choose a unique one, as we don't want to interfere with the default names.
 * `provisioner`: Use the one of your cluster. You can always have a look in the default class to verify the right provider.
 * `type`: Use one of the [official provided types](/optimist/specs/volume_specification/#volume-type-list) from the Optimist platform (at the time of writing low-iops and high-iops).
+* `volumeBindingMode`: There are two options. `WaitForFirstConsumer` is the suggested one. Because if you are using more than one availabillity Zone in combination with some pod placement policies `Immediate` will give you soem unpredictable challanges.
+  * `WaitForFirstConsumer`: The volume is created when a pod requsts it.
+  * `Immediate`: The volumes is created at the moment the pvc is created. 
+
+
 
 To use the new storage class you need to change your volumes definitions and add the new StorageClass name.
