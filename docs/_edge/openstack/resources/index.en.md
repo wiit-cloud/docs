@@ -1,5 +1,5 @@
 ---
-title: Resource Metrics
+title: Cluster Metrics
 lang: "en"
 permalink: /edge/openstack/metrics/
 has_children: false
@@ -7,13 +7,11 @@ nav_order: 3200
 parent: Openstack
 ---
 
-# Metrics from Libvirt and Operations Center
+# Cluster Metrics
 
 ## Overview
 
-The feature enables the provision of metrics from Libvirt and the Operations Center.
-
-These metrics include information on the use of flavors, CPU, RAM and other resources as well as data on the project owners.
+The feature provides metrics from various sources such as Libvirt, Operations Center, Node Exporter, and Rook Ceph. These metrics offer detailed insights into the resource usage of flavors, CPU, RAM, and other components in Openstack, as well as the utilization of individual nodes and the storage system.
 
 ## Endpoint
 
@@ -70,7 +68,15 @@ This metric contains the following information:
 - **Project Name:** The name of the project (projectname-dea9e633-9a03-4130-900b-dfde07734bff).
 - **Value:** The value of the metric (1).
 
-# Metrics
+## Node-Exporter Metrics
+
+These metrics provide information about the hardware and operating system of the hosts. For more details, refer to the [Node Exporter project](https://github.com/prometheus/node_exporter).
+
+## Rook Ceph
+
+Rook Ceph is used as a storage system. The provided metrics offer insights into disk storage usage and latencies.
+
+# Metrics (example)
 
 |Name|Description|Type|
 |----|------------|---|
@@ -136,3 +142,5 @@ This metric contains the following information:
 |libvirt_up|Whether scraping libvirt's metrics was successful.|gauge|
 |libvirt_versions_info|Versions of virtualization components|gauge|
 |sql_oc_membership|Project owner information of Operations Center|counter|
+
+The metrics from Rook Ceph and Node Exporter are available directly from their respective upstream projects.
