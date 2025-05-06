@@ -197,3 +197,18 @@ NV Link und NVSwitches verbinden NVidia Grafikkarten zum direkten Austausch von 
 Aktuell verbauen wir Supermicro GPU Server diese haben keine NVLink oder NVSwitch zwischen den einzelnen GPUs.
 
 Zum aktuellen Zeitpunkt werden NVLink und NVSwitches nur in NVidia eigenen Servern verbaut der Marke DGX oder HGX.
+
+## Bekannte Probleme
+
+### Zurücksetzen von VMs mit Block Storage funktioniert nicht
+
+Bei VMs, die mit Block Storage erstellt wurden (empfohlen), ist es nicht möglich, sie auf den ursprünglichen Zustand des Images zurückzusetzen. Die Schaltfläche "Erneuern" zeigt keine Wirkung.
+
+Als Workaround stehen derzeit zwei Optionen zur Verfügung: Entweder die VM löschen und neu erstellen oder, falls ein häufiger Reset erforderlich ist:
+
+1. Erstellen von zwei Snapshots (z. B. Snapshot A und Snapshot B) direkt nach der Erstellung der VM.
+2. Für die erste Wiederherstellung den Snapshot A verwenden.
+3. Bei weiteren Resets abwechselnd zwischen Snapshot B und Snapshot A wechseln.
+  - Beispiel: Nach einem Reset auf Snapshot A erfolgt der nächste Reset auf Snapshot B, danach wieder auf Snapshot A usw.
+  
+Andernfalls wird keine Änderung erkannt, und das Erneuern führt keine Änderung durch.
