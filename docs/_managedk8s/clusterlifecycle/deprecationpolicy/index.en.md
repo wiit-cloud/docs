@@ -11,7 +11,15 @@ parent: Cluster Lifecycle
 The upstream Kubernetes project releases approximately three Kubernetes versions a year and deprecates the same number of old versions.
 Kubernetes follows an N-2 support policy (meaning that the 3 most recent minor versions receive security and bug fixes).
 
-Here you can see the currently supported versions: [releases](https://kubernetes.io/releases/)
+
+| Version | End of Support | Status |
+| ----------- | ----------- | ----------- |
+| 1.33 | 2026-06-28 | upcomming / not available |
+| 1.32 | 2026-02-28 | currently available version |
+| 1.31 | 2025-10-28 | currently available version |
+| 1.30 | 2025-06-28 | currently available version |
+| 1.29 | 2025-02-28 | deprecated |
+
 
 Managed Kubernetes aligns loosely to this lifecycle by continuously introducing new versions and deprecating older ones.
 
