@@ -14,7 +14,7 @@ Kubernetes follows an N-2 support policy (meaning that the 3 most recent minor v
 
 | Version | End of Support | Status |
 | ----------- | ----------- | ----------- |
-| 1.33 | 2026-06-28 | upcomming / not available |
+| 1.33 | 2026-06-28 | upcoming / not available |
 | 1.32 | 2026-02-28 | currently available version |
 | 1.31 | 2025-10-28 | currently available version |
 | 1.30 | 2025-06-28 | currently available version |
