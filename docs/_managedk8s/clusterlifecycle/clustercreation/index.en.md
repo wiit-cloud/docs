@@ -39,9 +39,10 @@ max_size:
 Detailed information about options can be found below.
 
 ### What You Will Receive
-After the cluster is created, you will receive an admin kubeconfig through a secure method, along with a unique Cluster ID.
+After the cluster is created, you will receive an admin kubeconfig through a secure method, along with a [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name) for later support queries.
 
-**For further communication we need the cluster id and cluster name to identify your cluster.**
+**For further communication we need the [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name) to identify your cluster.**
+
 # Detailed Information
 
 ## Prerequisites

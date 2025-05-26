@@ -29,7 +29,7 @@ Availability: 24/7 for critical issues, depending on your SLA.
 
 During the onboarding process, we will discuss and agree upon the preferred support channels for your organization. We will also define the service level agreement (SLA) that aligns with your business needs.
 
-### WIIT Resource Name (WRN)
+### WIIT Resource Name
 
 When creating a WKP Cluster, we provide you a WIIT resource name to make future support queries easier. The WRN for now includes the service, region, resource type and resource id.
 
