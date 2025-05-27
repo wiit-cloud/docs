@@ -38,24 +38,24 @@ footer_external_links:
     - label: Website
       url: https://wiit.cloud
     - label: Impressum
-      url: https://www.myloc.de/impressum.html
+      url: https://wiit.cloud/de/unternehmen/ueber-uns/impressum
     - label: Datenschutz
-      url: https://gec.io/datenschutz/
+      url: https://wiit.cloud/de/datenschutz
   en:
     - label: Website
       url: https://wiit.cloud
     - label: Imprint
-      url: https://www.myloc.de/impressum.html
+      url: https://wiit.cloud/de/unternehmen/ueber-uns/impressum
     - label: Data Privacy
-      url: https://gec.io/datenschutz/
+      url: https://wiit.cloud/en/privacy-policy
 
 footer_hosted_with_love:
   de:
     label: "Mit liebe gehostet bei GitHub"
-    url: https://github.com/wiit-ag/docs
+    url: https://github.com/wiit-cloud/docs
   en:
     label: "Hosted with love on GitHub"
-    url: https://github.com/wiit-ag/docs
+    url: https://github.com/wiit-cloud/docs
 
 # Plugins
 plugins:
