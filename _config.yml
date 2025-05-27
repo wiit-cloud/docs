@@ -38,16 +38,16 @@ footer_external_links:
     - label: Website
       url: https://wiit.cloud
     - label: Impressum
-      url: https://www.wiit.cloud/de/unternehmen/ueber-uns/impressum/
+      url: https://wiit.cloud/de/unternehmen/ueber-uns/impressum
     - label: Datenschutz
-      url: https://www.wiit.cloud/de/datenschutz/
+      url: https://wiit.cloud/de/datenschutz
   en:
     - label: Website
       url: https://wiit.cloud
     - label: Imprint
-      url: https://www.wiit.cloud/de/unternehmen/ueber-uns/impressum/
+      url: https://wiit.cloud/de/unternehmen/ueber-uns/impressum
     - label: Data Privacy
-      url: https://www.wiit.cloud/en/privacy-policy/
+      url: https://wiit.cloud/en/privacy-policy
 
 footer_hosted_with_love:
   de:
