@@ -56,6 +56,8 @@ Images uploaded with `--private` can only be used in the project. Upload images 
 
 Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` and `--property os_require_quiesce=True` on the images you create. This requires a running `qemu-guest-agent` for a successfull snapshot.
 
+`hw_firmware_type=uefi`: This property specifies that the image should use UEFI firmware instead of legacy BIOS. UEFI provides enhanced security features and supports modern hardware configurations.
+
 You can also use the dashboard to upload images. Make sure to use the same properties there.
 
 ## Automated Image Build
