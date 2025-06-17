@@ -15,11 +15,9 @@ You can use below steps to customize or build new images.
 
 ## Table of Contents
 
-- [Image Customization](#image-customization)
-  - [Table of Contents](#table-of-contents)
-  - [Customize on Boot (Cloudinit)](#customize-on-boot-cloudinit)
-  - [Create images manually](#create-images-manually)
-  - [Automated Image Build](#automated-image-build)
+- [Customize on Boot (Cloudinit)](#customize-on-boot-cloudinit)
+- [Create images manually](#create-images-manually)
+- [Automated Image Build](#automated-image-build)
 
 ## Customize on Boot (Cloudinit)
 
