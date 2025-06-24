@@ -11,18 +11,19 @@ parent: Addons
 
 ## Overview
 
-The API can be used to shut down the edge in a controlled manner in case of an emergency (e.g. power outage) automatically.
-The start-up process is manual and controlled by us. Please inform us after the shutdown and expected recovery time.
+The Shutdown API allows for a controlled shutdown of the edge environment in emergency situations (e.g., power outages). This process is automated, while the startup must be performed manually by our team.
 
-The endpoints are requiring a Token which can be obtained via helpdesk.
+**Important**: Please notify us after initiating a shutdown and provide the estimated recovery time.
+
+All API endpoints require an authentication token, which can be obtained via our helpdesk.
 
 ## Shutdown process
 
-Once triggered, the shutdown API will:
+When triggered, the Shutdown API performs the following steps:
 
-* Send stop signal to all openstack VMs
-* Stop the storage layer
-* Shutdown the hosts
+* Sends a stop signal to all OpenStack virtual machines.
+* Stops the storage layer.
+* Powers down the hosts.
 
 ## Usage
 
@@ -30,15 +31,17 @@ Base URL: `https://shutdown.<EDGE>.wiit-edge.services/`
 
 ## Simulation
 
-The simulation endpoint behaves the same way as the real shutdown endpoint. It connects to Openstack, Hosts and BMC to test as much as possible without stopping anything. This endpoint can be used for testing integrations to automate the process without stopping anything.
+Use the simulation endpoint to test your integration without performing an actual shutdown. It connects to OpenStack, hosts, and BMC to simulate the process as closely as possible—without stopping any services.
 
-Note: A new simulation can only be started after the current shutdown has finished (`running: false` in status output).
+**Note**: A new simulation can only be started once the current shutdown process is complete (`running: false` in status output).
+
+### Trigger Simulation
 
 ```bash
 curl -X POST -H 'auth-token: <TOKEN>' https://shutdown.<EDGE>.wiit-edge.services/simulate
 ```
 
-The endpoint will respond directly with:
+Response:
 
 ```json
 {"data":"We've got your request","error":null,"status":"success"}
@@ -46,14 +49,13 @@ The endpoint will respond directly with:
 
 The status of the shutdown process can be retrieved via status endpoint (see below).
 
-
-### Status Endpoint
+### Check Status
 
 ```bash
 curl -X GET -H 'auth-token: <TOKEN>' https://shutdown.<EDGE>.wiit-edge.services/simulate/status
 ```
 
-The status endpoint can be used to retrieve the current state of the shutdown process. The reponse format is json. It's not needed to shut down the system.
+Response Example:
 
 ```json
 {
@@ -70,9 +72,16 @@ The status endpoint can be used to retrieve the current state of the shutdown pr
 
 ## Shutdown
 
-The shutdown endpoint behaves the same way as the simulation endpoint and should only be used, if it is required to shut down the system.
+Use this endpoint only when a real shutdown is required.
+
+### Trigger Shutdown
 
 ```bash
 curl -X POST -H 'auth-token: <TOKEN>' https://shutdown.<EDGE>.wiit-edge.services/shutdown
+```
+
+### Check Shutdown Status
+
+```bash
 curl -X GET -H 'auth-token: <TOKEN>' https://shutdown.<EDGE>.wiit-edge.services/shutdown/status
 ```
