@@ -1,27 +1,27 @@
 ---
-title: Cluster Metrics
-lang: "en"
-permalink: /edge/openstack/metrics/
+title: Cluster Metriken
+lang: "de"
+permalink: /edge/addons/metrics/
 has_children: false
-nav_order: 3200
-parent: Openstack
+nav_order: 4100
+parent: Addons
 ---
 
-# Cluster Metrics
+# Cluster Metriken
 
-## Overview
+## Übersicht
 
-The feature provides metrics from various sources such as Libvirt, Operations Center, Node Exporter, and Rook Ceph. These metrics offer detailed insights into the resource usage of flavors, CPU, RAM, and other components in Openstack, as well as the utilization of individual nodes and the storage system.
+Das Feature bietet Metriken aus verschiedenen Quellen wie Libvirt, Operations Center, Node Exporter und Rook Ceph. Diese Metriken liefern detaillierte Einblicke in die Ressourcennutzung von Flavors, CPU, RAM und weiteren Komponenten in Openstack sowie in die Auslastung einzelner Nodes und des Speichersystems.
 
-## Endpoint
+## Endpunkt
 
-URL: `https://resources._EDGE_.gecgo.net/federate`
+URL: `https://https://resources._EDGE_.gecgo.net/federate`
 
-Credentials are required for access. These can be obtained from the helpdesk.
+Für den Zugriff werden Zugangsdaten benötigt. Die können über den Helpdesk bezogen werden.
 
-### Example configuration Prometheus
+### Beispielkonfiguration Prometheus
 
-Further details in the Prometheus documentation on [Federation](https://prometheus.io/docs/prometheus/latest/federation/) and [scrape configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+Weitere Details in der Prometheus Dokumentation zu [Federation](https://prometheus.io/docs/prometheus/latest/federation/) und [scrape Konfiguration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 ```yaml
 scrape_configs:
@@ -43,42 +43,42 @@ scrape_configs:
         - 'resources._EDGE_.gecgo.net'
 ```
 
-## Metrics from Libvirt
+## Metriken aus Libvirt
 
-The metrics from Libvirt provide detailed information about the virtual machines (VMs), including:
+Die Metriken aus Libvirt bieten detaillierte Informationen zu den virtuellen Maschinen (VMs), einschließlich:
 
-- **Flavors used:** Information about the allocated resource profiles of the VMs.
-- **CPU usage:** Current utilization of the CPU resources.
-- **RAM usage:** Current memory usage.
-- **Other metrics:** Additional information about the VMs available via Libvirt.
+- **Genutzte Flavors:** Informationen zu den zugewiesenen Ressourcenprofilen der VMs.
+- **CPU-Nutzung:** Aktuelle Auslastung der CPU-Ressourcen.
+- **RAM-Nutzung:** Aktuelle Auslastung des Arbeitsspeichers.
+- **Weitere Metriken:** Zusätzliche Informationen zu den VMs, die über Libvirt verfügbar sind.
 
-## Metrics from the Operations Center
+## Metriken aus dem Operations Center
 
-In addition to the Libvirt metrics, metrics about the project owners from the Operations Center are also provided. An example of such a metric is:
+Zusätzlich zu den Libvirt-Metriken werden auch Metriken zu den Projektbesitzern aus dem Operations Center bereitgestellt. Ein Beispiel für eine solche Metrik ist:
 
 ```plaintext
 sql_oc_membership{job="oc-exporter",instance="de-host-rack-01",owner="jemand@userdomain.de",project_name="projectname-dea9e633-9a03-4130-900b-dfde07734bff"} 1
 ```
 
-This metric contains the following information:
+Diese Metrik enthält folgende Informationen:
 
-- **Job:** The name of the export job (oc-exporter).
-- **Instance:** The instance ID (de-host-rack-01).
-- **Owner:** The email address of the project owner (<someone@userdomain.de>).
-- **Project Name:** The name of the project (projectname-dea9e633-9a03-4130-900b-dfde07734bff).
-- **Value:** The value of the metric (1).
+- **Job:** Der Name des Export-Jobs (oc-exporter).
+- **Instance:** Die Instanz-ID (de-host-rack-01).
+- **Owner:** Die E-Mail-Adresse des Projektbesitzers (<jemand@userdomain.de>).
+- **Project Name:** Der Name des Projekts (projectname-dea9e633-9a03-4130-900b-dfde07734bff).
+- **Wert:** Der Wert der Metrik (1).
 
-## Node-Exporter Metrics
+## Node-Exporter Metriken
 
-These metrics provide information about the hardware and operating system of the hosts. For more details, refer to the [Node Exporter project](https://github.com/prometheus/node_exporter).
+Diese Metriken liefern Informationen über die Hardware und das Betriebssystem der Hosts. Weitere Details finden Sie im [Node Exporter Projekt](https://github.com/prometheus/node_exporter).
 
 ## Rook Ceph
 
-Rook Ceph is used as a storage system. The provided metrics offer insights into disk storage usage and latencies.
+Rook Ceph wird als Speichersystem eingesetzt. Die bereitgestellten Metriken bieten Einblicke in die Nutzung des Festplattenspeichers sowie in die Latenzen.
 
-# Metrics (example)
+# Metriken (Beispiel)
 
-|Name|Description|Type|
+|Name|Beschreibung|Typ|
 |----|------------|---|
 |libvirt_domain_block_meta|Block device metadata info. Device name, source file, serial.|gauge|
 |libvirt_domain_block_stats_allocation|Offset of the highest written sector on a block device.|gauge|
@@ -143,4 +143,4 @@ Rook Ceph is used as a storage system. The provided metrics offer insights into 
 |libvirt_versions_info|Versions of virtualization components|gauge|
 |sql_oc_membership|Project owner information of Operations Center|counter|
 
-The metrics from Rook Ceph and Node Exporter are available directly from their respective upstream projects.
+Die Metriken von Rook Ceph und Node Exporter stehen direkt aus den jeweiligen Upstream-Projekten zur Verfügung.

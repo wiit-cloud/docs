@@ -150,7 +150,7 @@ just_the_docs:
       nav_exclude: false
       search_exclude: false
     edge:
-      name: Oncite Open Edition
+      name: Edge
       nav_exclude: false
       search_exclude: false
     optimist:

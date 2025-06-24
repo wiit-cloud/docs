@@ -8,7 +8,7 @@ nav_order: 1000
 
 # Product Overview
 
-The ONCITE Open Edition provides an easy-to-use VM and a container platform based on Open Source. It is scalable from the size of an Edge to the size of a data center and offers full data sovereignty and real-time capabilities.
+The Wiit Edge provides an easy-to-use VM and a container platform based on Open Source. It is scalable from the size of an Edge to the size of a data center and offers full data sovereignty and real-time capabilities.
 
 ## Architecture
 
