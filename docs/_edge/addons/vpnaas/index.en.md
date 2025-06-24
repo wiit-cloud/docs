@@ -1,10 +1,10 @@
 ---
 title: VPN as a Service
 lang: "en"
-permalink: /edge/operationscenter/vpnaas/
+permalink: /edge/addons/vpnaas/
 has_children: false
-nav_order: 2100
-parent: Operations Center
+nav_order: 4300
+parent: Addons
 ---
 
 # VPN as a Service
@@ -21,7 +21,7 @@ In this configuration, each VPN Gateway has one public IP adress that is valid f
 
 ## Purpose
 
-GEC provides a VPNaaS solution which allows the customer to integrate their applications and systems with project partner systems.
+The Edge provides a VPNaaS solution which allows the user to integrate their applications and systems with project partner systems.
 An external partner is either a person accessing the project with his or her computer, or a communication system.
 
 ## Requirements
@@ -48,7 +48,7 @@ The customer sends a request, and the VPN gateway authenticates and distributes 
 
 ### VPN Gateway
 
-The VPN gateway is the GEC central management hub.
+The VPN gateway is the central management hub.
 It is used to manage VPN servers and allows external connections.
 Since only one public IP address is available, IPtable rules are used to make sure that the connections arrive at the correct VPN server.
 This requires a Wide Area Network (WAN) network and a VPN Transfer Network connected to the VPN Gateway.

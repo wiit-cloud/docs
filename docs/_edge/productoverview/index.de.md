@@ -8,7 +8,7 @@ nav_order: 1000
 
 # Produkt Übersicht
 
-Die ONCITE Open Edition bietet eine benutzerfreundliche virtuelle Maschine (VM) und eine Container-Plattform auf Open-Source-Basis. Sie ist skalierbar von der Größe einer Edge bis zur Größe eines Rechenzentrums und bietet volle Datenhoheit sowie Echtzeitfähigkeiten.
+Die Wiit Edge bietet eine benutzerfreundliche virtuelle Maschine (VM) und eine Container-Plattform auf Open-Source-Basis. Sie ist skalierbar von der Größe einer Edge bis zur Größe eines Rechenzentrums und bietet volle Datenhoheit sowie Echtzeitfähigkeiten.
 
 ## Architektur
 

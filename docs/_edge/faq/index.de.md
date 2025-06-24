@@ -61,7 +61,7 @@ Das Operations Center hat aktuell 4 Benutzergruppen:
 * Admin (SSO)*können externe Benutzer verwalten und haben Zugriff auf die Ressourcenübersicht und Globale Nachrichten Funktion.
 * Global Admin (SSO)*: Haben zusätzlichen Zugriff auf alle Projekte und können das VPNaaS für die Projekte aktivieren VPN können die normalen Admins auch anlegen
 
-*Anfrage an GEC notwendig nachdem der Benutzer sich das erste mal am Operations Center angemeldet hat.
+*Anfrage an den Helpdesk notwendig nachdem der Benutzer sich das erste mal am Operations Center angemeldet hat.
 
 ### Admin Rechte nur auf einem Projekt? Wie?
 

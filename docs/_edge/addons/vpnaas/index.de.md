@@ -1,10 +1,10 @@
 ---
 title: VPN as a Service
 lang: "de"
-permalink: /edge/operationscenter/vpnaas/
+permalink: /edge/addons/vpnaas/
 has_children: false
-nav_order: 2100
-parent: Operations Center
+nav_order: 4300
+parent: Addons
 ---
 
 # VPN as a Service
@@ -17,7 +17,7 @@ Dieser Abschnitt veranschaulicht, wie die Nutzer mit dem Kundenprojekte von Open
 
 ## Zweck
 
-GEC bietet eine VPNaaS-Lösung an, die es dem Kunden ermöglicht, ihre Anwendungen und Systeme mit den Systemen von Projektpartner zu integrieren. Externer Partner können Einzelpersonen sein, die mit ihren Computern oder Kommunikationssystemen auf das Projekt zugreifen.
+Die Edge bietet eine VPNaaS-Lösung an, die es dem Nutzer ermöglicht, ihre Anwendungen und Systeme mit den Systemen von Projektpartner zu integrieren. Externer Partner können Einzelpersonen sein, die mit ihren Computern oder Kommunikationssystemen auf das Projekt zugreifen.
 
 ## Anforderungen
 
@@ -42,7 +42,7 @@ Dieser Abschnitt umreißt den Kommunikationsfluss zwischen dem Operations Center
 
 ### VPN Gateway
 
-Das VPN-Gateway dient als zentrale Managementzentrale für GEC.
+Das VPN-Gateway dient als zentrale Managementzentrale.
 Es verwaltet VPN-Server und die Externe Verbindungen.
 Mit nur einer öffentlichen IP-Adresse stellen IPtable-Regeln sicher, dass Verbindungen zum richtigen VPN-Server geleitet werden.
 Diese Einrichtung erfordert ein Wide Area Network (WAN) und ein mit dem VPN-Gateway verbundenes VPN-Transfernetzwerk.
