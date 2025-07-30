@@ -7,7 +7,7 @@ parent: Cluster Lifecycle
 ---
 # OIDC
 
-You can add a custom oidc configuration for the cluster. **This can only be done in the cluster creation process**.
+You can add a custom oidc configuration for the cluster.
 
 Available variables that can be passed to the kubernetes API:
 ```yaml
@@ -40,9 +40,9 @@ oidc_username_prefix: https://gitlab.address.example#
 To use the oidc login for kubernetes you need a kubectl plugin, a valid / prepared `kubeconfig` and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) permissions.
 
 ## kubectl plugin
-To handle the auth part automaticly you need an plugin for kubectl. this can be found here: [int128/kubelogin](https://github.com/int128/kubelogin)
+To handle the auth part, automatically you need a plugin for kubectl. This can be found here: [int128/kubelogin](https://github.com/int128/kubelogin)
 
-**Hint:** There is an kubectl plugin manager: [krew](https://github.com/kubernetes-sigs/krew) this could be usefull if you handle more than one plugin.
+**Hint:** There is an kubectl plugin manager: [krew](https://github.com/kubernetes-sigs/krew) this could be useful if you handle more than one plugin.
 
 ## kubeconf
 The kubeconf must reflect the oidc
@@ -81,7 +81,7 @@ users:
 ```
 
 ## RBAC
-You need the proper [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) configuration / permissions. Check out the offial documentation for this topic.
+You need the proper [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) configuration / permissions. Check out the official documentation for this topic.
 
 ### Roles / ClusterRoles
 You need a `Role` / `ClusterRole` to define the access of the oidc users. As an example:
@@ -106,7 +106,7 @@ rules:
 ```
 
 ### Rolebinding / ClusterRoleBinding
-You need a `RoleBinding` / `ClusterRoleBinding` to bind the role to an oidc user. for example: 
+You need a `RoleBinding` / `ClusterRoleBinding` to bind the role to an oidc user. For example: 
 ```yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
