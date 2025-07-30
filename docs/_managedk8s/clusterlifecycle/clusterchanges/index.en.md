@@ -6,7 +6,7 @@ nav_order: 3800
 parent: Cluster Lifecycle
 ---
 
-We can support the following updates in a running GKSv3 cluster:
+We can support the following updates in a running CKS cluster:
 
 **Kubernetes Version Upgrade**
 - Upgrade your cluster to a newer Kubernetes version.
@@ -38,7 +38,7 @@ We can support the following updates in a running GKSv3 cluster:
 - Enable or disable the cluster-autoscaler for a specific machine deployment.
 - Adjust the minimum and maximum size of worker nodes to enable autoscaling.
 
-## How to request support for your GKSv3 cluster
+## How to request support for your CKS cluster
 You can find the list of the Support [here](/managedk8s/about/support/)
 
 **In case of requesting changes in the machineDeployment, please specify the machineDeployment where the changes should be applied. A format like `md-name-az-md`**

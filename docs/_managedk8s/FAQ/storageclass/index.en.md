@@ -21,8 +21,7 @@ cinder-csi (default)   cinder.csi.openstack.org   6h45m
 
 The Openstack volume types sorted by maximum possible IOPS:
 
-* low-iops
-* default <- used in the default class
+* standard <- used in the default class
 * high-iops
 
 ## Volume Features
@@ -50,11 +49,11 @@ Apply with `kubectl apply -f storage-class.yaml`.
 
 * `name`: Choose a unique one, as we don't want to interfere with the default names.
 * `provisioner`: Use the one of your cluster. You can always have a look in the default class to verify the right provider.
-* `type`: Use one of the [official provided types](/optimist/specs/volume_specification/#volume-type-list) from the Optimist platform (at the time of writing low-iops and high-iops).
-* `volumeBindingMode`: There are two options. `WaitForFirstConsumer` is the suggested one. Because if you are using more than one availabillity Zone in combination with some pod placement policies `Immediate` will give you soem unpredictable challanges.
-  * `WaitForFirstConsumer`: The volume is created when a pod requsts it.
-  * `Immediate`: The volumes is created at the moment the pvc is created. 
+* `type`: Use one of the [official provided types](/optimist/specs/volume_specification/#volume-type-list) from the Optimist platform (at the time of writing standard and high-iops).
+* `volumeBindingMode`: There are two options. `WaitForFirstConsumer` is the suggested one. Because if you are using more than one availability Zone in combination with some pod placement policies `Immediate` will give you some unpredictable challenges.
+  * `WaitForFirstConsumer`: The volume is created when a pod requests it.
+  * `Immediate`: The volume is created at the moment the pvc is created. 
 
 
 
-To use the new storage class you need to change your volumes definitions and add the new StorageClass name.
+To use the new storage class, you need to change your volume definitions and add the new StorageClass name.

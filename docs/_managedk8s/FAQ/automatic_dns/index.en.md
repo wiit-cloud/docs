@@ -26,8 +26,8 @@ To successfully complete the following steps, you need the following:
 Delegate your domains from your DNS provider to the following DNS name servers so that Designate can control the DNS resources of your domain.
 
 ```bash
-dns1.ddns.innovo.cloud
-dns2.ddns.innovo.cloud
+ns1.openstack.de-west-01.wiit-cloud.io
+ns2.openstack.de-west-01.wiit-cloud.io
 ```
 
 ## Create a new DNS Zone
@@ -66,7 +66,7 @@ $ openstack application credential create <name_of_app_credentials>
 
 > **Note:**
 > Don't forget to change the openstack application credentials and the command line arguments in the [external-dns](https://github.com/kubernetes-sigs/external-dns) deployment `--domain-filter=example.foo` and the `--txt-owner-id=<owner-id>`.
->The domain-filter is the dns zone. With the txt-owner-id external-dns can identify the entries managed by itself. You should change the image to a new version if available (and shedule updates) if you want to use it in production.
+>The domain-filter is the dns zone. With the txt-owner-id external-dns can identify the entries managed by itself. You should change the image to a new version if available (and schedule updates) if you want to use it in production.
 
 * Namespace:
 
@@ -231,8 +231,8 @@ Make the dns record will be looked up correct:
 
 ```sh
 $ openstack recordset list example.foo.
-$ dig my-app.example.foo @dns1.ddns.innovo.cloud.
-$ dig my-app.example.foo @dns2.ddns.innovo.cloud.
+$ dig my-app.example.foo @ns1.openstack.de-west-01.wiit-cloud.io.
+$ dig my-app.example.foo @ns2.openstack.de-west-01.wiit-cloud.io.
 $ dig my-app.example.foo
 ```
 
