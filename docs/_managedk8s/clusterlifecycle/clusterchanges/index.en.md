@@ -6,7 +6,7 @@ nav_order: 3800
 parent: Cluster Lifecycle
 ---
 
-We can support the following updates in a running GKSv3 cluster:
+We can support the following updates in a running CKS cluster:
 
 **Kubernetes Version Upgrade**
 - Upgrade your cluster to a newer Kubernetes version.
