@@ -7,11 +7,16 @@ parent: Cluster Lifecycle
 ---
 # Maintenance Windows
 
-To keep the cluster secure and up to date, there are a bunch of possible updates that can happen. F.e. K8s Version updates, Flatcar OS, controller updates or system updates.
+To keep the cluster secure and up to date, there are a bunch of possible updates that can happen. 
 
-Some of these trigger a node rotation (Flatcar or K8S updates), some not (controller updates). So the application needs to handle node rotations at any time. 
+* K8s version 
+* Flatcar OS, 
+* Installed Apps (like cni/cpi)
+* System
 
-If no maintenance window is configured, the updates will happen when they happen. To have a more control when updates should happen, we have implemented a maintenance window.
+Some of these trigger a node rotation (Flatcar or K8S updates), some not (App updates). So the application needs to be able to handle node rotations at any time. 
+
+If no maintenance window is configured, updates can happen anytime To have a more control when updates should happen, we have implemented a maintenance window.
 
 
 ## The Window
@@ -25,6 +30,9 @@ So we don't have to many pending changes and can be sure that all changes are ap
 Mon: 06:00-10:00, 17:00-20:00
 ```
 
-Some imported cases:
+Some important cases:
 * A started maintenance will always finish, even if it takes longer than the configured window.
-* When you do a change to your cluster (f.e. more replica), all pending changes will be applied at the same time.
+* When you do a change to your cluster (for example, more replica), all pending changes will be applied at the same time.
+
+
+In rare cases, when we have breaking changes or high important CVEs, we can schedule global maintenance on short notice.  
