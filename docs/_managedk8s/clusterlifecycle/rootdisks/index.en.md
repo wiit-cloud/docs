@@ -28,7 +28,7 @@ volume_type: <vType>
 The default value schould be `default` and only be changed if you know that you have different requirements.
 
 # Considerations
-* While choosing a disksize, make sure you take into account that the pulled docker images are living on this disk. So if you have a lot of big doctor images, adjust your disk size accordingly. 
+* While choosing a disksize, make sure you take into account that the pulled docker images are living on this disk. So if you have a lot of big docker images, adjust your disk size accordingly. 
 * If you use a lot of [ephemeral-volumes](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) or store / process, large amounts of data adjust your disk size accordingly. 
 * if you know you have a lot of k8s API `changes` consider a higher iops controle plane root disk.
 * If you specify a root disk, it will create the corresponding disks in your tenant.
