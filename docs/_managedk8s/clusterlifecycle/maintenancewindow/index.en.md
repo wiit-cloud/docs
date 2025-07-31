@@ -1,5 +1,5 @@
 ---
-title: Maintanance Window
+title: Maintenance Window
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/maintenacewindow/
 nav_order: 3320
