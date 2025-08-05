@@ -38,7 +38,24 @@ max_size:
 ```
 Detailed information about options can be found below.
 
-### What You Will Receive
+## Optional Settings
+
+The IP ranges can be adjusted for pod's in cluster addresses and the addresses services will get.
+If not provided, we will use the defaults shown below.
+Note that these should only be changed if a clash occurs with an externally routed network.
+
+```
+# the IP range for pod allocation
+pod_cidr: 172.25.0.0/16
+
+# the IP range for service allocation
+service_cidr: 10.96.0.0/12
+
+# the core dns address is the 10th address of the service cidr
+dns_service_address: 10.96.0.10
+```
+
+## What You Will Receive
 After the cluster is created, you will receive an admin kubeconfig through a secure method, along with a [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name) for later support queries.
 
 **For further communication we need the [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name) to identify your cluster.**
