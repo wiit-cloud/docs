@@ -40,7 +40,7 @@ Detailed information about options can be found below.
 
 ## Optional Settings
 
-The IP ranges can be adjusted for pod's in cluster addresses and the addresses services will get.
+The IP ranges can be adjusted for pods in-cluster addresses and the addresses services will get.
 If not provided, we will use the defaults shown below.
 Note that these should only be changed if a clash occurs with an externally routed network.
 
