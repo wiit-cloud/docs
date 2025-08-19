@@ -105,6 +105,8 @@ group remove user $GROUP $USER
 
 ### Rollenzuweisungen
 
+**Wichtig:** Vergeben sie ausschließlich die Rolle "member" - die Rolle "reader" steht im System zur Verfügung, die effektiven Berechtigungen sind jedoch nicht read-only. 
+
 ```bash
 # Rolle einem Benutzer in einem Projekt zuweisen
 role add --user $USER --project $PROJECT member

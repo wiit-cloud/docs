@@ -100,6 +100,9 @@ group remove user $GROUP $USER
 ```
 
 ### Role Assignmments
+
+**Important:** Only assign the "member" Role - the "reader" role is available in the system but the effective permissions are not read-only when using the "reader" role.
+
 ```bash
 # Assign role to a user in a project
 role add --user $USER --project $PROJECT member
