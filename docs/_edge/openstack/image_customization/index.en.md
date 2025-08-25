@@ -3,7 +3,7 @@ title: Image Customization
 lang: "en"
 permalink: /edge/openstack/image_customization/
 has_children: false
-nav_order: 3100
+nav_order: 3130
 parent: Openstack
 ---
 
@@ -15,9 +15,11 @@ You can use below steps to customize or build new images.
 
 ## Table of Contents
 
-- [Customize on Boot (Cloudinit)](#customize-on-boot-cloudinit)
-- [Create images manually](#create-images-manually)
-- [Automated Image Build](#automated-image-build)
+- [Image Customization](#image-customization)
+  - [Table of Contents](#table-of-contents)
+  - [Customize on Boot (Cloudinit)](#customize-on-boot-cloudinit)
+  - [Create images manually](#create-images-manually)
+  - [Automated Image Build](#automated-image-build)
 
 ## Customize on Boot (Cloudinit)
 
