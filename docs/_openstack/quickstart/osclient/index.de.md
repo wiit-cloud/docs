@@ -2,7 +2,7 @@
 title: "OpenStack Client / CLI"
 lang: "de"
 permalink: /openstack/quickstart/osclient/
-nav_order: 1012
+nav_order: 1009
 parent: Quickstart
 ---
 
