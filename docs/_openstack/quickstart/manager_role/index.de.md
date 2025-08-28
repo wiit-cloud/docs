@@ -38,13 +38,20 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-Als Domain-Manager können Sie Benutzer, Projekte, Gruppen und Rollen mit folgenden Befehlen verwalten:
+Als Domain-Manager können Sie Benutzer, Projekte, Gruppen und Rollen mit den folgenden Befehlen verwalten, nutzen Sie dazu die Befehle in Kombination mit den obenstehenden Parametern:
+
+### Abfragen der Domain ID 
+```bash
+# Abfragen der Domain ID
+domain show $DOMAIN_NAME
+```
+**Wichtig:** Die Domain ID wird für die folgenden Befehle benötigt.
 
 ### Benutzerverwaltung
 
 ```bash
 # Benutzer erstellen
-user create --domain $DOMAIN_NAME --password-prompt $USER
+user create --domain $DOMAIN_ID --password-prompt $USER
 
 # Alle Benutzer in der Domain auflisten
 user list
@@ -73,7 +80,7 @@ openstack credential create --type totp --secret $BASE_32_2FA_SECRET $USER_ID
 
 ```bash
 # Neues Projekt erstellen
-project create $PROJECT --domain $DOMAIN_NAME
+project create $PROJECT --domain $DOMAIN_ID
 
 # Alle Projekte auflisten
 project list
@@ -88,7 +95,7 @@ project delete $PROJECT
 
 ```bash
 # Gruppe erstellen
-group create $GROUP --domain $DOMAIN_NAME
+group create $GROUP --domain $DOMAIN_ID
 
 # Gruppen auflisten
 group list

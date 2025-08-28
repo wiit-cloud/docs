@@ -37,13 +37,20 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-As a domain manager you are able to manage users, projects, groups and role assignments with the following commands: 
+As a domain manager you are able to manage users, projects, groups and role assignments with the following commands combined with the CLI objections above: 
+
+### Obtaining the Domain ID
+```bash
+# Obtain the Domain ID
+domain show $DOMAIN_NAME
+```
+**Important:** The Domain ID is needed for the commands below.
 
 ### User Management
 
 ```bash
 # Create a user
-user create --domain $DOMAIN_NAME --password-prompt $USER
+user create --domain $DOMAIN_ID --password-prompt $USER
 
 # List all users in your domain
 user list
@@ -71,7 +78,7 @@ openstack credential create --type totp --secret $BASE_32_2FA_SECRET $USER_ID
 ### Project Management
 ```bash
 # Create a new project
-project create $PROJECT --domain $DOMAIN_NAME
+project create $PROJECT --domain $DOMAIN_ID
 
 # List all projects
 project list
@@ -84,7 +91,7 @@ project delete $PROJECT
 ### Group Management
 ```bash
 # Create a group
-group create $GROUP --domain $DOMAIN_NAME
+group create $GROUP --domain $DOMAIN_ID
 
 # List groups
 group list
