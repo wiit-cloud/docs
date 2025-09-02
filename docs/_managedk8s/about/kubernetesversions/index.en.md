@@ -17,7 +17,7 @@ To provide clarity on our version support policy, here is an overview of our sup
 | v1.32   |             |             |
 | v1.31   |             |             |
 | v1.30   |             |             |
-| v1.29   | 2025.04.01  |             |
+| v1.29   | 2025.04.01  | 2025.09.01  |
 
 ## Force Upgrade Policy
 

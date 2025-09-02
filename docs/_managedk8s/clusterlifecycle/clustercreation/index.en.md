@@ -14,7 +14,7 @@ cluster_name:
 customer_id: 
 
 # other k8s version
-(by default latest k8s version provided by us)
+(by default latest supported k8s minor version provided by us)
 kubernetes_version: 
 
 # controlplane flavor 
@@ -76,20 +76,27 @@ You must have an existing or newly created OpenStack tenant. In this tenant, cre
 ### Optional Requirements and Configurable Features (with Default Values)
 #### Kubernetes Version
 If not specified, the cluster will be deployed with the latest supported Kubernetes minor version.
+We support the manual setting of the major.minor (e.g. 1.33), this needs to manual updated if a new version is needed. 
+The Patch level is updated by us and will be automatically deployed.
+
 For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesverions/)
 
 #### OpenStack Network
 Provide an existing network ID, or we will create a new network for you.
+Provided Network will not be deleted, wen the cluster is deleted. They can be reused, after cluster deletion.
+Automatically created ones will be deleted with cluster deletion.
 
+If you have no special requirements, use the automatically created ones. So you don't need any creation/cleanup process on our side.
+For requirements like, shared networks, added VPNs, etc. please use the provides options.
 
 ### Machine Deployments, Worker Nodes and Autoscaling
 For Machine Deployment look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/)
 
-As ther are a some more options. 
+As there are a some more options. 
 
 Default will get you a single Machine Deployment with 3 Nodes on 1 AZ
 
 #### Cluster autoscaler  (the same for each machineDeployment if more than one)
-We support the Cluster Autoscalar which we can activate seperatly for each Machine Deploment.
+We support the Cluster Autoscaler which we can activate separately for each Machine Deployment.
 
 Details can be found [here](/managedk8s/clusterlifecycle/autoscaling/)
