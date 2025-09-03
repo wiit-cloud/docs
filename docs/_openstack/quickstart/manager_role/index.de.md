@@ -73,7 +73,7 @@ user set \
   $USER
 
 # TOTP-Secret für Benutzer anlegen (als Benutzer ausführen, vor Anwendung der 2FA-Regeln durch den Manager)
-openstack credential create --type totp --secret $BASE_32_2FA_SECRET $USER_ID
+openstack credential create --type totp $USER_ID $BASE_32_2FA_SECRET
 ```
 
 ### Projektverwaltung
