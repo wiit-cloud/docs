@@ -72,7 +72,7 @@ user set \
   $USER
 
 # Create TOTP secret for a user (do this as user before the multi-factor-auth-rule is applied from the manager)
-openstack credential create --type totp --secret $BASE_32_2FA_SECRET $USER_ID
+openstack credential create --type totp $USER_ID $BASE_32_2FA_SECRET
 ```
 
 ### Project Management
