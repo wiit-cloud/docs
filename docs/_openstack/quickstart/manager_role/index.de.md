@@ -69,7 +69,7 @@ user set --enable-multi-factor-auth $USER
 user set \
   --enable-multi-factor-auth \
   --multi-factor-auth-rule password,totp \
-  --multi-factor-auth-rule v3applicationcredential \
+  --multi-factor-auth-rule application_credential \
   $USER
 
 # TOTP-Secret für Benutzer anlegen (als Benutzer ausführen, vor Anwendung der 2FA-Regeln durch den Manager)
