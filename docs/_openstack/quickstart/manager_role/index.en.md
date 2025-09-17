@@ -68,7 +68,7 @@ user set --enable-multi-factor-auth $USER
 user set \
   --enable-multi-factor-auth \
   --multi-factor-auth-rule password,totp \
-  --multi-factor-auth-rule v3applicationcredential \
+  --multi-factor-auth-rule application_credential \
   $USER
 
 # Create TOTP secret for a user (do this as user before the multi-factor-auth-rule is applied from the manager)
