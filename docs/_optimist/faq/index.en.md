@@ -33,6 +33,18 @@ OpenStack client. For example:
 openstack security group rule create --remote-ip 10.0.0.0/24 --protocol vrrp --ethertype IPv4 --ingress  default
 ```
 
+To reserve the VIP in Neutron, a virtual port is created for the VIP:
+
+```bash
+openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-address=<VIP_IP_CIDR> VIP_PORT
+```
+
+In addition to the security group rule to allow VRRP you need to configure the VIP as an allowed address on your instance ports:
+
+```bash
+openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
+```
+
 ## Why am I charged for Floating IPs I am not using?
 
 We have to charge for reserved Floating IPs. In this case, there is a high probability that Floating IPs were created but not deleted correctly after use.
