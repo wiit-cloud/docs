@@ -33,10 +33,16 @@ nur mit dem OpenStack Client möglich, zum Beispiel:
 openstack security group rule create --remote-ip 10.0.0.0/24 --protocol vrrp --ethertype IPv4 --ingress  default
 ```
 
-Zusätzlich zur Security Group Regel um VRRP zu erlauben ist es notwendig die VIP als allowed address für den Port der jeweiligen Instanzen zu konfigurieren: 
+Um die VIP in Neutron zu reservieren wird ein virtueller Port für die VIP erzeugt:
 
 ```bash
-openstack port set PORT_UUID --allowed-address ip-address=<IP_CIDR>,mac_address=<MAC_ADDRESS
+openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-address=<VIP_IP_CIDR> VIP_PORT
+```
+
+Zusätzlich zum virtuellen Port ist es notwendig die VIP als allowed address für den Port der jeweiligen Instanzen zu konfigurieren: 
+
+```bash
+openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
 ```
 
 ## Warum werden mir Floating IPs berechnet, die ich gar nicht benutze?
