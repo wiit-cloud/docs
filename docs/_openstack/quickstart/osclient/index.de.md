@@ -69,7 +69,7 @@ Da wir im Verlauf der Dokumentation auch andere Services benutzen, installieren 
 die entsprechenden Clienten gleich mit:
 
 ```bash
-(openstack) $ pip install python-heatclient python-designateclient python-octaviaclient
+(openstack) $ pip install python-designateclient python-octaviaclient
 ```
 
 Nun verlassen wir die Umgebung auch direkt wieder:
@@ -174,13 +174,6 @@ Umgebung auch direkt den OpenStackClient installieren:
 
 ```bash
 (openstack) $ pip install python-openstackclient
-```
-
-Da wir im Verlauf der Dokumentation auch Heat benutzen, installieren wir
-den entsprechenden Heat Clienten gleich mit:
-
-```bash
-(openstack) $ pip install python-heatclient
 ```
 
 Nun verlassen wir die Umgebung auch direkt wieder:

@@ -82,7 +82,7 @@ Now you can install the OpenStack client.
 Since we use other services in our documentation, you can install these clients as well.
 
 ```bash
-(openstack) $ pip install python-heatclient python-designateclient python-octaviaclient
+(openstack) $ pip install python-designateclient python-octaviaclient
 ```
 
 Now that you are done, you can deactivate your environment.
@@ -158,13 +158,6 @@ Once activated, you can install the
 
 ```bash
 (openstack) $ pip install python-openstackclient
-```
-
-As we use *Heat* in our documentation, you will also install the *Heat*
-client.
-
-```bash
-(openstack) $ pip install python-heatclient
 ```
 
 Once you are done, you can deactivate your virtual environment.
