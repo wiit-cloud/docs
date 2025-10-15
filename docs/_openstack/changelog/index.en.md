@@ -11,20 +11,22 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ---
 
-## Upcoming
-
-### 2025-08-15
-
-- GPU Flavor Availability
-
 ### To be announced
 
-- End of Beta phase for Octavia OVN based Loadbalancers
-- VPNaaS Service
+- End of beta phase for Octavia OVN-based loadbalancers
+- Local Storage Flavor Availability
 
 ---
 
 ## Completed
+
+### 2025-10-15
+
+- VPNaaS Service
+
+### 2025-08-15
+
+- GPU Flavor Availability
 
 ### 2025-08-01
 
