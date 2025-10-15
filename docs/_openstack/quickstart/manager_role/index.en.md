@@ -23,7 +23,7 @@ Default quotas are applied to newly created projects, quota adjustments of indiv
 Domains and domain manager users are managed by WIIT AG, changes can also be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
 
 {: .warning }
-Manager users cannot log in to the dashboard. All operations are available exclusively via CLI or API, as described below.
+The dashboard is not available to Manager users. While they can log in, all operations are available exclusively via CLI or API, as described below.
 Application credentials cannot be generated for users without a project assignment (such as the predefined manager user).
 Application credentials can only be used for operations within projects, not for domain-level operations, such as creating projects.
 

@@ -23,7 +23,7 @@ Neue Projekte erhalten standardmäßig Quotas, individuelle Anpassungen können 
 Domains und Domain-Manager-Konten werden von der WIIT AG verwaltet. Änderungen können ebenfalls über den [WIIT Support](mailto:helpdesk.de@wiit.one) beantragt werden.
 
 {: .warning }
-Manager-Benutzer können sich nicht am Dashboard anmelden. Alle Operationen stehen ausschließlich über CLI oder API zur Verfügung, wie unten beschrieben.
+Manager-Benutzern steht das Dashboard nicht zur Verfügung. Eine Anmeldung ist zwar möglich, aber alle Operationen stehen ausschließlich über CLI oder API zur Verfügung, wie unten beschrieben.
 Für Benutzer ohne Projektzuordnung (wie der vordefinierte Manager-User) können keine Application Credentials erzeugt werden.
 Application Credentials können nur für Operationen innerhalb der Projekte genutzt werden, nicht für Operationen auf Domain-Ebene, wie bspw. die Anlage von Projekten.
 
