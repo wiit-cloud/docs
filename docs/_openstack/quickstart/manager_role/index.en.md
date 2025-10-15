@@ -22,7 +22,10 @@ The following Keystone security compliance settings are applied:
 Default quotas are applied to newly created projects, quota adjustments of individual projects can be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
 Domains and domain manager users are managed by WIIT AG, changes can also be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
 
-**Important:** The manager users can not be used in the Dashboard, the operations are only available via CLI or API as descrived below.
+{: .warning }
+Manager users cannot log in to the dashboard. All operations are available exclusively via CLI or API, as described below.
+Application credentials cannot be generated for users without a project assignment (such as the predefined manager user).
+Application credentials can only be used for operations within projects, not for domain-level operations, such as creating projects.
 
 ## Domain Manager CLI Setup
 
@@ -86,6 +89,10 @@ project list
 # Delete a project
 project delete $PROJECT
 ```
+{: .warning }
+When creating projects, use the domain ID, not the domain name.
+If the domain name consists of numbers, the OpenStack CLI may mistakenly interpret it as a domain ID, and the request will fail.
+
 **Important:** Cleanup all resources within the project befor you deleted it, otherwise resources are accounted for until our automated cleanup jobs are executed
 
 ### Group Management
