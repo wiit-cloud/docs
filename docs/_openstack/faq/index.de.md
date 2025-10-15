@@ -39,6 +39,8 @@ Um die VIP in Neutron zu reservieren wird ein virtueller Port für die VIP erzeu
 openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-address=<VIP_IP_CIDR> VIP_PORT
 ```
 
+Wenn mehrere VIPs (zum Beispiel in einem Netzwerk mit IPv4- und IPv6-Subnetzen) genutzt werden sollen ist für jede VIP ein eigener virtueller Port anzulegen.
+
 Zusätzlich zum virtuellen Port ist es notwendig die VIP als allowed address für den Port der jeweiligen Instanzen zu konfigurieren: 
 
 ```bash

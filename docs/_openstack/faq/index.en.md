@@ -39,7 +39,9 @@ To reserve the VIP in Neutron, a virtual port is created for the VIP:
 openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-address=<VIP_IP_CIDR> VIP_PORT
 ```
 
-In addition to the security group rule to allow VRRP you need to configure the VIP as an allowed address on your instance ports:
+If multiple VIPs are to be used (for example in a network with IPv4 and IPv6 subnets), a separate virtual port must be created for each VIP.
+
+In addition to the virtual port you need to configure the VIP as an allowed address on your instance ports:
 
 ```bash
 openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
