@@ -22,7 +22,10 @@ Folgende Keystone-Compliance-Richtlinien gelten:
 Neue Projekte erhalten standardmäßig Quotas, individuelle Anpassungen können über den [WIIT Support](mailto:helpdesk.de@wiit.one) angefragt werden.
 Domains und Domain-Manager-Konten werden von der WIIT AG verwaltet. Änderungen können ebenfalls über den [WIIT Support](mailto:helpdesk.de@wiit.one) beantragt werden.
 
-**Wichtig:** Manager-Benutzer können sich nicht am Dashboard anmelden. Alle Operationen stehen ausschließlich über CLI oder API zur Verfügung, wie unten beschrieben.
+{: .warning }
+Manager-Benutzern steht das Dashboard nicht zur Verfügung. Eine Anmeldung ist zwar möglich, aber alle Operationen stehen ausschließlich über CLI oder API zur Verfügung, wie unten beschrieben.
+Für Benutzer ohne Projektzuordnung (wie der vordefinierte Manager-User) können keine Application Credentials erzeugt werden.
+Application Credentials können nur für Operationen innerhalb der Projekte genutzt werden, nicht für Operationen auf Domain-Ebene, wie bspw. die Anlage von Projekten.
 
 ## Domain Manager CLI-Konfiguration
 
@@ -88,6 +91,9 @@ project list
 # Projekt löschen
 project delete $PROJECT
 ```
+{: .warning }
+Verwenden Sie zur Anlage von Projekten die Domain ID und nicht den Domain Namen. 
+Sollte der Domain Name aus Zahlen bestehen kann dieser von der OpenStack CLI fälschlicherweise als Domain ID interpretiert werden und die Anfrage schlägt fehl.
 
 **Wichtig:** Vor dem Löschen eines Projekts müssen alle Ressourcen darin bereinigt werden. Andernfalls werden diese weiterhin berechnet, bis unsere automatisierten Cleanup-Jobs ausgeführt wurden.
 
