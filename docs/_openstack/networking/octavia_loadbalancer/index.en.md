@@ -14,14 +14,14 @@ nav_order: 2300
 
 ## First Steps
 
-To use Octavia, the client first needs to be installed on your system. Instructions for the installation can be found in [Step 04](/openstack/guided_tour/step04/) of our guide.
+To use Octavia, the client first needs to be installed on your system. Instructions for the installation can be found [here](/openstack/quickstart/osclient/) of our guide.
 
 ## Creating an Octavia-Ladbalancer
 
-In our example we use the example subnet we've already created in [Step 10](/openstack/guided_tour/step10/).
+Here we specify the subnet ID in which the load balancer should be created.
 
 ```bash
-$ openstack loadbalancer create --name Beispiel-LB --vip-subnet-id 32259126-dd37-44d5-922c-99d68ee870cd
+$ openstack loadbalancer create --name Example-LB --vip-subnet-id 32259126-dd37-44d5-922c-99d68ee870cd
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+

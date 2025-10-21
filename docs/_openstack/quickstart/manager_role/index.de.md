@@ -48,7 +48,10 @@ Als Domain-Manager können Sie Benutzer, Projekte, Gruppen und Rollen mit den fo
 # Abfragen der Domain ID
 domain show $DOMAIN_NAME
 ```
-**Wichtig:** Die Domain ID wird für die folgenden Befehle benötigt.
+
+{: .warning }
+Verwenden Sie für die folgenden Befehle die Domain ID und nicht den Domain Namen. 
+Sollte der Domain Name aus Zahlen bestehen kann dieser von der OpenStack CLI fälschlicherweise als Domain ID interpretiert werden und die Anfrage schlägt fehl.
 
 ### Benutzerverwaltung
 
@@ -91,9 +94,6 @@ project list
 # Projekt löschen
 project delete $PROJECT
 ```
-{: .warning }
-Verwenden Sie zur Anlage von Projekten die Domain ID und nicht den Domain Namen. 
-Sollte der Domain Name aus Zahlen bestehen kann dieser von der OpenStack CLI fälschlicherweise als Domain ID interpretiert werden und die Anfrage schlägt fehl.
 
 **Wichtig:** Vor dem Löschen eines Projekts müssen alle Ressourcen darin bereinigt werden. Andernfalls werden diese weiterhin berechnet, bis unsere automatisierten Cleanup-Jobs ausgeführt wurden.
 
