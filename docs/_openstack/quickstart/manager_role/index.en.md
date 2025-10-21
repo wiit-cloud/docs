@@ -47,7 +47,10 @@ As a domain manager you are able to manage users, projects, groups and role assi
 # Obtain the Domain ID
 domain show $DOMAIN_NAME
 ```
-**Important:** The Domain ID is needed for the commands below.
+
+{: .warning }
+Use the domain ID for the commands below, not the domain name.
+If the domain name consists of numbers, the OpenStack CLI may mistakenly interpret it as a domain ID, and the request will fail.
 
 ### User Management
 
@@ -89,9 +92,6 @@ project list
 # Delete a project
 project delete $PROJECT
 ```
-{: .warning }
-When creating projects, use the domain ID, not the domain name.
-If the domain name consists of numbers, the OpenStack CLI may mistakenly interpret it as a domain ID, and the request will fail.
 
 **Important:** Cleanup all resources within the project befor you deleted it, otherwise resources are accounted for until our automated cleanup jobs are executed
 
