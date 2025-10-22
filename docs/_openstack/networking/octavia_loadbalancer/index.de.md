@@ -25,6 +25,9 @@ Statt Amphora-VMs zu starten, nutzt der ovn-Provider die nativen Loadbalancing-F
 {: .warning }
 Der OVN-Provider unterstützt keine Layer-7-Funktionen (L7 Policies, TLS Termination, Insert Headers etc.). Er ist für einfache TCP-/UDP-Lastverteilungen auf Layer 4 gedacht.
 
+{: .warning }
+Der OVN-Provider lässt sich derzeit noch nicht über Horizon konfigurieren.
+
 ## Der Start
 
 Für die Nutzung von Octavia ist es notwendig, dass der Client auf dem eigenen System installiert ist. Eine Anleitung für sein System findet man [hier](/openstack/quickstart/osclient/)
