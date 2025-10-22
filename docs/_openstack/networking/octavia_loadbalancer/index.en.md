@@ -12,6 +12,17 @@ nav_order: 2300
 
 [Octavia](https://wiki.openstack.org/wiki/Octavia) is a highly-available and scalable open source load balancing solution designed to work with OpenStack. Octavia handles load balancing services by managing and configuring a fleet of virtual machines – also known as amphorae – in its project. These amphorae run a [HAproxy](https://www.haproxy.com/).
 
+Alternatively, the **OVN Load Balancer Driver** is available, which works without Amphora instances. Details can be found in the section [Using the OVN Load Balancer Driver](#using-the-ovn-load-balancer-driver).
+
+## Using the OVN Load Balancer Driver
+
+In addition to the classic amphora provider, our platform also supports the ovn provider as an alternative.
+
+Instead of launching Amphora VMs, the ovn provider uses the native load balancing features of OVN. This eliminates the overhead of dedicated Amphora instances, resulting in faster creation times and lower resource consumption.
+
+{: .warning }
+The OVN provider does not support Layer 7 features (L7 policies, TLS termination, insert headers, etc.). It is intended for simple TCP/UDP load balancing at Layer 4.
+
 ## First Steps
 
 To use Octavia, the client first needs to be installed on your system. Instructions for the installation can be found [here](/openstack/quickstart/osclient/) of our guide.
@@ -21,7 +32,7 @@ To use Octavia, the client first needs to be installed on your system. Instructi
 Here we specify the subnet ID in which the load balancer should be created.
 
 ```bash
-$ openstack loadbalancer create --name Example-LB --vip-subnet-id 32259126-dd37-44d5-922c-99d68ee870cd
+$ openstack loadbalancer create --name Example-LB --vip-subnet-id 32259126-dd37-44d5-922c-99d68ee870cd [--provider ovn]
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -46,7 +57,9 @@ $ openstack loadbalancer create --name Example-LB --vip-subnet-id 32259126-dd37-
 +---------------------+--------------------------------------+
 ```
 
-Now Octavia spawns amphorae instances in the background.
+By default, the amphora provider is used.
+
+With the amphora provider, Octavia now spawns the amphora instances in the background.
 
 ```bash
 $ openstack loadbalancer list
@@ -57,7 +70,7 @@ $ openstack loadbalancer list
 +--------------------------------------+-------------+----------------------------------+--------------+---------------------+----------+
 ```
 
-Once the provisioning_status is `ACTIVE`, the process has completed successfully and the Octavia load balancer can be further configured.
+Once the provisioning_status is `ACTIVE`, the process has completed successfully.
 
 ```bash
 $ openstack loadbalancer list
@@ -104,6 +117,8 @@ $ openstack loadbalancer listener create --name Beispiel-listener --protocol HTT
 | client_crl_container_ref    |                                      |
 +-----------------------------+--------------------------------------+
 ```
+
+As already mentioned, the OVN provider only supports L4 protocols, i.e. TCP / UDP.
 
 Once the `admin_state_up` is `true` the loadbalancer has been successfully created. The Octavia loadbalancer can be further configured at this point.
 
@@ -153,9 +168,12 @@ It should be noted that with `openstack loadbalancer pool create --help` all pos
 The most common settings and their choices:
 
 ```bash
---protocol: {TCP,HTTP,HTTPS,TERMINATED_HTTPS,PROXY,UDP}
---lb-algorithm {SOURCE_IP,ROUND_ROBIN,LEAST_CONNECTIONS}
+--protocol: {TCP,HTTP,HTTPS,PROXY,PROXYV2,UDP,SCTP}
+--lb-algorithm {SOURCE_IP,ROUND_ROBIN,LEAST_CONNECTIONS,SOURCE_IP_PORT}
 ```
+
+As already mentioned, the OVN provider only supports L4 protocols, i.e., TCP/UDP.
+Furthermore, the lb-algorithm SOURCE_IP_PORT must be selected for the OVN provider.
 
 The pool has been successfully created when the `provisioning_status` has reached the status `ACTIVE`.
 
@@ -352,6 +370,8 @@ $ openstack loadbalancer healthmonitor create --delay 5 --max-retries 2 --timeou
 +---------------------+--------------------------------------+
 ```
 
+As already mentioned, the OVN provider only supports L4 protocols, i.e. TCP / UDP.
+
 In this example, the monitor removes the failing backend from the pool if the integrity check (--type HTTP, --url-path / ) fails every two five-second intervals(--delay 5, --max-retries 2, --timeout 10).
 
 Once the server is restored and responds to TCP/80 again, it will be added back to the pool.
@@ -423,6 +443,8 @@ Mi 22 Mai 2019 17:10:06 CEST
 The Octavia amphora driver provides a Prometheus endpoint. This allows you to collect metrics from Octavia load balancers.
 
 To add a Prometheus endpoint on an existing Octavia load balancer, create a listener with the protocol `PROMETHEUS`. This will enable the endpoint as `/metrics` on the listener. The listener supports all the features of an Octavia load balancer, such as allowed_cidrs, but it does not support attaching pools or L7 policies. All metrics are identified by the Octavia object ID (UUID) of the resources.
+
+The OVN provider does not support the Prometheus endpoint.
 
 Note: Currently, UDP and SCTP metrics are not reported via Prometheus endpoints when using the amphora provider.
 
