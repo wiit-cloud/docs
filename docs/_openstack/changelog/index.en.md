@@ -13,12 +13,15 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ### To be announced
 
-- End of beta phase for Octavia OVN-based loadbalancers
 - Local Storage Flavor Availability
 
 ---
 
 ## Completed
+
+### 2025-11-01
+
+- End of beta phase for Octavia OVN-based loadbalancers
 
 ### 2025-10-15
 
