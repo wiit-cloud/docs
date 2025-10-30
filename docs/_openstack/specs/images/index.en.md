@@ -74,9 +74,23 @@ openstack server set --property admin_pass='MySecurePassword123' INSTANCE_NAME
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-Alternatively, you can set the Administrator password directly inside the instance using PowerShell:
+Alternatively, you can connect via SSH and the floating IP to set the Administrator password directly inside the instance:
 
 ```
+ssh $FLOATING_IP -l Administrator
+```
+
+{: .note }
+
+If you are prompted for a password when connecting via SSH, please wait a little longer. At that point, the background initialization processes of the instance may not yet be fully completed.
+
+```
+administrator@win-server C:\Users\Administrator> powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
 PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
 **********
 PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
