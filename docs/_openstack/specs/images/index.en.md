@@ -32,6 +32,8 @@ The current list of images is as follows:
 - CoreOS (stable)
 - Rocky Linux 9
 - Flatcar Linux
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
 
 These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest`-suffix. All previous versions of an imags are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventially deleted if they are no longer in use at all.
 
@@ -40,6 +42,47 @@ OpenStack and many deployment tools support using these images either by name or
 ## Linux Images
 
 All of our provided linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable.
+
+## Windows Images
+
+We provide the following Windows images:
+
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
+
+### Using Windows images:
+
+Windows images support automatic password reset using instance metadata:
+
+- Add metadata key `admin_pass` with a desired password.
+- After the instance reboots, the Administrator password is set to the provided value.
+
+{: .warning }
+
+Remove the metadata after the initial setup. The metadata is **not encrypted** and should only be used for initial password setup.
+
+Example:
+
+```
+openstack server set --property admin_pass='MySecurePassword123' INSTANCE_NAME
+```
+
+- The password will be applied after the next reboot.
+- Remove metadata afterwards to secure the instance:
+
+```
+openstack server unset --property admin_pass INSTANCE_NAME
+```
+
+Alternatively, you can set the Administrator password directly inside the instance using PowerShell:
+
+```
+PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
+**********
+PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
+```
+
+This method avoids storing the password in unencrypted metadata.
 
 ## Uploading your own images
 

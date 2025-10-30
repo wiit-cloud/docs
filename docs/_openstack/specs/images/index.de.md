@@ -41,6 +41,47 @@ OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images 
 
 Alle von uns zur Verfügung gestellten Linux-Images sind unmodifiziert und kommen direkt von ihren offiziellen Maintainern. Wir testen sie während des Upload-Prozesses auf Kompatibilität.
 
+## Windows-Images
+
+Wir stellen folgende Windows-Images zur Verfügung:
+
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
+
+### Verwendung von Windows-Images:
+
+Windows-Images unterstützen das automatische Zurücksetzen des Administrator-Passworts über Instanz-Metadaten:
+
+- Fügen Sie den Metadaten-Schlüssel `admin_pass` mit einem gewünschten Passwort hinzu.
+- Nach dem Neustart der Instanz wird das Administrator-Passwort auf den angegebenen Wert gesetzt.
+
+{: .warning }
+
+Entfernen Sie die Metadaten nach der Erstkonfiguration. Die Metadaten sind **nicht verschlüsselt** und sollten nur für die initiale Passwortvergabe verwendet werden.
+
+Beispiel:
+
+```
+openstack server set --property admin_pass='MeinSicheresPasswort123' INSTANCE_NAME
+```
+
+- Das Passwort wird nach dem nächsten Neustart angewendet.
+- Entfernen Sie anschließend die Metadaten, um die Instanz zu sichern:
+
+```
+openstack server unset --property admin_pass INSTANCE_NAME
+```
+
+Alternativ können Sie das Administrator-Passwort direkt innerhalb der Instanz über PowerShell setzen:
+
+```
+PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
+**********
+PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
+```
+
+Diese Methode vermeidet, dass das Passwort in unverschlüsselten Metadaten gespeichert wird.
+
 ## Upload von eigenen Images
 
 Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereit gestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
