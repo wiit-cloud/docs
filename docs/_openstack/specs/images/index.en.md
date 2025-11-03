@@ -64,7 +64,7 @@ Remove the metadata after the initial setup. The metadata is **not encrypted** a
 Example:
 
 ```
-openstack server set --property admin_pass='MySecurePassword123' INSTANCE_NAME
+openstack server set --property admin_pass='MySecurePassword123!' INSTANCE_NAME
 ```
 
 - The password will be applied after the next reboot.
@@ -82,7 +82,16 @@ ssh $FLOATING_IP -l Administrator
 
 {: .note }
 
-If you are prompted for a password when connecting via SSH, please wait a little longer. At that point, the background initialization processes of the instance may not yet be fully completed.
+> If you are prompted for a password when connecting via SSH, please wait a little longer. At that point, the background initialization processes of the instance may not yet be fully completed.  
+>
+> The password you set must comply with Windows Server’s default complexity requirements. It must contain characters from at least three of the following four categories:  
+>
+> - Uppercase letters (A–Z)  
+> - Lowercase letters (a–z)  
+> - Digits (0–9)  
+> - Special characters (e.g., !, $, #, %)  
+>
+> For more information, see the [Microsoft documentation](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh994562(v=ws.11)).
 
 ```
 administrator@win-server C:\Users\Administrator> powershell

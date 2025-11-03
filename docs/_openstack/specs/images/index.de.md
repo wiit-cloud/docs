@@ -80,7 +80,16 @@ ssh $FLOATING_IP -l Administrator
 
 {: .note }
 
-Wenn Sie beim Verbindungsaufbau per SSH zur Eingabe eines Passworts aufgefordert werden, warten Sie bitte noch einen Moment. Zu diesem Zeitpunkt sind die Hintergrundprozesse der Instanz möglicherweise noch nicht vollständig abgeschlossen.
+> Wenn Sie beim Verbindungsaufbau per SSH zur Eingabe eines Passworts aufgefordert werden, warten Sie bitte noch einen Moment. Zu diesem Zeitpunkt sind die Hintergrundprozesse der Instanz möglicherweise noch nicht vollständig abgeschlossen.  
+>
+> Das zu setzende Passwort muss den Standard-Komplexitätsregeln von Windows Server entsprechen. Es muss Zeichen aus mindestens drei der folgenden vier Kategorien enthalten:
+>
+> - Großbuchstaben (A–Z)  
+> - Kleinbuchstaben (a–z)  
+> - Ziffern (0–9)  
+> - Sonderzeichen (z. B. !, $, #, %)  
+>
+> Weitere Informationen finden Sie in der [Microsoft-Dokumentation](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh994562(v=ws.11))
 
 ```
 administrator@win-server C:\Users\Administrator> powershell
