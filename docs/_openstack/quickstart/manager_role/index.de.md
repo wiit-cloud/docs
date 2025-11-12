@@ -41,6 +41,8 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
+Wenn Sie die Verwendung einer RC Datei oder einer clouds.yaml bevorzugen, dann finden Sie weiter unten im [Templates](#templates) Bereich passende Beispiele.
+
 Als Domain-Manager können Sie Benutzer, Projekte, Gruppen und Rollen mit den folgenden Befehlen verwalten, nutzen Sie dazu die Befehle in Kombination mit den obenstehenden Parametern:
 
 ### Abfragen der Domain ID 
@@ -141,4 +143,48 @@ role assignment list --names --project $PROJECT
 
 # Rollen einer Gruppe auflisten
 role assignment list --names --group $GROUP
+```
+
+## Templates
+
+{: .warning }
+Die RC Datei und die clouds.yaml welche man von Horizon herunterladen kann, funktionieren leider nicht mit einem Manager Nutzer.
+Stattdessen können die untenstehenden Templates verwendet werden, in denen $MANAGER_USERNAME und $DOMAIN_NAME entsprechend angepasst werden müssen.
+
+### OpenStack RC File
+```bash
+#!/usr/bin/env bash
+export OS_AUTH_URL=https://identity.openstack.de-west-01.wiit-cloud.io/v3
+export OS_USERNAME="$MANAGER_USERNAME"
+export OS_USER_DOMAIN_NAME="$DOMAIN_NAME"
+export OS_DOMAIN_NAME="$DOMAIN_NAME"
+export OS_REGION_NAME="de-west-01"
+export OS_INTERFACE=public
+export OS_IDENTITY_API_VERSION=3
+
+unset OS_TENANT_ID
+unset OS_TENANT_NAME
+
+unset OS_PROJECT_ID
+unset OS_PROJECT_NAME
+unset OS_PROJECT_DOMAIN_ID
+
+# With Keystone you pass the keystone password.
+echo "Please enter your OpenStack Password for domain $OS_DOMAIN_NAME as user $OS_USERNAME: "
+read -sr OS_PASSWORD_INPUT
+export OS_PASSWORD=$OS_PASSWORD_INPUT
+```
+
+### OpenStack clouds.yaml
+```bash
+clouds:
+  de-west-01-manager:
+    auth:
+      auth_url: https://identity.openstack.de-west-01.wiit-cloud.io/v3
+      username: "$MANAGER_USERNAME"
+      user_domain_name: "$DOMAIN_NAME"
+      domain_name: "$DOMAIN_NAME"
+    region_name: "de-west-01"
+    interface: "public"
+    identity_api_version: 3
 ```
