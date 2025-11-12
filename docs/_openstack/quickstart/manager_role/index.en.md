@@ -40,7 +40,7 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-If you prefer to use an RC file or a clouds.yaml then you will find some examples in the [Templates](#templates) section below.
+**Important:** If you prefer to use an RC file or a clouds.yaml then you will find some examples in the [Templates](#templates) section below.
 
 As a domain manager you are able to manage users, projects, groups and role assignments with the following commands combined with the CLI objections above: 
 

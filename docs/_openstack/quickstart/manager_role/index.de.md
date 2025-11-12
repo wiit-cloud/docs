@@ -41,7 +41,7 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-Wenn Sie die Verwendung einer RC Datei oder einer clouds.yaml bevorzugen, dann finden Sie weiter unten im [Templates](#templates) Bereich passende Beispiele.
+**Wichtig:** Wenn Sie die Verwendung einer RC Datei oder einer clouds.yaml bevorzugen, dann finden Sie weiter unten im [Templates](#templates) Bereich passende Beispiele.
 
 Als Domain-Manager können Sie Benutzer, Projekte, Gruppen und Rollen mit den folgenden Befehlen verwalten, nutzen Sie dazu die Befehle in Kombination mit den obenstehenden Parametern:
 
