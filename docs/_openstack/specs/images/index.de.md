@@ -105,31 +105,40 @@ PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
 
 Diese Methode vermeidet, dass das Passwort in unverschlüsselten Metadaten gespeichert wird.
 
-## Upload von eigenen Images
+## Eigene Images in OpenStack hochladen
 
-Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereit gestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
+Sie können eigene Images hochladen, anstatt die bereitgestellten zu verwenden. Die einfachste Methode ist über die OpenStack CLI.
 
 ```bash
 openstack image create \
-  --property hw_disk_bus=scsi \
-  --property hw_qemu_guest_agent=True \
-  --property hw_scsi_model=virtio-scsi \
-  --property os_require_quiesce=True \
-  --private \
-  --disk-format qcow2 \
-  --container-format bare \
-  --file ~/my-image.qcow2 \
-  my-image
+  --property hw_disk_bus=scsi \          # Art des Disk-Busses
+  --property hw_qemu_guest_agent=True \  # Ermöglicht Snapshots laufender VMs
+  --property hw_scsi_model=virtio-scsi \ # SCSI-Modell
+  --property os_require_quiesce=True \   # Erfordert Quiesce für Snapshots
+  --private \                             # Image privat halten
+  --disk-format qcow2 \                   # Image-Format
+  --container-format bare \               # Container-Format
+  --file ~/mein-image.qcow2 \             # Quelle des Images auf dem lokalen Rechner
+  mein-image                              # Name des Images
 ```
 
-Dabei müssen mindestens folgende Parameter spezifiziert werden:
+**Mindestens erforderliche Felder für `openstack image create`:**
 
-- `--disk-format`: Das Format Ihres Quell-Images, z.B. `qcow2`
-- `--file`: Das Quell-Image auf Ihrem System
-- Name des Abbilds: `my-image` als Beispiel.
+- `--disk-format`: z.B. qcow2; hängt vom Image-Format ab.
+- `--file`: Pfad zur Quelldatei des Images auf Ihrem Rechner.
+- Name des Images: z.B. `mein-image`.
 
-Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen ist es notwendig, dass Sie das Property `--property hw_qemu_guest_agent=True` an den von Ihnen genutzten Images setzen und `qemu-guest-agent` auf dem System installieren.
+Um Snapshots laufender Instanzen zu erstellen, empfehlen wir, beim Erstellen des Images `--property hw_qemu_guest_agent=True` zu setzen und den `qemu-guest-agent` im Image zu installieren. Weitere Details finden Sie in unserer [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
 
-Weitere Details finden Sie in unseren [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
+### UEFI-Images
 
-Das gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
+Wenn Ihr Image einen UEFI-Boot benötigt (z.B. moderne Windows-Versionen oder einige Linux-Distributionen), müssen beim Erstellen des Images folgende Eigenschaften gesetzt werden:
+
+```
+--property hw_machine_type='q35' \
+--property hw_firmware_type='uefi'
+```
+
+Diese Einstellungen stellen sicher, dass die VM den Maschinentyp Q35 und die UEFI-Firmware anstelle des Legacy-BIOS verwendet.
+
+Sie können Images auch über das OpenStack Dashboard hochladen. Stellen Sie sicher, dass Sie dort die gleichen Eigenschaften wie in der CLI setzen.
