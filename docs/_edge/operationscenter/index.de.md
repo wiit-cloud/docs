@@ -13,6 +13,11 @@ nav_order: 2000
 >
 > Die Entwicklung und der Support des Operations Centers enden 2026. Geplant ist, die Leistungsfähigkeit der Edge mit unserer WIIT Cloud Native Platform zu kombinieren.
 
+## 2025-11-19 - 1.5.18
+
+#### Fehlerbehebung
+- Backup: Optimiertes Timeout-Handling zu Datenbank- und Openstack-Services
+
 ## 1.5.14
 
 #### Verbesserungen
