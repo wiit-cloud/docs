@@ -27,9 +27,10 @@ Aktuell enthält diese Liste:
 - Ubuntu Minimal 24.04 LTS (Noble Numbat)
 - Ubuntu 22.04 LTS (Jammy Jellyfish)
 - Ubuntu Minimal 22.04 LTS (Jammy Jellyfish)
+- Debian 13 (Trixie)
 - Debian 12 (Bookworm)
 - Debian 11 (Bullseye)
-- CoreOS (stable)
+- Rocky Linux 10
 - Rocky Linux 9
 - Flatcar Linux
 
