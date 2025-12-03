@@ -66,6 +66,12 @@ $ openstack floating ip list
 +--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+
 ```
 
+## FIP auf VM funktioniert nicht, wenn Member eines OVN Load Balancers
+
+Dies ist eine bekannte Einschränkung: Floating IPs (FIPs), die an eine VM angehängt sind, funktionieren nicht, wenn diese VM Member eines OVN Load Balancers ist.
+
+Falls SSH-Zugriff auf die VM erforderlich ist, sollte stattdessen ein Bastion-Host im selben Subnetz verwendet werden, der über eine eigene Floating IP verfügt.
+
 ## Wie kann ich den Flavor einer Instanz ändern (instance resize)?
 
 ### Resizing über die Command Line
