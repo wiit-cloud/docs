@@ -42,31 +42,104 @@ OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images 
 
 Alle von uns zur Verfügung gestellten Linux-Images sind unmodifiziert und kommen direkt von ihren offiziellen Maintainern. Wir testen sie während des Upload-Prozesses auf Kompatibilität.
 
-## Upload von eigenen Images
+## Windows-Images
 
-Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereit gestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
+Wir stellen folgende Windows-Images zur Verfügung:
+
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
+
+### Verwendung von Windows-Images:
+
+Windows-Images unterstützen das automatische Zurücksetzen des Administrator-Passworts über Instanz-Metadaten:
+
+- Fügen Sie den Metadaten-Schlüssel `admin_pass` mit einem gewünschten Passwort hinzu.
+- Nach dem Neustart der Instanz wird das Administrator-Passwort auf den angegebenen Wert gesetzt.
+
+{: .warning }
+
+Entfernen Sie die Metadaten nach der Erstkonfiguration. Die Metadaten sind **nicht verschlüsselt** und sollten nur für die initiale Passwortvergabe verwendet werden.
+
+Beispiel:
+
+```
+openstack server set --property admin_pass='MeinSicheresPasswort123' INSTANCE_NAME
+```
+
+- Das Passwort wird nach dem nächsten Neustart angewendet.
+- Entfernen Sie anschließend die Metadaten, um die Instanz zu sichern:
+
+```
+openstack server unset --property admin_pass INSTANCE_NAME
+```
+
+Alternativ können Sie sich über SSH und die Floating IP verbinden und das Administrator-Passwort direkt innerhalb der Instanz setzen:
+
+```
+ssh $FLOATING_IP -l Administrator
+```
+
+{: .note }
+
+> Wenn Sie beim Verbindungsaufbau per SSH zur Eingabe eines Passworts aufgefordert werden, warten Sie bitte noch einen Moment. Zu diesem Zeitpunkt sind die Hintergrundprozesse der Instanz möglicherweise noch nicht vollständig abgeschlossen.  
+>
+> Das zu setzende Passwort muss den Standard-Komplexitätsregeln von Windows Server entsprechen. Es muss Zeichen aus mindestens drei der folgenden vier Kategorien enthalten:
+>
+> - Großbuchstaben (A–Z)  
+> - Kleinbuchstaben (a–z)  
+> - Ziffern (0–9)  
+> - Sonderzeichen (z. B. !, $, #, %)  
+>
+> Weitere Informationen finden Sie in der [Microsoft-Dokumentation](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh994562(v=ws.11))
+
+```
+administrator@win-server C:\Users\Administrator> powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
+**********
+PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
+```
+
+Diese Methode vermeidet, dass das Passwort in unverschlüsselten Metadaten gespeichert wird.
+
+## Eigene Images in OpenStack hochladen
+
+Sie können eigene Images hochladen, anstatt die bereitgestellten zu verwenden. Die einfachste Methode ist über die OpenStack CLI.
 
 ```bash
 openstack image create \
-  --property hw_disk_bus=scsi \
-  --property hw_qemu_guest_agent=True \
-  --property hw_scsi_model=virtio-scsi \
-  --property os_require_quiesce=True \
-  --private \
-  --disk-format qcow2 \
-  --container-format bare \
-  --file ~/my-image.qcow2 \
-  my-image
+  --property hw_disk_bus=scsi \          # Art des Disk-Busses
+  --property hw_qemu_guest_agent=True \  # Ermöglicht Snapshots laufender VMs
+  --property hw_scsi_model=virtio-scsi \ # SCSI-Modell
+  --property os_require_quiesce=True \   # Erfordert Quiesce für Snapshots
+  --private \                             # Image privat halten
+  --disk-format qcow2 \                   # Image-Format
+  --container-format bare \               # Container-Format
+  --file ~/mein-image.qcow2 \             # Quelle des Images auf dem lokalen Rechner
+  mein-image                              # Name des Images
 ```
 
-Dabei müssen mindestens folgende Parameter spezifiziert werden:
+**Mindestens erforderliche Felder für `openstack image create`:**
 
-- `--disk-format`: Das Format Ihres Quell-Images, z.B. `qcow2`
-- `--file`: Das Quell-Image auf Ihrem System
-- Name des Abbilds: `my-image` als Beispiel.
+- `--disk-format`: z.B. qcow2; hängt vom Image-Format ab.
+- `--file`: Pfad zur Quelldatei des Images auf Ihrem Rechner.
+- Name des Images: z.B. `mein-image`.
 
-Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen ist es notwendig, dass Sie das Property `--property hw_qemu_guest_agent=True` an den von Ihnen genutzten Images setzen und `qemu-guest-agent` auf dem System installieren.
+Um Snapshots laufender Instanzen zu erstellen, empfehlen wir, beim Erstellen des Images `--property hw_qemu_guest_agent=True` zu setzen und den `qemu-guest-agent` im Image zu installieren. Weitere Details finden Sie in unserer [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
 
-Weitere Details finden Sie in unseren [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
+### UEFI-Images
 
-Das gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
+Wenn Ihr Image einen UEFI-Boot benötigt (z.B. moderne Windows-Versionen oder einige Linux-Distributionen), müssen beim Erstellen des Images folgende Eigenschaften gesetzt werden:
+
+```
+--property hw_machine_type='q35' \
+--property hw_firmware_type='uefi'
+```
+
+Diese Einstellungen stellen sicher, dass die VM den Maschinentyp Q35 und die UEFI-Firmware anstelle des Legacy-BIOS verwendet.
+
+Sie können Images auch über das OpenStack Dashboard hochladen. Stellen Sie sicher, dass Sie dort die gleichen Eigenschaften wie in der CLI setzen.
