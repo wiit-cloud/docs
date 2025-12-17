@@ -13,14 +13,14 @@ In OpenStack, “volumes” are persistent storage that you can attach to your r
 
 ## Volume Types
 
-We have three main volume types:
+We have two main volume types:
 
 * high-iops
 * standard
 
 ## Volume Type List
 
-An overview of the three volume types below:
+An overview of the two volume types below:
 
 | Name          | Read Bytes Sec | Read IOPS Sec  | Write Bytes Sec | Write IOPS Sec |
 | :------------ | -------------: | -------------: | --------------: | -------------: |
@@ -29,7 +29,7 @@ An overview of the three volume types below:
 
 ## Choosing a Volume Type
 
-You can select one of the three volume types upon creation of a volume with the following command (Unless otherwise specified, the type "default" is always used):
+You can select one of the two volume types upon creation of a volume with the following command (Unless otherwise specified, the type "default" is always used):
 `$ openstack volume create <volume-name> --size 10 --type high-iops`
 
 ## Changing the Volume Type
