@@ -60,7 +60,7 @@ contexts:
 - context:
     cluster: example-cluster-0
     namespace: mi5
-    user: kubernetes-admin
+    user: oidc
   name: example-cluster-0
 users:
 - name: oidc
