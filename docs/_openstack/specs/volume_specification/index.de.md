@@ -13,14 +13,14 @@ In OpenStack sind "Volumes" persistente Speicher, die Sie an Ihre laufenden Open
 
 ## Volume-Typen
 
-Wir haben drei Hauptvolumentypen:
+Wir haben zwei Hauptvolumentypen:
 
 * high-iops
 * standard
 
 ## Volumen-Typen-Liste
 
-Nachfolgend eine Übersicht der drei Volume-Typen:
+Nachfolgend eine Übersicht der zwei Volume-Typen:
 
 | Name          | Read Bytes Sec | Read IOPS Sec  | Write Bytes Sec | Write IOPS Sec |
 | :------------ | -------------: | -------------: | --------------: | -------------: |
@@ -29,7 +29,7 @@ Nachfolgend eine Übersicht der drei Volume-Typen:
 
 ## Auswählen eines Volume-Typs
 
-Sie können beim Erstellen eines Volumes mit dem folgenden Befehl einen der drei Volume-Typen auswählen (Wenn nicht anders angegeben, wird immer der Typ „Standard“ verwendet):
+Sie können beim Erstellen eines Volumes mit dem folgenden Befehl einen der zwei Volume-Typen auswählen (Wenn nicht anders angegeben, wird immer der Typ „Standard“ verwendet):
 `$ openstack volume create <volume-name> --size 10 --type high-iops`
 
 ## Wechseln des Volume-Typs
