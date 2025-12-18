@@ -27,3 +27,10 @@ When reaching out, include the following information:
 It is possible to enable or disable the cluster-autoscaler feature anytime in one or multiple machineDeployments.
 
 **Note:** Ensure pods have appropriate resource requests and limits to make the autoscaling effective.
+
+## Scale from 0
+
+We support scale from zero. You can set the minimum nodes to 0, and when there are no pods, the autoscaler will scale down to 0 worker.
+
+**One exception is when you need to use node roles for pinning workload to a special node group. That will not work with 0 nodes, 
+as the autoscaler don't know that the role exists and will not start scheduling new nodes.**
