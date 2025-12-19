@@ -89,9 +89,3 @@ Node rotation is necessary for several reasons, including:
 
 
 By taking these steps, you can help ensure a smooth node rotation with minimal impact on your services. If you have any questions or need further assistance, please let us know.
-
-## pre cordoned
-
-This optional feature was implemented to reduce the pod restarts in an node rotation triggered by an image update.
-
-New nodes didn't get cordoned. That results in the following behavior: Drained pods are only scheduled on new nodes. So there should be only one restart per pod per node rotation (if the pods are stable and there is no other reason a pod restart is triggered).
