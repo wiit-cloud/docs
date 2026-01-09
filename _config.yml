@@ -106,9 +106,6 @@ collections:
   ece:
     output: true
     sort_by: nav_order
-  optimist:
-    output: true
-    sort_by: nav_order
   openstack:
     output: true
     sort_by: nav_order
@@ -134,11 +131,6 @@ defaults:
       layout: "default"
   - scope:
       path: "**/*.md"
-      type: "optimist"
-    values:
-      layout: "default"
-  - scope:
-      path: "**/*.md"
       type: "edge"
     values:
       layout: "default"
@@ -159,15 +151,6 @@ just_the_docs:
     edge:
       name: Edge
       nav_exclude: false
-      search_exclude: false
-    optimist:
-      # Give the collection a name
-      name: Optimist
-      # Exclude the collection from the navigation
-      # Supports true or false (default)
-      nav_exclude: false
-      # Exclude the collection from the search
-      # Supports true or false (default)
       search_exclude: false
     openstack:
       # Give the collection a name
