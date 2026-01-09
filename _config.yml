@@ -154,7 +154,7 @@ just_the_docs:
       search_exclude: false
     openstack:
       # Give the collection a name
-      name: OpenStack (de-west-01)
+      name: OpenStack
       # Exclude the collection from the navigation
       # Supports true or false (default)
       nav_exclude: false
