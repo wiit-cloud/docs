@@ -1,7 +1,7 @@
 ---
 title: S3 Security
 lang: "en"
-permalink: /openstack/storage/s3_documentation/security/
+permalink: /openstack/s3_storage/security/
 nav_order: 3150
 parent: Object Storage
 ---
