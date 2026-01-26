@@ -18,13 +18,13 @@ To change the flavors of existing instances, the OpenStack ["Resize Instance"](/
 
 ## Flavor-Types
 
-- s1 (Standard) Flavors: shared CPU, 1:2 CPU / memory ratio  
+- s1 (Standard) Flavors: shared CPU, 1:2 CPU / memory ratio
 - m1 (Memory-Optimized) Flavors: shared CPU, 1:4 CPU / memory ratio
 - d1 (Dedicated) Flavors: pinned CPU, 1:8 CPU / memory ratio
 - g1 (GPU) Flavors: pinned CPU, A100 80GB GPU(s) - only available in SZ1 and no Migration Support
 
 
-All default flavors are available in all availability zones as well as in SZ1 by default, unless specified otherwise.  
+All default flavors are available in all availability zones as well as in SZ1 by default, unless specified otherwise.
 In addition to the standard variant with a 20GB root disk, we offer a .d variant with a 100GB root disk.
 Alternatively, any flavor can used with a volume as the root disk.
 
@@ -81,7 +81,7 @@ Alternatively, any flavor can used with a volume as the root disk.
 | d1.medium   |    4  | 32 GB  | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | d1.large    |    8  | 64 GB  | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | d1.xlarge   |   16  | 128 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
-| d1.2xlarge  |   30  | 256 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| d1.2xlarge  |   32  | 256 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 
 ### d1 (Dedicated) Flavors - Large Root Disk
 
@@ -92,7 +92,7 @@ Alternatively, any flavor can used with a volume as the root disk.
 | d1.medium.d   |     4 | 32 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | d1.large.d    |     8 | 64 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | d1.xlarge.d   |    16 |128 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
-| d1.2xlarge.d  |    30 |256 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| d1.2xlarge.d  |    32 |256 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 
 ### g1 (GPU) Flavors - only available in SZ1
 
