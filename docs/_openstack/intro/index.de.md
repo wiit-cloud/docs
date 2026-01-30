@@ -22,6 +22,7 @@ Aktuell steht die Plattform in der Region "de-west-01" (Standort: Düsseldorf) m
 Die OpenStack-Services in der Region "de-west-01" sind auf drei Rechenzentren verteilt.  
 Horizon, Keystone, Glance, Neutron, Octavia, Designate und der Object Storage werden von der WIIT AG standortübergreifend betrieben.  
 Für Nova und Cinder werden die Rechenzentren als Verfügbarkeitszonen (AZ1, AZ2, AZ3) innerhalb von OpenStack abgebildet. Dadurch können Ressourcen gezielt über die physischen Standorte verteilt werden – mit dem Ziel einer optimalen Ausfallsicherheit.
+Wird bei der Erstellung von Instanzen oder Volumes keine Verfügbarkeitszone angegeben werden diese automatisch in der Zone SZ1 erstellt.
 
 ### Stretched Zone (SZ1)
 
