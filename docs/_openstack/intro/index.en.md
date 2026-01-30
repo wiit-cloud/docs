@@ -22,6 +22,7 @@ Currently, the platform is available in the "de-west-01" region (location: Düss
 The OpenStack services in the "de-west-01" region are distributed across three data centers.  
 Horizon, Keystone, Glance, Neutron, Octavia, Designate, and Object Storage are operated by WIIT AG across all sites.  
 For Nova and Cinder, the data centers are represented as availability zones (AZ1, AZ2, AZ3) within OpenStack. This allows resources to be deliberately distributed across physical sites, aiming for optimal fault tolerance.
+When no availability zone is specified during the creation of instances or volumes they are created in the default zone SZ1.
 
 ### Stretched Zone (SZ1)
 
