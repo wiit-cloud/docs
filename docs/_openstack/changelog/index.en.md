@@ -19,6 +19,10 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ## Completed
 
+### 2026-02-25
+
+- Added volume group type
+
 ### 2025-11-01
 
 - End of beta phase for Octavia OVN-based loadbalancers
