@@ -50,7 +50,7 @@ Wir stellen aktuell den folgenden Gruppentyp bereit:
 | :--- | :--- | :--- | :--- |
 | **standard_group** | Standard-Gruppierung für zusammengehörige Volumes. | Nein | Ja |
 
-> **HINWEIS:** Der Typ `standard_group` bietet eine logische Klammer. Er unterstützt jedoch keine Cross-Volume-Konsistenz (Consistency Groups). Snapshots werden nacheinander erstellt.
+> **HINWEIS:** Der Typ standard_group bietet ausschließlich eine logische Gruppierung. Er garantiert jedoch keine Volume-übergreifende Konsistenz (Consistency Group). Snapshots werden nacheinander erstellt.
 
 ## Nutzung von Volume-Gruppen
 
