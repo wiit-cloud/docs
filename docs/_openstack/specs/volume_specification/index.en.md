@@ -37,3 +37,43 @@ You can select one of the two volume types upon creation of a volume with the fo
 You can adjust the selected type of a volume. To do so, you can use the "Change Volume Type" function in the dashboard. Alternatively, you can change the type via the CLI with the following command:
 `$ openstack volume set <volume-name> --type high-iops`
 However, changing the volume type is only possible if the volume is not currently in use by an instance.
+
+## Volume Group Specifications
+
+In OpenStack, "Volume Groups" provide a way to logically group multiple volumes. This simplifies management (e.g., creating snapshots for all volumes in a group) and helps organize complex application environments.
+
+## Volume Group Type List
+
+We currently provide the following volume group type:
+
+| Name | Description | Consistency Support | Public |
+| :--- | :--- | :--- | :--- |
+| **standard_group** | Standard grouping for related volumes. | No | Yes |
+
+> **NOTE:** The `standard_group` type serves as a logical container. However, it does not support cross-volume consistency (Consistency Groups). Snapshots are taken sequentially.
+
+## Using Volume Groups
+
+### 1. Creating a Volume Group
+
+To create a new group, you must specify the `standard_group` type:
+
+```bash
+openstack volume group create --type standard_group <group-name>
+```
+
+### 2. Adding Volumes to a Group
+
+A volume can be assigned to a group during its creation:
+
+```bash
+openstack volume create --size 10 --group <group-name> <volume-name>
+```
+
+### 3. Creating Group Snapshots
+
+You can initiate a common snapshot point for all volumes within the group:
+
+```bash
+openstack volume group snapshot create --group <group-name> <snapshot-name>
+```
