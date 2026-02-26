@@ -26,6 +26,7 @@ We can support the following updates in a running CKS cluster:
    - Name
    - Replicas
    - Flavor type
+   - Taints
 
 **Please Note:** We cannot migrate a volume from one Availability Zone (AZ) to another. If you plan to update the machine deployment's AZ, be aware that this may cause issues with the volumes associated with that machine deployment.
 

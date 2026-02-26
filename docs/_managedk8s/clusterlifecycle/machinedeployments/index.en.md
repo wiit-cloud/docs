@@ -28,6 +28,7 @@ workers:
   roles:
   - "worker"
   restrictions: []
+  taints: []
   machine_type: s1.large
   use_custom_disk: false
 ```
@@ -46,6 +47,14 @@ If you need any other changes in the configuration, please mention them when req
 
 Please be aware that we only accept this format for role and restriction: `node-role.kubernetes.io/NAME: ""`
 
+* taints can be applied to nodes in a worker pool. Each taint requires a `key` and an `effect`, and optionally a `value`. Supported effects are `NoSchedule`, `PreferNoSchedule`, and `NoExecute`. This is useful for dedicating worker pools to specific workloads, for example GPU nodes. Example:
+  ```yaml
+  taints:
+  - key: "nvidia.com/gpu"
+    value: "present"
+    effect: "NoSchedule"
+  ```
+
 ## Machine Deployment Updates
 
 - We can update the machine deployment for you, you can:
@@ -54,6 +63,7 @@ Please be aware that we only accept this format for role and restriction: `node-
   * update the application credentials
   * enable/disable the autoscaler
   * enable/disable oidc
+  * add, update, or remove taints
 
 - We can create a new machine deployment(s) for you.
 - Please be aware that: 
