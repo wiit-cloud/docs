@@ -79,7 +79,7 @@ If not specified, the cluster will be deployed with the latest supported Kuberne
 We support the manual setting of the major.minor (e.g. 1.33), this needs to manual updated if a new version is needed. 
 The Patch level is updated by us and will be automatically deployed.
 
-For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesverions/)
+For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesversions/)
 
 #### OpenStack Network
 Provide an existing network ID, or we will create a new network for you.
