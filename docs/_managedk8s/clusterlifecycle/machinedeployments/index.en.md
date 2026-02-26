@@ -47,12 +47,14 @@ If you need any other changes in the configuration, please mention them when req
 
 Please be aware that we only accept this format for role and restriction: `node-role.kubernetes.io/NAME: ""`
 
-* taints can be applied to nodes in a worker pool. Each taint requires a `key` and an `effect`, and optionally a `value`. Supported effects are `NoSchedule`, `PreferNoSchedule`, and `NoExecute`. This is useful for dedicating worker pools to specific workloads, for example GPU nodes. Example:
+* Taints can be applied to nodes in a worker pool (`workers[].taints`). Each taint requires a `key` and an `effect`, and optionally a `value`. Supported effects are `NoSchedule`, `PreferNoSchedule`, and `NoExecute`. This is useful for dedicating worker pools to specific workloads, for example GPU nodes. Example:
   ```yaml
-  taints:
-  - key: "nvidia.com/gpu"
-    value: "present"
-    effect: "NoSchedule"
+  workers:
+  - name: <worker-pool-name>
+    taints:
+    - key: "nvidia.com/gpu"
+      value: "present"
+      effect: "NoSchedule"
   ```
 
 ## Machine Deployment Updates
