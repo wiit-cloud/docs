@@ -40,6 +40,7 @@ If you need any other changes in the configuration, please mention them when req
     * is not a windows image
 * Number of replicas  the default is 3 nodes. 
 * Availability zone (AZ) - if preferred, specify the AZ from `az1`, `az2`, `az3` or `sz1` available zones. The default value will be a random AZ.
+  * Warning: `sz1` is a special stretched zone. Please review [Stretched Zone (SZ1)](https://docs.wiit-cloud.io/openstack/intro/#stretched-zone-sz1) before selecting it.
   * `sz1` may not be combined with other AZs in the same machine deployment.
   * If there are multiple AZs configured, there will be a machineDeployment created for each AZ with the specified replica count. For example if you want to use 3 replicas with AZs az1 and az2, there will be 2 machineDeployments each with 3 replicas.
 * Custom root disk size and/or volume type - if not enabled for more information please see [here](/managedk8s/clusterlifecycle/rootdisks)
