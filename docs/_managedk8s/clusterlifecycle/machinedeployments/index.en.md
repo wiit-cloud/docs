@@ -11,7 +11,7 @@ parent: Cluster Lifecycle
 
 - We are responsible for creating machine deployments based on the your requirements.
 - Each machine deployment will be configured to meet specific needs such as compute capacity, storage, and availability zone.
-- Please provide the name of the machineDeployment(s). If the machine deployment name is not provided, the name will default to the format `clusterName-az-md` (e.g., cluster-test-ix2-md).
+- Please provide the name of the machineDeployment(s). If the machine deployment name is not provided, the name will default to the format `clusterName-az-md` (e.g., cluster-test-az2-md).
 - We can enable autoscaler for you, please see [here](/managedk8s/clusterlifecycle/autoscaling/)
 - We can enable pre cordoned (cluster wide) so all nodes get cordoned before rotating. Detail see Node Rotation Section.
 - The default machine deployment configuration is the following:
@@ -39,8 +39,10 @@ If you need any other changes in the configuration, please mention them when req
     * has at least 2 cores and 2 GB RAM
     * is not a windows image
 * Number of replicas  the default is 3 nodes. 
-* Availability zone (AZ) - if preferred, specify the AZ from `ix1`, `ix2` or `es1` available zones. The default value will be a random AZ.
-  * If there are multiple AZs configured, there will be a machineDeployment created for each AZ with the specified replica count. For example if you want to use 3 replicas with AZs ix1 and ix2, there will be 2 machineDeployments each with 3 replicas.
+* Availability zone (AZ) - if preferred, specify the AZ from `az1`, `az2`, `az3` or `sz1` available zones. The default value will be a random AZ.
+  * Warning: `sz1` is a special stretched zone. Please review [Stretched Zone (SZ1)](https://docs.wiit-cloud.io/openstack/intro/#stretched-zone-sz1) before selecting it.
+  * `sz1` may not be combined with other AZs in the same machine deployment.
+  * If there are multiple AZs configured, there will be a machineDeployment created for each AZ with the specified replica count. For example if you want to use 3 replicas with AZs az1 and az2, there will be 2 machineDeployments each with 3 replicas.
 * Custom root disk size and/or volume type - if not enabled for more information please see [here](/managedk8s/clusterlifecycle/rootdisks)
 * roles are set as labels on the nodes. where the labels have the following format: `node-role.kubernetes.io/<ROLENAME>: ""`
 * restrictions are set as labels on the nodes. where the labels have the following format: `node-role.kubernetes.io/<RESTRICTIONNAME>: ""`
