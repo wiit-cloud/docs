@@ -31,6 +31,7 @@ replicas:
 flavor: 
 # by default random-az
 availability_zone: 
+# supported values: az1, az2, az3, sz1 (sz1 may not be combined with other AZs)
 
 ## add the autoscaler (default: disabled)
 min_size:
