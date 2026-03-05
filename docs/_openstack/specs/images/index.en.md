@@ -33,6 +33,8 @@ The current list of images is as follows:
 - Rocky Linux 10
 - Rocky Linux 9
 - Flatcar Linux
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
 
 These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest`-suffix. All previous versions of an imags are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventially deleted if they are no longer in use at all.
 
@@ -42,29 +44,104 @@ OpenStack and many deployment tools support using these images either by name or
 
 All of our provided linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable.
 
-## Uploading your own images
+## Windows Images
 
-Instead of using the images we provide, you can upload your own images. Easiest way of doing so is to use the OpenStack CLI.
+We provide the following Windows images:
+
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
+
+### Using Windows images:
+
+Windows images support automatic password reset using instance metadata:
+
+- Add metadata key `admin_pass` with a desired password.
+- After the instance reboots, the Administrator password is set to the provided value.
+
+{: .warning }
+
+Remove the metadata after the initial setup. The metadata is **not encrypted** and should only be used for initial password setup.
+
+Example:
+
+```
+openstack server set --property admin_pass='MySecurePassword123!' INSTANCE_NAME
+```
+
+- The password will be applied after the next reboot.
+- Remove metadata afterwards to secure the instance:
+
+```
+openstack server unset --property admin_pass INSTANCE_NAME
+```
+
+Alternatively, you can connect via SSH and the floating IP to set the Administrator password directly inside the instance:
+
+```
+ssh $FLOATING_IP -l Administrator
+```
+
+{: .note }
+
+> If you are prompted for a password when connecting via SSH, please wait a little longer. At that point, the background initialization processes of the instance may not yet be fully completed.  
+>
+> The password you set must comply with Windows Server’s default complexity requirements. It must contain characters from at least three of the following four categories:  
+>
+> - Uppercase letters (A–Z)  
+> - Lowercase letters (a–z)  
+> - Digits (0–9)  
+> - Special characters (e.g., !, $, #, %)  
+>
+> For more information, see the [Microsoft documentation](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh994562(v=ws.11)).
+
+```
+administrator@win-server C:\Users\Administrator> powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
+**********
+PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
+```
+
+This method avoids storing the password in unencrypted metadata.
+
+## Uploading Your Own Images to OpenStack
+
+You can upload your own custom images instead of using the ones provided. The easiest method is via the OpenStack CLI.
 
 ```bash
 openstack image create \
-  --property hw_disk_bus=scsi \
-  --property hw_qemu_guest_agent=True \
-  --property hw_scsi_model=virtio-scsi \
-  --property os_require_quiesce=True \
-  --private \
-  --disk-format qcow2 \
-  --container-format bare \
-  --file ~/my-image.qcow2 \
-  my-image
+  --property hw_disk_bus=scsi \        # Disk bus type
+  --property hw_qemu_guest_agent=True \ # Enables snapshotting of running VMs
+  --property hw_scsi_model=virtio-scsi \ # SCSI model
+  --property os_require_quiesce=True \   # Requires quiesce for snapshots
+  --private \                            # Keep image private
+  --disk-format qcow2 \                  # Image format
+  --container-format bare \              # Container format
+  --file ~/my-image.qcow2 \              # Source image file
+  my-image                               # Name of the image
 ```
 
-The command to upload images requires these fields at a minimum:
+**Minimum required fields for `openstack image create`:**
 
-- `--disk-format`: qcow2, in this case. This depends on the image format.
-- `--file`: The source file on your machine
-- Name of the Image: `my-image` for example.
+- `--disk-format`: e.g., qcow2; depends on your image format.
+- `--file`: Path to the source image file on your machine.
+- Image name: e.g., `my-image`.
 
-Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image. See our [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
+To enable snapshot creation on running instances, we recommend setting `--property hw_qemu_guest_agent=True` when creating the image, and installing the `qemu-guest-agent` inside the image. See our [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
 
-You can also use the dashboard to upload images. Make sure to use the same properties there.
+### UEFI Images
+
+If your image requires UEFI boot (for example, modern Windows or some Linux distributions), you must set the following properties when creating the image:
+
+```
+--property hw_machine_type='q35' \
+--property hw_firmware_type='uefi'
+```
+
+These settings ensure the VM uses a Q35 machine type and UEFI firmware instead of the legacy BIOS.
+
+You can also upload images via the OpenStack Dashboard. Ensure that you apply the same properties as you would in the CLI.

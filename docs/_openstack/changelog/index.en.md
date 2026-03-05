@@ -14,6 +14,7 @@ Notable Changes on the OpenStack Platform are documented here.
 ### To be announced
 
 - Local Storage Flavor Availability
+- Windows Images GA
 
 ---
 
