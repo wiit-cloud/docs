@@ -47,6 +47,32 @@ Zusätzlich zum virtuellen Port ist es notwendig die VIP als allowed address fü
 openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
 ```
 
+Instanzen können auf der OpenStack Plattform jederzeit aufgrund von Wartungsarbeiten, Lastverteilung oder Hardware-Ausfällen zwischen einzelnen Hypervisoren verschoben werden.
+
+Wenn einer VIP eine FIP assigned ist und nur die FIP genutzt wird kann es unter gewissen Umständen zur Nichterreichbarkeit der FIP kommen.
+
+Ursachen hierfür können bspw. viele Arbeitsspeicherzugriffe während der Migration sein.
+
+Wir raten daher in solchen Setups regelmäßig GARP zu senden:
+
+Beispiel für keepalived:
+
+```bash
+# /etc/keepalived/keepalived.conf
+
+# minimum time interval for refreshing gratuitous ARPs while MASTER
+vrrp_garp_master_refresh 10  # secs, default 0 (no refreshing)
+
+# number of gratuitous ARP messages to send at a time while MASTER
+vrrp_garp_master_refresh_repeat 2 # default 1 
+```
+
+Beispiel für Corosync / Pacemaker:
+
+```bash
+sudo pcs resource update res_ip arp_count_refresh=1 arp_bg=true
+```
+
 ## Warum werden mir Floating IPs berechnet, die ich gar nicht benutze?
 
 Der Grund dafür ist mit hoher Wahrscheinlichkeit, dass Floating IPs erstellt wurden, aber nach der Benutzung nicht korrekt gelöscht wurden.
