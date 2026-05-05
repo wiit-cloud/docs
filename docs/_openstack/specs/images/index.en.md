@@ -23,6 +23,8 @@ For your convenience, we're providing you with a number of selected images.
 
 The current list of images is as follows:
 
+- Ubuntu 26.04 LTS (Resolute Raccoon)
+- Ubuntu Minimal 26.04 LTS (Resolute Raccoon)
 - Ubuntu 24.04 LTS (Noble Numbat)
 - Ubuntu Minimal 24.04 LTS (Noble Numbat)
 - Ubuntu 22.04 LTS (Jammy Jellyfish)
@@ -40,7 +42,7 @@ OpenStack and many deployment tools support using these images either by name or
 
 ## Linux Images
 
-All of our provided linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable.
+All of our provided linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable. These images are provided for convenience purposes only, on an 'as-is' basis. Please note that we cannot provide any technical support, maintenance, or troubleshooting for them. Please upload your own custom images if you have specific requirements.
 
 ## Uploading your own images
 
