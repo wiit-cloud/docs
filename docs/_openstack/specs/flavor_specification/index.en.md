@@ -96,7 +96,7 @@ Alternatively, any flavor can used with a volume as the root disk.
 
 ### g1 (GPU) Flavors - only available in SZ1
 
-| Bezeichnung   |GPU         | Cores |   RAM |  Disk  | IOPS Limits (read/write) | IO throughput rate (read/write) |
+| Name          |GPU         | Cores |   RAM |  Disk  | IOPS Limits (read/write) | IO throughput rate (read/write) |
 | :----------   |-----------:| ----: | ----: | ----:  | -----------------------: | ------------------------------: |
 | g1.xlarge-1g  |1x A100 80GB|    30 |480 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | g1.2xlarge-2g |2x A100 80GB|    60 |960 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
