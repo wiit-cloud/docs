@@ -18,7 +18,8 @@ If the autoscaler identifies nodes that are underutilized or completely not used
 The Cluster Nodes Autoscaler is not enabled by default. To enable it, please contact us using the instructions provided [here](/managedk8s/about/support/).
 
 When reaching out, include the following information:
-- The cluster ID and Name
+
+- [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name)
 - The Specific Machine Deployment(s) Name
 - Minimum Number of Worker Nodes in the specific Machine Deployment: Define the minimum number of nodes that should always be maintained in the specific Machine Deployment.
 - Maximum Number of Worker Nodes: Define the maximum number of nodes in the specific Machine Deployment the cluster can scale up to.
@@ -26,3 +27,7 @@ When reaching out, include the following information:
 It is possible to enable or disable the cluster-autoscaler feature anytime in one or multiple machineDeployments.
 
 **Note:** Ensure pods have appropriate resource requests and limits to make the autoscaling effective.
+
+## Scale from 0
+
+We support scale from zero. You can set the minimum nodes to 0, and when there are no pods, the autoscaler will scale down to 0 worker.

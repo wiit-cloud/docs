@@ -38,24 +38,24 @@ footer_external_links:
     - label: Website
       url: https://wiit.cloud
     - label: Impressum
-      url: https://www.myloc.de/impressum.html
+      url: https://wiit.cloud/de/unternehmen/ueber-uns/impressum
     - label: Datenschutz
-      url: https://gec.io/datenschutz/
+      url: https://wiit.cloud/de/datenschutz
   en:
     - label: Website
       url: https://wiit.cloud
     - label: Imprint
-      url: https://www.myloc.de/impressum.html
+      url: https://wiit.cloud/de/unternehmen/ueber-uns/impressum
     - label: Data Privacy
-      url: https://gec.io/datenschutz/
+      url: https://wiit.cloud/en/privacy-policy
 
 footer_hosted_with_love:
   de:
     label: "Mit liebe gehostet bei GitHub"
-    url: https://github.com/wiit-ag/docs
+    url: https://github.com/wiit-cloud/docs
   en:
     label: "Hosted with love on GitHub"
-    url: https://github.com/wiit-ag/docs
+    url: https://github.com/wiit-cloud/docs
 
 # Plugins
 plugins:
@@ -106,7 +106,7 @@ collections:
   ece:
     output: true
     sort_by: nav_order
-  optimist:
+  openstack:
     output: true
     sort_by: nav_order
   edge:
@@ -124,10 +124,9 @@ defaults:
       type: "ece"
     values:
       layout: "default"
-
   - scope:
       path: "**/*.md"
-      type: "optimist"
+      type: "openstack"
     values:
       layout: "default"
   - scope:
@@ -150,12 +149,12 @@ just_the_docs:
       nav_exclude: false
       search_exclude: false
     edge:
-      name: Oncite Open Edition
+      name: Edge
       nav_exclude: false
       search_exclude: false
-    optimist:
+    openstack:
       # Give the collection a name
-      name: Optimist
+      name: OpenStack
       # Exclude the collection from the navigation
       # Supports true or false (default)
       nav_exclude: false

@@ -14,7 +14,7 @@ cluster_name:
 customer_id: 
 
 # other k8s version
-(by default latest k8s version provided by us)
+(by default latest supported k8s minor version provided by us)
 kubernetes_version: 
 
 # controlplane flavor 
@@ -31,6 +31,8 @@ replicas:
 flavor: 
 # by default random-az
 availability_zone: 
+# supported values: az1, az2, az3, sz1 (sz1 may not be combined with other AZs)
+# warning: sz1 is a special stretched zone, see https://docs.wiit-cloud.io/openstack/intro/#stretched-zone-sz1
 
 ## add the autoscaler (default: disabled)
 min_size:
@@ -38,10 +40,28 @@ max_size:
 ```
 Detailed information about options can be found below.
 
-### What You Will Receive
-After the cluster is created, you will receive an admin kubeconfig through a secure method, along with a unique Cluster ID.
+## Optional Settings
 
-**For further communication we need the cluster id and cluster name to identify your cluster.**
+The IP ranges can be adjusted for pods in-cluster addresses and the addresses services will get.
+If not provided, we will use the defaults shown below.
+Note that these should only be changed if a clash occurs with an externally routed network.
+
+```
+# the IP range for pod allocation
+pod_cidr: 172.25.0.0/16
+
+# the IP range for service allocation
+service_cidr: 10.96.0.0/12
+
+# the core dns address is the 10th address of the service cidr
+dns_service_address: 10.96.0.10
+```
+
+## What You Will Receive
+After the cluster is created, you will receive an admin kubeconfig through a secure method, along with a [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name) for later support queries.
+
+**For further communication we need the [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name) to identify your cluster.**
+
 # Detailed Information
 
 ## Prerequisites
@@ -58,20 +78,27 @@ You must have an existing or newly created OpenStack tenant. In this tenant, cre
 ### Optional Requirements and Configurable Features (with Default Values)
 #### Kubernetes Version
 If not specified, the cluster will be deployed with the latest supported Kubernetes minor version.
-For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesverions/)
+We support the manual setting of the major.minor (e.g. 1.33), this needs to manual updated if a new version is needed. 
+The Patch level is updated by us and will be automatically deployed.
+
+For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesversions/)
 
 #### OpenStack Network
 Provide an existing network ID, or we will create a new network for you.
+Provided Network will not be deleted, wen the cluster is deleted. They can be reused, after cluster deletion.
+Automatically created ones will be deleted with cluster deletion.
 
+If you have no special requirements, use the automatically created ones. So you don't need any creation/cleanup process on our side.
+For requirements like, shared networks, added VPNs, etc. please use the provides options.
 
 ### Machine Deployments, Worker Nodes and Autoscaling
 For Machine Deployment look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/)
 
-As ther are a some more options. 
+As there are a some more options. 
 
 Default will get you a single Machine Deployment with 3 Nodes on 1 AZ
 
 #### Cluster autoscaler  (the same for each machineDeployment if more than one)
-We support the Cluster Autoscalar which we can activate seperatly for each Machine Deploment.
+We support the Cluster Autoscaler which we can activate separately for each Machine Deployment.
 
 Details can be found [here](/managedk8s/clusterlifecycle/autoscaling/)
