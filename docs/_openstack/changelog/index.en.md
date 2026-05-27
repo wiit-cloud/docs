@@ -19,6 +19,10 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ## Completed
 
+### 2026-06-01
+
+- Added Smart (t1) flavors
+
 ### 2026-02-25
 
 - Added volume group type
