@@ -36,7 +36,7 @@ The current list of images is as follows:
 - Rocky Linux 9
 - Flatcar Linux
 
-These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest`-suffix. All previous versions of an imags are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventially deleted if they are no longer in use at all.
+These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest`-suffix. All previous versions of an image are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventually deleted if they are no longer in use at all.
 
 OpenStack and many deployment tools support using these images either by name or by their UUID. By using a name, for example `Ubuntu 24.04 Noble Numbat - Latest`, you can easily stay up to date by redeploying or rebuilding your instances, even if we replace the image in the interim. You can avoid this behaviour by using the UUID instead. This may be useful for cluster deployments, where you want to ensure that all nodes are running the same version of the image.
 
