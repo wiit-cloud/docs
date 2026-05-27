@@ -63,7 +63,7 @@ plugins:
 
 # Styles
 # WORKAROUND
-# We disable sourcemaps, otherwhise i18n via polyglot leads to broken styles compiled from scss
+# We disable sourcemaps, otherwise i18n via polyglot leads to broken styles compiled from scss
 # See <https://github.com/untra/polyglot#compatibility>, <https://github.com/untra/polyglot/issues/107#issuecomment-598274075>
 sass:
   sourcemap: never

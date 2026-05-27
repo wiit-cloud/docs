@@ -159,7 +159,7 @@ Attempts to use multi-attached volumes without cluster-capable file systems carr
 ## Why am I unable to create a snapshot of a running instance?
 
 In order to provide consistent snapshots, the OpenStack Platform utilises the property [os_require_quiesce=yes](https://opendev.org/openstack/nova/commit/926e58a179ef373646164bea40dc46b1ebef4748).
-This property allows `fsfreeze` to suspend and resume access on running instances and ensures ensures that a consistent image is created from the disk.
+This property allows `fsfreeze` to suspend and resume access on running instances and ensures that a consistent image is created from the disk.
 
 The OpenStack Platform supports the following options to facilitate the creation of snapshots on running instances:
 

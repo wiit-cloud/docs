@@ -26,7 +26,7 @@ To change the flavors of existing instances, the OpenStack ["Resize Instance"](/
 
 All default flavors are available in all availability zones as well as in SZ1 by default, unless specified otherwise.
 In addition to the standard variant with a 20GB root disk, we offer a .d variant with a 100GB root disk.
-Alternatively, any flavor can used with a volume as the root disk.
+Alternatively, any flavor can be used with a volume as the root disk.
 
 ### s1 (Standard) Flavors
 

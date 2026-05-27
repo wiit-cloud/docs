@@ -7,13 +7,11 @@ nav_order: 9200
 last_modified_date: 2025-07-21
 ---
 
-OpenStack Default Quotas
-========================
+# OpenStack Default Quotas
 
-Im der Openstack Plattform haben wir Standardwerte für den OpenStack Compute-Dienst, den OpenStack Block Storage-Dienst und den OpenStack Networking-Dienst definiert. Wir haben auch separate Quotas für den Octavia Loadbalancer-Dienst und die zugehörigen Komponenten. Diese Standardwerte für neu erstellte Projekte sind unten aufgeführt, sollten sie eine Anpassung benötigen erstellen sie bitte ein Ticket über unseren Helpdesk: [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
+In der OpenStack-Plattform haben wir Standardwerte für den OpenStack Compute-Dienst, den OpenStack Block Storage-Dienst und den OpenStack Networking-Dienst definiert. Wir haben auch separate Quotas für den Octavia Loadbalancer-Dienst und die zugehörigen Komponenten. Diese Standardwerte für neu erstellte Projekte sind unten aufgeführt, sollten sie eine Anpassung benötigen erstellen sie bitte ein Ticket über unseren Helpdesk: [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
 
-Compute
-----------------
+## Compute
 
 |**Field**                 |**Value**            |
 |:-------------------------|:--------------------|
@@ -28,8 +26,7 @@ Compute
 | Server Groups            |        10           |
 | Server Group Members     |        10           |
 
-Block Storage
-----------------------
+## Block Storage
 
 |**Field**                 |**Value**            |
 |:-------------------------|:--------------------|
@@ -40,8 +37,7 @@ Block Storage
 | Snapshots                |        100          |
 | Volumes                  |        100          |
 
-Network
-----------------
+## Network
 
 |**Field**                 |**Value**            |
 |:-------------------------|:--------------------|
@@ -55,8 +51,7 @@ Network
 | RBAC Policies            |        100          |
 | Subnetpools              |        Unlimited    |
 
-Octavia Loadbalancers
-----------------
+## Octavia Loadbalancers
 
 |**Field**                 |**Value**            |
 |:-------------------------|:--------------------|

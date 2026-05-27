@@ -9,7 +9,7 @@ last_modified_date: 2025-07-21
 
 # Flavor Spezifikationen
 
-"Flavor" bezeichnet im OpenStack-Kontext ein Hardware-Profil, das eine virtuelle Maschine nutzt bzw. nutzen kann. Im der OpenStack-Plattform
+"Flavor" bezeichnet im OpenStack-Kontext ein Hardware-Profil, das eine virtuelle Maschine nutzt bzw. nutzen kann. In der OpenStack-Plattform
 sind diverse Standard-Hardwareprofile (Flavors) eingerichtet. Diese haben unterschiedliche Limits und Begrenzungen, welche hier für alle
 verfügbaren Flavors aufgelistet sind.
 
