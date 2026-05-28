@@ -182,3 +182,20 @@ openstack server stop ExampleInstance
 openstack server image create --name ExampleInstanceSnapshot ExampleInstance
 openstack server start ExampleInstance
 ```
+
+## How are hypervisor outages handled and how can I influence the behavior?
+
+In case of a hypervisor outage our platform automatically triggers the rescheduling of the affected instances to different hypervisors.
+Instance types which cannot be migrated without data loss are an exception of this rule.
+Right now, these are:
+
+- L1 instances
+
+Sometimes an external orchestrator like Kubernetes is in use and handles the outage by deleting and recreating the instance.
+For such cases, the rescheduling of the instance can be disbled by setting the following property:
+
+```bash
+openstack server set ExampleInstance --property HA_Enabled=False
+```
+
+The same property can also be specified while creating the instance.
