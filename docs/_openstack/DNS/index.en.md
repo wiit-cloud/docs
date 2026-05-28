@@ -9,7 +9,7 @@ nav_order: 8999
 
 ## Start
 
-The Openstack OpenStack Platform includes a technology called DNS-as-a-Service (DNSaaS), also known as Designate.
+The OpenStack Platform includes a technology called DNS-as-a-Service (DNSaaS), also known as Designate.
 DNSaaS includes a REST API for domain and records management, is multi-tenant and integrates the OpenStack Identity Service (Keystone) for authentication.
 
 In this step, we will create a fictitious zone (domain) with MX and A records and store the appropriate IP/CNAME.
