@@ -22,6 +22,7 @@ Um die Flavors bestehender Instanzen zu ändern, kann die OpenStack-Option [„R
 - s1 (Standard) Flavors: shared CPU, 1:2 CPU / memory ratio
 - m1 (Memory-Optimized) Flavors: shared CPU, 1:4 CPU / memory ratio
 - d1 (Dedicated) Flavors: pinned CPU, 1:8 CPU / memory ratio
+- t1 (Smart) Flavors: shared CPU, 1:2 CPU / memory ratio - nur verfügbar in AZ1, AZ2, AZ3 und kein SLA
 - g1 (GPU) Flavors: pinned CPU, A100 80GB GPU(s)  - nur verfügbar in SZ1 und keine Live Migrationen möglich
 
 
@@ -94,6 +95,28 @@ Alternativ kann jeder Flavor in Kombination mit einem Volume als Root Disk erste
 | d1.large.d    |     8 | 64 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | d1.xlarge.d   |    16 |128 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 | d1.2xlarge.d  |    32 |256 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+
+### t1 (Smart) Flavors - nur verfügbar in AZ1, AZ2, AZ3 - kein SLA
+
+| Bezeichnung | Kerne |   RAM |  Disk | IOPS Limits (read/write) | IO throughput rate (read/write) |
+| :---------- | ----: | ----: | ----: | -----------------------: | ------------------------------: |
+| t1.micro    |     1 |  2 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.small    |     2 |  4 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.medium   |     4 |  8 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.large    |     8 | 16 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.xlarge   |    16 | 32 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.2xlarge  |    32 | 64 GB | 20 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+
+### t1 (Smart) Flavors - Large Root Disk - nur verfügbar in AZ1, AZ2, AZ3 - kein SLA
+
+| Bezeichnung | Kerne |   RAM |  Disk  | IOPS Limits (read/write) | IO throughput rate (read/write) |
+| :---------- | ----: | ----: | -----: | -----------------------: | ------------------------------: |
+| t1.micro.d  |     1 |  2 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.small.d  |     2 |  4 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.medium.d |     4 |  8 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.large.d  |     8 | 16 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.xlarge.d |    16 | 32 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
+| t1.2xlarge.d|    32 | 64 GB | 100 GB |              1000 / 1000 |             200 MB/s / 200 MB/s |
 
 ### g1 (GPU) Flavors - nur verfügbar in SZ1
 
