@@ -32,8 +32,8 @@ Aktuell enthält diese Liste:
 - Debian 13 (Trixie)
 - Debian 12 (Bookworm)
 - Debian 11 (Bullseye)
-- Rocky Linux 10
-- Rocky Linux 9
+- Rocky Linux 10 (Red Quartz)
+- Rocky Linux 9 (Blue Onyx)
 - Flatcar Linux
 
 Diese Images werden täglich auf neue Versionen überprüft. Die neueste verfügbare Version ist immer ein "public image" und endet auf `Latest`. Alle vorherigen Versionen eines Images werden durch unseren Automatismus in "community images" umgewandelt, umbenannt (`latest` wird durch das Datum des ersten Uploads ersetzt), und bei ausbleibender Verwendung (keinerlei Nutzung) schlussendlich gelöscht.
