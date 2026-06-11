@@ -2,7 +2,7 @@
 title: VPN as a Service
 lang: "en"
 permalink: /openstack/networking/vpnaas/
-nav_order: 2300
+nav_order: 2400
 parent: Networking
 ---
 
