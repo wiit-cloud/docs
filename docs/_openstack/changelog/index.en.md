@@ -14,7 +14,7 @@ Notable Changes on the OpenStack Platform are documented here.
 ### To be announced
 
 - Local Storage Flavor Availability
-- [Network QoS Enforcement](https://docs.wiit-cloud.io/en/openstack/networking/qos/)
+- [Network QoS Enforcement](https://docs.wiit-cloud.io/openstack/networking/qos/)
 
 ---
 
