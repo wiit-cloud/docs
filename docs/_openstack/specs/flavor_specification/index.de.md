@@ -30,6 +30,8 @@ Alle Flavors sind standardmäßig sofern es nicht anderweitig angegeben ist in a
 Neben der Standard Variante mit 20GB Root Disk bieten wir eine .d Variante mit 100GB Root Disk an.
 Alternativ kann jeder Flavor in Kombination mit einem Volume als Root Disk erstellt werden.
 
+Informationen zu den Netzwerkbandbreitenbegrenzungen finden Sie [hier](https://docs.wiit-cloud.io/de/openstack/networking/qos/).
+
 ### s1 (Standard) Flavors
 
 | Bezeichnung | Kerne |   RAM |  Disk | IOPS Limits (read/write) | IO throughput rate (read/write) |
