@@ -18,9 +18,10 @@ We use the GPU Discovery service to apply a set of labels to each node, keeping 
 
 ### Maintenance
 GPU machine deployments use the same maintenance window as regular machine deployments. 
-In addition, we have a second [Maintenance from Openstack](https://docs.wiit-cloud.io/openstack/intro/#maintenance). 
-To be consistent we expose the Openstack Metadata as a node label in k8s.
+In addition, OpenStack has its own [maintenance mechanism](https://docs.wiit-cloud.io/openstack/intro/#maintenance).
 
-So in case of a Openstack Maintenance we set the node label `openstack.cks.wiit-cloud.io/maintenance_planned_for` with the Reboot date as value.
+For consistency, we expose the relevant OpenStack metadata as Kubernetes node labels.
+
+When an OpenStack maintenance that requires a hypervisor reboot is scheduled, we set the `openstack.cks.wiit-cloud.io/maintenance_planned_for` node label to the planned reboot date.
 
 For all other features look into the [Machine Deployment](https://docs.wiit-cloud.io/managedk8s/clusterlifecycle/machinedeployments/).
