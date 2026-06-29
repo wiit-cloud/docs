@@ -32,11 +32,11 @@ It is possible to enable or disable the cluster-autoscaler feature anytime in on
 
 The autoscaler has two scopes. You can use either or both.
 
-## Per machine deployment
+## Per worker group
 
-These settings apply to a single machine deployment. Enabling, the minimum, and the maximum
-(above) are per machine deployment. You can also tune the scale-down and provisioning
-behaviour for one pool. Each option overrides the cluster-wide default for that pool only:
+Enabling the autoscaler and setting the minimum and maximum node count are per worker group.
+You can also tune the scale-down and provisioning behaviour for a single worker group. Each
+option overrides the cluster-wide default for that group only:
 
 | Option | Controls |
 |---|---|
@@ -50,12 +50,12 @@ behaviour for one pool. Each option overrides the cluster-wide default for that 
 ## Cluster-wide
 
 The autoscaler runs as a single process for the whole cluster. Process-level flags apply to
-every machine deployment at once. You set them through extra args — see
-[Component Extra Args](/managedk8s/clusterlifecycle/extraargs/).
+every worker group at once. You set them through extra args (see
+[Component Extra Args](/managedk8s/clusterlifecycle/extraargs/)).
 
 To request either scope, open a [support request](/managedk8s/about/support/) with your
-[WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name), the machine deployment
-name for per-pool changes, and the options or flags you want.
+[WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name), the worker group name for
+per-group changes, and the options or flags you want.
 
 ## Scale from 0
 

@@ -21,9 +21,9 @@ and the flag value. We add the flags to your cluster.
 | `kube-apiserver`                | The cluster API server. Also where OIDC login is configured (see [OIDC](/managedk8s/clusterlifecycle/oidc/)).                                                                                                                            |
 | `kube-controller-manager`       | Core control loops (e.g. garbage collection).                                                                                                                                                                                            |
 | `kube-scheduler`                | Pod scheduling.                                                                                                                                                                                                                          |
-| `etcd`                          | The cluster datastore. Wrong flags here can corrupt data — request with care.                                                                                                                                                            |
+| `etcd`                          | The cluster datastore (wrong flags here can corrupt data, request with care).                                                                                                                                                            |
 | `kubelet` (control plane nodes) | The kubelet on control plane nodes only. Worker-node kubelet flags are not configurable.                                                                                                                                                 |
-| `cluster-autoscaler`            | Flags for the single cluster-wide autoscaler process. These apply to every machine deployment. Per machine deployment settings (enable, min, max, scale-down tuning) live with [autoscaling](/managedk8s/clusterlifecycle/autoscaling/). |
+| `cluster-autoscaler`            | Flags for the single cluster-wide autoscaler process. These apply to every worker group. Per worker group settings (enable, min, max, scale-down tuning) live with [autoscaling](/managedk8s/clusterlifecycle/autoscaling/). |
 
 A value you set overrides our default for that flag.
 
