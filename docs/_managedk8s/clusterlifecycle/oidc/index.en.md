@@ -119,6 +119,4 @@ roleRef:
 subjects:
   - kind: User # James Bond
     name: https://gitlab.address.example#007
-
 ```
-
