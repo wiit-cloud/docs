@@ -9,8 +9,9 @@ parent: Cluster Lifecycle
 
 We support the [Openstack Nvidia/GPU Flavors](https://docs.wiit-cloud.io/openstack/specs/flavor_specification/#g1-gpu-flavors---only-available-in-sz1) in our Kubernetes clusters.
 
-You just need to select the right Flavor on your worker group, and it will have GPU support.
-The GPU nodes are handled the same way as the normal worker groups, so most things that apply to them applies the GPU.
+Simply select the appropriate GPU-enabled flavor for your worker group to enable GPU support.
+
+GPU worker nodes are managed in the same way as regular worker nodes, so most configuration and operational considerations apply equally to both.
 
 ## Some extras:
 ### Node Labels
