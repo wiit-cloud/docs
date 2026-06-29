@@ -14,7 +14,7 @@ The GPU nodes are handled the same way as the normal worker groups, so most thin
 
 ## Some extras:
 ### Node Labels
-We use the GPU Discovery service and set a Bunch of Labels on the node, so all GPU information is on that place.
+We use the GPU Discovery service to apply a set of labels to each node, keeping all GPU-related information in one place.
 
 ### Maintenance
 The GPU machine deployments uses the same Maintenance Window. 
