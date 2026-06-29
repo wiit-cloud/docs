@@ -17,7 +17,7 @@ The GPU nodes are handled the same way as the normal worker groups, so most thin
 We use the GPU Discovery service to apply a set of labels to each node, keeping all GPU-related information in one place.
 
 ### Maintenance
-The GPU machine deployments uses the same Maintenance Window. 
+GPU machine deployments use the same maintenance window as regular machine deployments. 
 In addition, we have a second [Maintenance from Openstack](https://docs.wiit-cloud.io/openstack/intro/#maintenance). 
 To be consistent we expose the Openstack Metadata as a node label in k8s.
 
