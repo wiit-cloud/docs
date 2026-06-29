@@ -28,6 +28,35 @@ It is possible to enable or disable the cluster-autoscaler feature anytime in on
 
 **Note:** Ensure pods have appropriate resource requests and limits to make the autoscaling effective.
 
+# Two levels of configuration
+
+The autoscaler has two scopes. You can use either or both.
+
+## Per machine deployment
+
+These settings apply to a single machine deployment. Enabling, the minimum, and the maximum
+(above) are per machine deployment. You can also tune the scale-down and provisioning
+behaviour for one pool. Each option overrides the cluster-wide default for that pool only:
+
+| Option | Controls |
+|---|---|
+| `scaledownutilizationthreshold` | Usage below which a node is considered for removal (e.g. `0.5`). |
+| `scaledowngpuutilizationthreshold` | Same threshold for GPU nodes. |
+| `scaledownunneededtime` | How long a node must be unneeded before removal (e.g. `10m0s`). |
+| `scaledownunreadytime` | How long an unready node waits before removal. |
+| `maxnodeprovisiontime` | How long to wait for a new node to register. |
+| `maxnodestartuptime` | How long to wait for a node to become ready. |
+
+## Cluster-wide
+
+The autoscaler runs as a single process for the whole cluster. Process-level flags apply to
+every machine deployment at once. You set them through extra args — see
+[Component Extra Args](/managedk8s/clusterlifecycle/extraargs/).
+
+To request either scope, open a [support request](/managedk8s/about/support/) with your
+[WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name), the machine deployment
+name for per-pool changes, and the options or flags you want.
+
 ## Scale from 0
 
 We support scale from zero. You can set the minimum nodes to 0, and when there are no pods, the autoscaler will scale down to 0 worker.

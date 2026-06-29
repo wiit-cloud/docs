@@ -67,7 +67,6 @@ Please be aware that we only accept this format for role and restriction: `node-
   * update replicas
   * update the application credentials
   * enable/disable the autoscaler
-  * enable/disable oidc
   * add, update, or remove taints
 
 - We can create a new machine deployment(s) for you.

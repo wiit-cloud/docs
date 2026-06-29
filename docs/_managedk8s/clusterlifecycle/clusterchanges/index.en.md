@@ -39,6 +39,9 @@ We can support the following updates in a running CKS cluster:
 - Enable or disable the cluster-autoscaler for a specific machine deployment.
 - Adjust the minimum and maximum size of worker nodes to enable autoscaling.
 
+**Component Extra Args**
+- Pass extra command-line flags to control plane components, the control plane kubelet, or the cluster-autoscaler. See [Component Extra Args](/managedk8s/clusterlifecycle/extraargs/).
+
 ## How to request support for your CKS cluster
 You can find the list of the Support [here](/managedk8s/about/support/)
 
