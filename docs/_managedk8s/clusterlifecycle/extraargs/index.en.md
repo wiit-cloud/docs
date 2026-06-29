@@ -40,8 +40,7 @@ A few flags are managed by us and cannot be set. A request that includes one is 
 | `kubelet`                 | `cloud-provider`                                                                                     |
 | `cluster-autoscaler`      | `cloud-provider`, `kubeconfig`, `clusterapi-cloud-config-authoritative`, `node-group-auto-discovery` |
 
-## Responsibility
-
+{: .warning }
 Extra args change low-level component behaviour. A wrong flag can break your cluster,
 including the control plane, which we cannot always recover automatically. You own the flags
 you request. We may decline a flag that endangers platform operations or compliance.
