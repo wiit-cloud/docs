@@ -14,11 +14,14 @@ Notable Changes on the OpenStack Platform are documented here.
 ### To be announced
 
 - Local Storage Flavor Availability
-- [Network QoS Enforcement](https://docs.wiit-cloud.io/openstack/networking/qos/)
 
 ---
 
 ## Completed
+
+### 2026-06-30
+
+- [Network QoS Enforcement](https://docs.wiit-cloud.io/openstack/networking/qos/)
 
 ### 2026-06-01
 

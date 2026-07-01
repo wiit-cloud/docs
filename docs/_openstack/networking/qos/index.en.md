@@ -8,9 +8,6 @@ parent: Networking
 
 # Network Quality of Service (QoS)
 
-{: .warning }
-This page describes a feature that is announced, but not active yet.
-
 To maintain the stability of our platform and provide all customers with reliable services we implement Quality of Service (QoS) in our network.
 
 This means that each port on our infrastructure is limited to a specific maximum bandwidth.
