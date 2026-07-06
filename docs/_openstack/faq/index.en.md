@@ -187,6 +187,8 @@ openstack server start ExampleInstance
 
 In case of a hypervisor outage our platform automatically triggers the rescheduling of the affected instances to different hypervisors.
 
+Instances that were previously active are started on the new hypervisor and subsequently have the status "ACTIVE". Instances that were stopped, paused, or suspended subsequently have the status "SHUTOFF".
+
 Sometimes an external orchestrator like Kubernetes is in use and handles the outage by deleting and recreating the instance.
 For such cases, the rescheduling of the instance can be disbled by setting the following property:
 
