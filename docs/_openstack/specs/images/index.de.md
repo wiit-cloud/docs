@@ -75,4 +75,4 @@ Weitere Details finden Sie in unseren [FAQ](https://docs.wiit-cloud.io/de/openst
 
 Das gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
 
-Die maximale Größe eines Images beträgt 2TB in der de-west-01 Region, in der ch-north-01 Region betträgt die maximale Größe 100 GB.
+Die maximale Größe eines Images beträgt 2 TB in der de-west-01 Region, in der ch-north-01 Region beträgt die maximale Größe 100 GB.
