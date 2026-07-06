@@ -27,9 +27,6 @@ An overview of the two volume types below:
 | high-iops     | 524288000      | 10000          | 524288000       | 10000          |
 | standard      | 209715200      | 2500           | 209715200       | 2500           |
 
-{: .warning }
-Besides the root disk of a VM, up to 25 additional volumes are supported.
-
 ## Choosing a Volume Type
 
 You can select one of the two volume types upon creation of a volume with the following command (Unless otherwise specified, the type "default" is always used):
