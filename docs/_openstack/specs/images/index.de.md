@@ -54,6 +54,8 @@ openstack image create \
   --property hw_qemu_guest_agent=True \
   --property hw_scsi_model=virtio-scsi \
   --property os_require_quiesce=True \
+  --property hw_firmware_type=uefi \
+  --property hw_machine_type=q35 \
   --private \
   --disk-format qcow2 \
   --container-format bare \
