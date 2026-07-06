@@ -74,3 +74,5 @@ Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen ist es n
 Weitere Details finden Sie in unseren [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
 
 Das gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
+
+Die maximale Größe eines Images beträgt 2 TB in der de-west-01 Region, in der ch-north-01 Region beträgt die maximale Größe 100 GB.
