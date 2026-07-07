@@ -32,6 +32,9 @@ Alternativ kann jeder Flavor in Kombination mit einem Volume als Root Disk erste
 
 Informationen zu den Netzwerkbandbreitenbegrenzungen finden Sie [hier](https://docs.wiit-cloud.io/de/openstack/networking/qos/).
 
+{: .warning }
+Einige Flavor-Typen haben besondere [Wartungsfenster](/de/openstack/intro/#wartungsarbeiten)
+
 ### s1 (Standard) Flavors
 
 | Bezeichnung | Kerne |   RAM |  Disk | IOPS Limits (read/write) | IO throughput rate (read/write) |

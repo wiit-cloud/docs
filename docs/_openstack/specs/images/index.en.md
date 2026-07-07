@@ -54,6 +54,8 @@ openstack image create \
   --property hw_qemu_guest_agent=True \
   --property hw_scsi_model=virtio-scsi \
   --property os_require_quiesce=True \
+  --property hw_firmware_type=uefi \
+  --property hw_machine_type=q35 \
   --private \
   --disk-format qcow2 \
   --container-format bare \
@@ -70,3 +72,5 @@ The command to upload images requires these fields at a minimum:
 Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image. See our [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
 
 You can also use the dashboard to upload images. Make sure to use the same properties there.
+
+The maximum size of an image is 2 TB in the de-west-01 region. In the ch-north-01 region, the maximum size is 100 GB.

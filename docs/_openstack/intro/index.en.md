@@ -70,6 +70,36 @@ During maintenance, short interruptions of API access may happen – however, th
 Maintenance on zone-specific services (Compute/Block Storage) is carried out sequentially per AZ.  
 As part of Compute maintenance, instances may need to be migrated between Compute Nodes. These necessary "Live Migrations" can, in some cases, cause brief interruptions to the affected instances.
 
+For some flavor types, due to physical hardware involved, we cannot live migrate the instance between hypervisors and there is some downtime involved while performing maintenance.
+
+| **Region**                   | **Flavor Type**                   | **Maintenance Windows**  |
+|:------------------------------|:------------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
+|de-west-01 | g1           | Every Tuesday, 08:00 to 14:00 UTC  |
+
+Maintenance on such flavors takes only place during the mentioned maintenance windows.
+Not every maintenance window is actually used, every maintenance which takes place is announed an hour before the actual maintenance by a property on the instance:
+
+```
+openstack server show <instance> -c properties
++------------+---------------------------------------------------+
+| Field      | Value                                             |
++------------+---------------------------------------------------+
+| properties | maintenance_planned_for='2026-07-03T11-29-34'     |
++------------+---------------------------------------------------+
+```
+
+From inside the instance:
+```
+curl http://169.254.169.254/openstack/latest/meta_data.json | jq -r '.meta'
+{
+  "maintenance_planned_for": "2026-07-03T11-29-34"
+}
+```
+
+To avoid workload disruption please monitor the mentioned property and reschedule your workload before the maintenance window.
+
+Affected instances are restarted after the maintenance, if the instance was running before.
+
 ## Support
 
 If you have questions or encounter issues when using the OpenStack platform, please contact our support team: [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
