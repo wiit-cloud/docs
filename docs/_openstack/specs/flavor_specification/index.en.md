@@ -32,7 +32,7 @@ Alternatively, any flavor can be used with a volume as the root disk.
 Network bandwidth limits can be found [here](https://docs.wiit-cloud.io/openstack/networking/qos/)
 
 {: .warning }
-Some flavor types have specific ["maintenance windows"](/openstack/intro/#Maintenance)
+Some flavor types have specific ["maintenance windows"](/openstack/intro/#maintenance)
 
 ### s1 (Standard) Flavors
 
