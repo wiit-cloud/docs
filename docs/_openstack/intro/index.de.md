@@ -70,6 +70,36 @@ Dabei kann es zu kurzen Unterbrechungen der API-Zugriffe kommen – die Funktion
 Wartungen an zonenspezifischen Services (Compute/Block Storage) werden nacheinander in den einzelnen AZs durchgeführt.  
 Im Rahmen von Compute-Wartungen müssen Instanzen zwischen Compute Nodes verschoben werden. Die dazu notwendigen "Live Migrations" können in bestimmten Fällen zu kurzzeitigen Unterbrechungen der Instanzen führen.
 
+Bei einigen Flavor-Typen ist aufgrund der zugrundeliegenden Hardware keine Live-Migration der Instanz zwischen Hypervisoren möglich; daher kommt es bei Wartungsarbeiten zu Ausfallzeiten.
+
+| **Region**                   | **Flavor-Typ**                   | **Wartungsfenster**  |
+|:------------------------------|:------------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
+|de-west-01 | g1           | Jeden Dienstag, 08:00 bis 14:00 Uhr UTC  |
+
+Wartungsarbeiten an diesen Flavor-Typen finden ausschließlich innerhalb der genannten Wartungsfenster statt.
+Nicht jedes Wartungsfenster wird tatsächlich genutzt; anstehende Wartungsarbeiten werden eine Stunde vor deren Beginn über eine Eigenschaft (Property) der Instanz angekündigt:
+
+```
+openstack server show <instance> -c properties
++------------+---------------------------------------------------+
+| Field      | Value                                             |
++------------+---------------------------------------------------+
+| properties | maintenance_planned_for='2026-07-03T11-29-34'     |
++------------+---------------------------------------------------+
+```
+
+Innerhalb der Instanz:
+```
+curl http://169.254.169.254/openstack/latest/meta_data.json | jq -r '.meta'
+{
+"maintenance_planned_for": "2026-07-03T11-29-34"
+}
+```
+
+Um Unterbrechungen Ihrer Workloads zu vermeiden, überwachen Sie bitte die genannte Property und planen Sie Ihre Workloads vor dem Wartungsfenster entsprechend um.
+
+Betroffene Instanzen werden nach Abschluss der Wartung neu gestartet, sofern sie zuvor in Betrieb waren.
+
 ## Support
 
 Sollten Sie Fragen haben oder Probleme bei der Nutzung der OpenStack-Plattform feststellen, wenden Sie sich bitte an unseren Support: [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
