@@ -189,3 +189,18 @@ openstack server stop ExampleInstance
 openstack server image create --name ExampleInstanceSnapshot ExampleInstance
 openstack server start ExampleInstance
 ```
+
+## Wie werden Hypervisor-Ausfälle gehandhabt und wie kann ich das Verhalten beeinflussen?
+
+Im Falle eines Hypervisor-Ausfalls stößt unsere Plattform automatisch das Rescheduling der betroffenen Instanzen auf andere Hypervisoren an.
+
+Instanzen, die zuvor aktiv waren, werden auf dem neuen Hypervisor gestartet und sind anschließend im Status „ACTIVE“. Instanzen, die gestoppt, pausiert oder suspendiert waren sind anschließend im Status „SHUTOFF“.
+
+Gelegentlich kommt ein externer Orchestrator wie Kubernetes zum Einsatz, der den Ausfall durch das Löschen und anschließende Neuerstellen der Instanz eigenständig handhabt.
+Für solche Fälle lässt sich das Rescheduling der Instanz deaktivieren, indem die folgende Property gesetzt wird:
+
+```bash
+openstack server set ExampleInstance --property HA_Enabled=False
+```
+
+Dieselbe Property kann auch bereits bei der Erstellung der Instanz festgelegt werden.
