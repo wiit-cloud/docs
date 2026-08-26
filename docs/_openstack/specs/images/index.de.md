@@ -57,17 +57,31 @@ openstack image create \
   --property hw_firmware_type=uefi \
   --property hw_machine_type=q35 \
   --private \
-  --disk-format qcow2 \
+  --disk-format raw \
   --container-format bare \
-  --file ~/my-image.qcow2 \
+  my-image
+
+openstack image stage \
+  --file ~/my-image.img \
+  --progress \
+  my-image
+
+openstack image import \
+  --method glance-direct \
+  --all-stores \
   my-image
 ```
 
 Dabei müssen mindestens folgende Parameter spezifiziert werden:
 
-- `--disk-format`: Das Format Ihres Quell-Images, z.B. `qcow2`
+- `--disk-format`: Das Format Ihres Quell-Images, z.B. `raw`
 - `--file`: Das Quell-Image auf Ihrem System
 - Name des Abbilds: `my-image` als Beispiel.
+
+Wir empfehlen die Nutzung des RAW Formats, hierdurch wird Copy-on-Write bei der Erstellung von Instanzen und Volumes möglich, was diesen Prozess deutlich beschleunigt.
+
+Weiterhin empfehlen wir die Nutzung der oben genannten Befehle, zwar ließe sich ein Image auch in einem einzigen Aufruf erstellen, hierbei würde dann aber nicht die modernere Interoperable Image API genutzt.
+Diese bietet die Möglichkeit Images direkt bei Erstellung zu konvertieren und auf alle AZs zu verteilen.
 
 Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen ist es notwendig, dass Sie das Property `--property hw_qemu_guest_agent=True` an den von Ihnen genutzten Images setzen und `qemu-guest-agent` auf dem System installieren.
 

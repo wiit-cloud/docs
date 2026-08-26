@@ -57,17 +57,31 @@ openstack image create \
   --property hw_firmware_type=uefi \
   --property hw_machine_type=q35 \
   --private \
-  --disk-format qcow2 \
+  --disk-format raw \
   --container-format bare \
-  --file ~/my-image.qcow2 \
+  my-image
+
+openstack image stage \
+  --file ~/my-image.img \
+  --progress \
+  my-image
+
+openstack image import \
+  --method glance-direct \
+  --all-stores \
   my-image
 ```
 
 The command to upload images requires these fields at a minimum:
 
-- `--disk-format`: qcow2, in this case. This depends on the image format.
+- `--disk-format`: `raw`, in this case. This depends on the image format.
 - `--file`: The source file on your machine
 - Name of the Image: `my-image` for example.
+
+We recommend using the RAW format; this enables copy-on-write functionality when creating instances and volumes, significantly speeding up the process.
+
+We also recommend using the commands mentioned above; while an image could be created in a single call, doing so would not utilize the more modern Interoperable Image API.
+This API offers the ability to convert images directly upon creation and distribute them across all Availability Zones (AZs).
 
 Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image. See our [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
 
