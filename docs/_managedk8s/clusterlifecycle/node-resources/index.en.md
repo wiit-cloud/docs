@@ -1,5 +1,5 @@
 ---
-title: Node Resource Availability
+title: Allocatable resources
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/node-resources/
 nav_order: 3530
