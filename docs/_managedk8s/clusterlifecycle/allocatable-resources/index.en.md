@@ -1,11 +1,11 @@
 ---
 title: Allocatable resources
 lang: "en"
-permalink: /managedk8s/clusterlifecycle/node-resources/
+permalink: /managedk8s/clusterlifecycle/allocatable-resources/
 nav_order: 3530
 parent: Cluster Lifecycle
 ---
-# Node Resource Availability
+# Allocatable resources
 
 The CPU and memory shown by an OpenStack flavor describe the capacity of the virtual machine. They do not represent the capacity available for your applications. Every worker node needs capacity for the operating system, Kubernetes itself, and the managed platform components that run in your cluster.
 
