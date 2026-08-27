@@ -19,19 +19,19 @@ For worker nodes, Kubernetes accounts for the flavor capacity as follows:
 
 The reservations are applied to the node before your application pods are scheduled. Their values depend on the selected flavor; they are not a fixed percentage of every node.
 
-### Examples: a small and a large worker node
+### Examples: a small, a large, and an extra-large worker node
 
-The current reservation policy produces the following values for two worker flavors:
+The current reservation policy produces the following values for three worker flavors:
 
-| Capacity layer | `s1.small` CPU | `s1.small` memory | `s1.large` CPU | `s1.large` memory |
-| --- | ---: | ---: | ---: | ---: |
-| OpenStack flavor capacity | 2,000m (2 vCPU) | 4,096Mi (4 GiB) | 8,000m (8 vCPU) | 16,384Mi (16 GiB) |
-| `systemReserved` | 80m | 256Mi | 80m | 256Mi |
-| `kubeReserved` | 20m | 1,023Mi | 20m | 2,661Mi |
-| Memory eviction reserve | — | 100Mi | — | 100Mi |
-| **Node allocatable** | **1,900m** | **2,717Mi** | **7,900m** | **13,367Mi** |
+| Capacity layer | `s1.small` CPU | `s1.small` memory | `s1.large` CPU | `s1.large` memory | `s1.2xlarge` CPU | `s1.2xlarge` memory |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| OpenStack flavor capacity | 2,000m (2 vCPU) | 4,096Mi (4 GiB) | 8,000m (8 vCPU) | 16,384Mi (16 GiB) | 30,000m (30 vCPU) | 65,536Mi (64 GiB) |
+| `systemReserved` | 80m | 256Mi | 80m | 256Mi | 80m | 256Mi |
+| `kubeReserved` | 20m | 1,023Mi | 20m | 2,661Mi | 65m | 5,610Mi |
+| Memory eviction reserve | — | 100Mi | — | 100Mi | — | 100Mi |
+| **Node allocatable** | **1,900m** | **2,717Mi** | **7,900m** | **13,367Mi** | **29,855m** | **59,570Mi** |
 
-A 4 GiB node therefore does not provide 4 GiB of memory for your application pods. The `s1.small` example reports approximately 2.7 GiB as allocatable before platform pods or your application pods are scheduled. On the larger `s1.large` node, approximately 13.1 GiB of the 16 GiB is allocatable before resource requests from platform pods and your application pods are accounted for.
+Although `s1.large` has more vCPUs than `s1.small`, both reserve 100m of CPU. The tiered reservation target is the value that scales with the node size: it is 70m for `s1.small` and 90m for `s1.large`. To split this target into `systemReserved` and `kubeReserved`, the fixed 80m system baseline is subtracted: `70m - 80m = -10m` and `90m - 80m = 10m`. Because both remainders are below the 20m minimum, `kubeReserved` is set to 20m in both cases, resulting in `80m + 20m = 100m` total reserved CPU. On `s1.2xlarge`, the target reaches 145m, so `kubeReserved` increases to 65m. The resulting allocatable memory is 2,717Mi, 13,367Mi, and 59,570Mi for `s1.small`, `s1.large`, and `s1.2xlarge`, respectively, before platform and application pod requests.
 
 The absolute reservation can increase with the size of the node, but its proportion decreases. For `s1.small`, the system, Kubernetes, and eviction reservations account for 1,379Mi (33.7%) of memory and 100m (5%) of CPU. For `s1.large`, they account for 3,017Mi (18.4%) of memory and 100m (1.25%) of CPU. The exact values depend on the flavor and may change when the reservation policy is updated.
 
