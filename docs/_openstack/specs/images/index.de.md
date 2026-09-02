@@ -31,7 +31,6 @@ Aktuell enthält diese Liste:
 - Ubuntu Minimal 22.04 LTS (Jammy Jellyfish)
 - Debian 13 (Trixie)
 - Debian 12 (Bookworm)
-- Debian 11 (Bullseye)
 - Rocky Linux 10 (Red Quartz)
 - Rocky Linux 9 (Blue Onyx)
 - Flatcar Linux
