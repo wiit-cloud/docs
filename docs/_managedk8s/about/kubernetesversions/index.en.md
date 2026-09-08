@@ -14,9 +14,10 @@ To provide clarity on our version support policy, here is an overview of our sup
 
 | Version | Deprecation | End-of-Life |
 |---------|-------------|-------------|
+| v1.36   | TDB         | TDB         |
 | v1.35   | TDB         | TDB         |
 | v1.34   | TDB         | TDB         |
-| v1.33   | TDB         | TDB         |
+| v1.33   | 2026-07-29  | 2026-11-02  |
 | v1.32   | 2026-02-25  | 2026-05-31  |
 | v1.31   | 2025-11-18  | 2026-02-01  |
 | v1.30   | 2025-09-01  | 2025-12-01  |
