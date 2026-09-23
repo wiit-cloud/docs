@@ -91,6 +91,11 @@ Automatically created ones will be deleted with cluster deletion.
 If you have no special requirements, use the automatically created ones. So you don't need any creation/cleanup process on our side.
 For requirements like, shared networks, added VPNs, etc. please use the provides options.
 
+#### Load Balancer provider
+`type: LoadBalancer` Services are backed by OpenStack Octavia. By default, the `amphora` provider is used; the `ovn` provider is also available.
+
+Details can be found [here](/managedk8s/clusterlifecycle/loadbalancer/)
+
 ### Machine Deployments, Worker Nodes and Autoscaling
 For Machine Deployment look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/)
 
