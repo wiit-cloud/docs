@@ -10,7 +10,7 @@ The Cluster Node Autoscaler automatically adjusts the number of nodes in a Kuber
 
 # How the Cluster Autoscaler Works:
 **Scaling Up:**
-When the autoscaler detects that some pods cannot be scheduled due to insufficient resources (CPU, memory), it will automatically add new nodes to the cluster to provide the necessary capacity.
+When the autoscaler detects that some pods cannot be scheduled due to insufficient resources (CPU, memory), it will automatically add new nodes to the cluster to provide the necessary capacity. It evaluates the capacity available to Kubernetes pods, not the raw CPU and memory of the OpenStack flavor. Node reservations and requests from platform components reduce the capacity available to your workloads. See [Node Resource Availability](/managedk8s/clusterlifecycle/node-resources/) for details.
 
 **Scaling Down:**
 If the autoscaler identifies nodes that are underutilized or completely not used for a configurable period, it will remove those nodes to optimize resource usage and reduce costs. Before scaling down, it ensures that there are no critical pods running on those nodes and that workloads can be safely moved to other nodes.
@@ -26,7 +26,7 @@ When reaching out, include the following information:
 
 It is possible to enable or disable the cluster-autoscaler feature anytime in one or multiple machineDeployments.
 
-**Note:** Ensure pods have appropriate resource requests and limits to make the autoscaling effective.
+**Note:** Autoscaling decisions are based on pod resource requests. The platform components installed in your cluster also declare resource requests.
 
 # Two levels of configuration
 
@@ -59,4 +59,6 @@ per-group changes, and the options or flags you want.
 
 ## Scale from 0
 
-We support scale from zero. You can set the minimum nodes to 0, and when there are no pods, the autoscaler will scale down to 0 worker.
+We support scale from zero. You can set the minimum nodes to 0, and when there are no pods, the autoscaler will scale down to 0 worker nodes. When a pending workload needs a new node, the autoscaler uses the selected worker flavor's calculated allocatable CPU and memory. It does not assume that the full flavor capacity is available for pods. Platform components are scheduled and consume their resource requests after the node is created.
+
+For a detailed explanation of reservations, allocatable capacity, and platform pod requests, see [Node Resource Availability](/managedk8s/clusterlifecycle/node-resources/).
