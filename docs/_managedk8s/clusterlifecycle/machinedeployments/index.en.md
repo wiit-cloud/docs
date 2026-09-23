@@ -38,7 +38,7 @@ If you need any other changes in the configuration, please mention them when req
  * Flavor/Machine Type - the default type is s1.large (`8 cores`, `16GB RAM` and `20GB` disk size), you can select each flavor that you can see in your OpenStack project, but make sure the flavor:
     * has at least 2 cores and 2 GB RAM
     * is not a windows image
-    * provides enough capacity for both platform components and your workloads. The flavor size is not the same as the capacity available to your application pods. See [Node Resource Availability](/managedk8s/clusterlifecycle/node-resources/) for details.
+    * provides enough capacity for both platform components and workloads. The resources available to your application pods are lower than the selected instance flavor size. See [Node Resource Availability](https://github.com/managedk8s/clusterlifecycle/node-resources/) for details.
 * Number of replicas  the default is 3 nodes. 
 * Availability zone (AZ) - if preferred, specify the AZ from `az1`, `az2`, `az3` or `sz1` available zones. The default value will be a random AZ.
   * Warning: `sz1` is a special stretched zone. Please review [Stretched Zone (SZ1)](https://docs.wiit-cloud.io/openstack/intro/#stretched-zone-sz1) before selecting it.
