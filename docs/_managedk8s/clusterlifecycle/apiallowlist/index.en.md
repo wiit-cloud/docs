@@ -22,10 +22,11 @@ Add the allowed IP ranges to your [cluster creation](/managedk8s/clusterlifecycl
 ```yaml
 # by default: empty (API reachable from everywhere)
 api_server_allowed_cidrs:
-  - w.x.y.z/24     # office
+  - w.x.y.z/24   # office
   - a.b.c.d/32   # VPN gateway
 ```
 
+- Only IPv4 ranges are supported.
 - Use CIDR notation; a single address is written as `/32`.
 - An empty list disables the allowlist again.
 
@@ -46,7 +47,13 @@ Workloads inside the cluster that use the Kubernetes API (e.g. operators or cont
 In addition to your ranges, we automatically add a few addresses:
 
 - addresses the cluster itself needs to work (its own network and router)
-- a small number of WIIT addresses used to operate, monitor and support your cluster
+- the WIIT addresses used to operate, monitor and support your cluster:
+
+| Address            | Used for                          |
+| ------------------ | --------------------------------- |
+| `62.141.47.6/32`   | WIIT operations staff             |
+| `89.163.172.24/32` | WIIT cluster management           |
+| `89.163.172.39/32` | WIIT platform services            |
 
 The allowlist is applied to the listener of the Kubernetes API load balancer in your OpenStack project, not to a security group.
 You will see these addresses next to your own ranges in the listener's allowed CIDRs:
