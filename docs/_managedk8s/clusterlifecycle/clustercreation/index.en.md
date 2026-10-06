@@ -37,6 +37,9 @@ availability_zone:
 ## add the autoscaler (default: disabled)
 min_size:
 max_size:
+
+## restrict Kubernetes API access to these CIDRs (default: open to everyone)
+api_server_allowed_cidrs:
 ```
 Detailed information about options can be found below.
 
@@ -95,6 +98,12 @@ For requirements like, shared networks, added VPNs, etc. please use the provides
 `type: LoadBalancer` Services are backed by OpenStack Octavia. By default, the `amphora` provider is used; the `ovn` provider is also available.
 
 Details can be found [here](/managedk8s/clusterlifecycle/loadbalancer/)
+
+#### API Server Allowlist
+By default, the Kubernetes API is reachable from everywhere. You can restrict it to a list of IP ranges.
+Not available together with the `ovn` load balancer provider.
+
+Details can be found [here](/managedk8s/clusterlifecycle/apiallowlist/)
 
 ### Machine Deployments, Worker Nodes and Autoscaling
 For Machine Deployment look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/)

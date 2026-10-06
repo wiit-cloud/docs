@@ -17,6 +17,7 @@ We can support the following updates in a running CKS cluster:
 **Control Plane Changes**
 
 - Update the flavor type of the control plane.
+- Enable, change or disable the [API server allowlist](/managedk8s/clusterlifecycle/apiallowlist/).
 
 **Machine Deployment Changes**
 
