@@ -22,8 +22,8 @@ Add the allowed IP ranges to your [cluster creation](/managedk8s/clusterlifecycl
 ```yaml
 # by default: empty (API reachable from everywhere)
 api_server_allowed_cidrs:
-  - 203.0.113.0/24     # office
-  - 198.51.100.17/32   # VPN gateway
+  - w.x.y.z/24     # office
+  - a.b.c.d/32   # VPN gateway
 ```
 
 - Use CIDR notation; a single address is written as `/32`.
