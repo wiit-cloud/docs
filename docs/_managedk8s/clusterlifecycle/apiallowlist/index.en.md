@@ -7,7 +7,7 @@ parent: Cluster Lifecycle
 ---
 # API Server Allowlist
 
-By default, the Kubernetes API of your cluster is reachable from any IP address and protected by authentication only.
+By default, the Kubernetes API of your cluster is reachable from any IPv4 address and protected by authentication only.
 With the API server allowlist you can additionally restrict network access to the Kubernetes API to a list of IP ranges (CIDRs) you trust.
 
 Only the Kubernetes API is affected. Your applications and their `type: LoadBalancer` Services stay reachable as before.
