@@ -6,15 +6,15 @@ nav_order: 1011
 parent: Quickstart
 ---
 
-Das Dashboard (Horizon)
+The Dashboard (Horizon)
 ===================================================================
 
 Login
 -----
 
-After the creadentials have been created from a user with the manager role in your domain you can log on to the dashboard.
+After the credentials have been created by a user with the manager role in your domain, you can log in to the dashboard.
 
-**IMPORTANT**: Manager Users are also able to reset your password in case you need a new password.  
+**IMPORTANT**: Manager users are also able to reset your password in case you need a new password.  
 
 The URL for the dashboard is: <https://openstack.wiit-cloud.io>
 
@@ -28,10 +28,10 @@ your user name and password in the relevant fields.
 Change Password
 ---------------
 
-For security reasons we recommend changing your password after
+For security reasons, we recommend changing your password after
 receiving it from WIIT.
 
-To change the password, click your *User name* (1) in right corner of
+To change the password, click your *User name* (1) in the top right corner of
  Horizon and then *Settings* (2).
 
 ![](attachments/13536091.png)

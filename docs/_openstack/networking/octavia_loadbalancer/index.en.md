@@ -1,24 +1,24 @@
 ---
-title: Octavia Loadbalancers
+title: Octavia Load Balancers
 lang: "en"
 permalink: /openstack/networking/octavia_loadbalancer/
 parent: Networking
 nav_order: 2300
 ---
 
-# The Octavia Loadbalancer
+# The Octavia Load Balancer
 
 ## Preface
 
-[Octavia](https://wiki.openstack.org/wiki/Octavia) is a highly-available and scalable open source load balancing solution designed to work with OpenStack. Octavia handles load balancing services by managing and configuring a fleet of virtual machines – also known as amphorae – in its project. These amphorae run a [HAproxy](https://www.haproxy.com/).
+[Octavia](https://wiki.openstack.org/wiki/Octavia) is a highly-available and scalable open source load balancing solution designed to work with OpenStack. Octavia handles load balancing services by managing and configuring a fleet of virtual machines – also known as amphorae – in its project. These amphorae run [HAProxy](https://www.haproxy.com/).
 
 Alternatively, the **OVN Load Balancer Driver** is available, which works without Amphora instances. Details can be found in the section [Using the OVN Load Balancer Driver](#using-the-ovn-load-balancer-driver).
 
 ## Using the OVN Load Balancer Driver
 
-In addition to the classic amphora provider, our platform also supports the ovn provider as an alternative.
+In addition to the classic amphora provider, our platform also supports the OVN provider as an alternative.
 
-Instead of launching Amphora VMs, the ovn provider uses the native load balancing features of OVN. This eliminates the overhead of dedicated Amphora instances, resulting in faster creation times and lower resource consumption.
+Instead of launching Amphora VMs, the OVN provider uses the native load balancing features of OVN. This eliminates the overhead of dedicated Amphora instances, resulting in faster creation times and lower resource consumption.
 
 {: .warning }
 The OVN provider does not support Layer 7 features (L7 policies, TLS termination, insert headers, etc.). It is intended for simple TCP/UDP load balancing at Layer 4.
@@ -28,9 +28,9 @@ The OVN provider cannot currently be configured via Horizon.
 
 ## First Steps
 
-To use Octavia, the client first needs to be installed on your system. Instructions for the installation can be found [here](/openstack/quickstart/osclient/) of our guide.
+To use Octavia, the client first needs to be installed on your system. Instructions for the installation can be found [here](/openstack/quickstart/osclient/) in our guide.
 
-## Creating an Octavia-Ladbalancer
+## Creating an Octavia load balancer
 
 Here we specify the subnet ID in which the load balancer should be created.
 
@@ -86,7 +86,7 @@ $ openstack loadbalancer list
 
 ## Create LB listener
 
-In our example, we want to create a listener for HTTP on port 80. A listener here - as in other LB solutions - refers to the port of the front end.
+In our example, we want to create a listener for HTTP on port 80. A listener here - as in other LB solutions - refers to the port of the frontend.
 
 ```bash
 $ openstack loadbalancer listener create --name Beispiel-listener --protocol HTTP --protocol-port 80 Beispiel-LB
@@ -121,9 +121,9 @@ $ openstack loadbalancer listener create --name Beispiel-listener --protocol HTT
 +-----------------------------+--------------------------------------+
 ```
 
-As already mentioned, the OVN provider only supports L4 protocols, i.e. TCP / UDP.
+As already mentioned, the OVN provider only supports L4 protocols, i.e., TCP/UDP.
 
-Once the `admin_state_up` is `true` the loadbalancer has been successfully created. The Octavia loadbalancer can be further configured at this point.
+Once `admin_state_up` is `true`, the load balancer has been successfully created. The Octavia load balancer can be further configured at this point.
 
 ```bash
 $ openstack loadbalancer listener list
@@ -136,7 +136,7 @@ $ openstack loadbalancer listener list
 
 ## Create LB pool
 
-The LB-pool here refers to a collection of all objects (listeners, members, etc.) - comparable to a pool of public IP addresses from which one can be assigned.
+The LB pool here refers to a collection of all objects (listeners, members, etc.) - comparable to a pool of public IP addresses from which one can be assigned.
 A pool for our example is created as follows:
 
 ```bash
@@ -176,7 +176,7 @@ The most common settings and their choices:
 ```
 
 As already mentioned, the OVN provider only supports L4 protocols, i.e., TCP/UDP.
-Furthermore, the lb-algorithm SOURCE_IP_PORT must be selected for the OVN provider.
+Furthermore, the LB algorithm `SOURCE_IP_PORT` must be selected for the OVN provider.
 
 The pool has been successfully created when the `provisioning_status` has reached the status `ACTIVE`.
 
@@ -191,7 +191,7 @@ $ openstack loadbalancer pool list
 
 ## Create the LB `member`
 
-For our loadbalancer to know which backends it is allowed to forward to, we still need a `member`, which we define as follows:
+For our load balancer to know which backends it is allowed to forward to, we still need a `member`, which we define as follows:
 
 ```bash
 $ openstack loadbalancer member create --subnet-id 32259126-dd37-44d5-922c-99d68ee870cd --address  10.0.0.11 --protocol-port 80 Beispiel-pool
@@ -241,7 +241,7 @@ $ openstack loadbalancer member create --subnet-id 32259126-dd37-44d5-922c-99d68
 +---------------------+--------------------------------------+
 ```
 
-It should be noted here that the two IP's from 10.0.0. * already exist, listening on port 80 (web server), and deliver a simple website with the information about their service name.
+It should be noted here that the two IPs from 10.0.0.* already exist, listening on port 80 (web server), and deliver a simple website with the information about their service name.
 Assuming these web servers in the following example are Ubuntu/Debian and you have root permissions, you could quickly create a simple web page with:
 
 ```bash
@@ -268,22 +268,22 @@ $ openstack loadbalancer member list Beispiel-pool
 +--------------------------------------+------+----------------------------------+---------------------+--------------+---------------+------------------+--------+
 ```
 
-Now the "internal" construct of the loadbalancer is configured.
+Now the "internal" construct of the load balancer is configured.
 
 We now have:
 
-* 2 `member`s who provide the actual service via port 80 and between which the loadbalancing takes place,
-* a `pool` for this `member`,
-* a `listener` which listens on port TCP/80 and makes a `ROUND_ROBIN` to the two endpoints and
-* a loadbalancer, which we used to combine all components.
+* 2 `member`s that provide the actual service via port 80 and between which the loadbalancing takes place,
+* a `pool` for these `member`s,
+* a `listener` which listens on port TCP/80 and does `ROUND_ROBIN` to the two endpoints, and
+* a load balancer, which we used to combine all components.
 
-The `operating_status` `NO_MONITOR` is corrected under [healthmonitor](step24.md#create-a-healthmonitor).
+The `operating_status` `NO_MONITOR` is corrected under [healthmonitor](#create-a-healthmonitor).
 
 ## Create and configure the floating IP
 
-In order to be able to use the loadbalancer outside of our example network, we must reserve a floating IP and then link it to the `vip_port_id` of the `example LB`.
+In order to be able to use the load balancer outside of our example network, we must reserve a floating IP and then link it to the `vip_port_id` of `Beispiel-LB`.
 
-Using the following command we can create a Floating IP from the `provider` network:
+Using the following command, we can create a floating IP from the `provider` network:
 
 ```bash
 $ openstack floating ip create provider
@@ -314,21 +314,21 @@ $ openstack floating ip create provider
 
 ```
 
-In the next step we need the vip_port_id of the loadbalancer. Accomplished with the following command:
+In the next step, we need the `vip_port_id` of the load balancer, which we get with the following command:
 
 ```bash
 $ openstack loadbalancer show Beispiel-LB -f value -c vip_port_id
 37fc5b34-ee07-49c8-b054-a8d591a9679f
 ```
 
-With the following command we can now assign the public IP address to the loadbalancer. The LB (and thus also the endpoints behind it) can now be reached from the Internet.
+With the following command, we can now assign the public IP address to the load balancer. The LB (and thus also the endpoints behind it) can now be reached from the Internet.
 
 ```bash
 openstack floating ip set --port 37fc5b34-ee07-49c8-b054-a8d591a9679f 185.116.247.133
 
 ```
 
-We are now ready to test our loadbalancer deployment. With the following command we query our loadbalancer via port TCP/80 and then get a corresponding response from the single `member`:
+We are now ready to test our load balancer deployment. With the following command, we query our load balancer via port TCP/80 and get a corresponding response from the individual `member`s:
 
 ```bash
 $ for ((i=1;i<=10;i++)); do curl http://185.116.247.133; sleep 1; done
@@ -339,12 +339,12 @@ you hit: webserver2
 you hit: webserver1
 you hit: webserver2
 you hit: webserver1
-... (usw.)
+... (etc.)
 ```
 
 ## Create a healthmonitor
 
-With the following command we create a monitor that, in the event of a failure of one of the backends, can remove a faulty backend from the load distribution, thus allowing the website or application to continue to be delivered cleanly.
+With the following command, we create a monitor that, in the event of a failure of one of the backends, can remove a faulty backend from the load distribution, thus allowing the website or application to continue to be delivered cleanly.
 
 ```bash
 $ openstack loadbalancer healthmonitor create --delay 5 --max-retries 2 --timeout 10 --type HTTP --name Beispielmonitor --url-path / Beispiel-pool
@@ -373,13 +373,13 @@ $ openstack loadbalancer healthmonitor create --delay 5 --max-retries 2 --timeou
 +---------------------+--------------------------------------+
 ```
 
-As already mentioned, the OVN provider only supports L4 protocols, i.e. TCP / UDP.
+As already mentioned, the OVN provider only supports L4 protocols, i.e., TCP/UDP.
 
-In this example, the monitor removes the failing backend from the pool if the integrity check (--type HTTP, --url-path / ) fails every two five-second intervals(--delay 5, --max-retries 2, --timeout 10).
+In this example, the monitor removes the failing backend from the pool if the integrity check (--type HTTP, --url-path / ) fails twice at five-second intervals (--delay 5, --max-retries 2, --timeout 10).
 
 Once the server is restored and responds to TCP/80 again, it will be added back to the pool.
 
-A manual failover can be enforced if status code of the web server is not equal to "200" or in the event that there is no response from the web server at all.
+A failover is triggered if the status code of the web server is not equal to "200" or in the event that there is no response from the web server at all.
 
 ```bash
 $ openstack loadbalancer healthmonitor show Beispielmonitor
@@ -491,7 +491,7 @@ $ openstack loadbalancer listener create --name stats-listener --protocol PROMET
 +-----------------------------+--------------------------------------+
 ```
 
-Once the PROMETHEUS listener is ACTIVE, you can configure Prometheus to collect metrics from the load balancer by updating the prometheus.yml file.
+Once the PROMETHEUS listener is ACTIVE, you can configure Prometheus to collect metrics from the load balancer by updating the `prometheus.yml` file.
 
 ```yaml
 [scrape_configs]

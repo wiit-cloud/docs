@@ -22,7 +22,7 @@ Currently, the platform is available in the "de-west-01" region (location: Düss
 The OpenStack services in the "de-west-01" region are distributed across three data centers.  
 Horizon, Keystone, Glance, Neutron, Octavia, Designate, and Object Storage are operated by WIIT AG across all sites.  
 For Nova and Cinder, the data centers are represented as availability zones (AZ1, AZ2, AZ3) within OpenStack. This allows resources to be deliberately distributed across physical sites, aiming for optimal fault tolerance.
-When no availability zone is specified during the creation of instances or volumes they are created in the default zone SZ1.
+When no availability zone is specified during the creation of instances or volumes, they are created in the default zone SZ1.
 
 ### Stretched Zone (SZ1)
 
@@ -53,9 +53,9 @@ Block storage volumes are also available in SZ1. Data stored on volumes in SZ1 i
 
 For transparent and up-to-date information regarding maintenance, limitations, or incidents, please refer to our [Statuspage](https://status.wiit-cloud.io).
 
-The following Services on the Statuspage are relevant for the OpenStack-Platform:  
+The following services on the Statuspage are relevant for the OpenStack platform:  
 
-- **de-west-01 OpenStack Services:** Availability of the individual Services
+- **de-west-01 OpenStack Services:** Availability of the individual services
 - **de-west-01 OpenStack APIs:** Availability of OpenStack APIs
 - **de-west-01 OpenStack AZ1:** Availability of Compute, Storage and Network in AZ1
 - **de-west-01 OpenStack AZ2:** Availability of Compute, Storage and Network in AZ2
@@ -76,10 +76,10 @@ For some flavor types, due to physical hardware involved, we cannot live migrate
 |:------------------------------|:------------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
 |de-west-01 | g1           | Every Tuesday, 08:00 to 14:00 UTC  |
 
-Maintenance on such flavors takes only place during the mentioned maintenance windows.
-Not every maintenance window is actually used, every maintenance which takes place is announed an hour before the actual maintenance by a property on the instance:
+Maintenance on such flavors only takes place during the mentioned maintenance windows.
+Not every maintenance window is actually used; every maintenance that takes place is announced one hour before the actual maintenance via a property on the instance:
 
-```
+```bash
 openstack server show <instance> -c properties
 +------------+---------------------------------------------------+
 | Field      | Value                                             |
@@ -89,14 +89,14 @@ openstack server show <instance> -c properties
 ```
 
 From inside the instance:
-```
+```bash
 curl http://169.254.169.254/openstack/latest/meta_data.json | jq -r '.meta'
 {
   "maintenance_planned_for": "2026-07-03T11-29-34"
 }
 ```
 
-To avoid workload disruption please monitor the mentioned property and reschedule your workload before the maintenance window.
+To avoid workload disruption, please monitor the mentioned property and reschedule your workload before the maintenance window.
 
 Affected instances are restarted after the maintenance, if the instance was running before.
 
@@ -106,7 +106,7 @@ If you have questions or encounter issues when using the OpenStack platform, ple
 
 To avoid back-and-forth and ensure quick processing, please use the following template in your request:
 
-```
+```markdown
 ### OpenStack Issue Report
 
 **Affected OpenStack Components:**  

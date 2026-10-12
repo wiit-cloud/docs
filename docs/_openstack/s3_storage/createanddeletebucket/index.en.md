@@ -15,7 +15,7 @@ parent: Object Storage
 - [Cyberduck](#cyberduck)
 - [Boto3](#boto3)
 
-To upload your data (documents, photos, videos, etc.) it is necessary to create a bucket, which is similar to a folder. First create an S3 bucket and then you can upload as many objects as required into the bucket.
+To upload your data (documents, photos, videos, etc.), it is necessary to create a bucket, which is similar to a folder. First, create an S3 bucket and then you can upload as many objects as required into the bucket.
 
 Due to the way our object storage works, it is necessary to use a globally unique name for your bucket.
 
@@ -61,17 +61,17 @@ Bucket 's3://iNNOVO-Test/' removed
 
 ### Create a bucket
 
-After opening S3Browser, we click on "New bucket"(1) in the upper left corner, in the newly opened window, we assign the name of the bucket via "Bucket name"(2) and then click on "Create new bucket"(3).
+After opening S3Browser, we click on "New bucket"(1) in the upper left corner. In the newly opened window, we assign the name of the bucket via "Bucket name"(2) and then click on "Create new bucket"(3).
 
 ![](attachments/CreateAndDeleteBucket1.png)
 
 ### Delete a bucket
 
-First select the bucket you want to delete(1) and then click on "Delete bucket"(2) in the upper left corner.
+First, select the bucket you want to delete(1) and then click on "Delete bucket"(2) in the upper left corner.
 
 ![](attachments/CreateAndDeleteBucket2.png)
 
-In the window that opens, confirm that you want to delete the file by checking the checkbox(1) and then click on "Delete Bucket"(2).
+In the window that opens, confirm that you want to delete the bucket by checking the checkbox(1) and then click on "Delete Bucket"(2).
 
 ![](attachments/CreateAndDeleteBucket3.png)
 
@@ -83,7 +83,7 @@ After opening Cyberduck, we click on "Action"(1) and on "New folder"(2) in the m
 
 ![](attachments/CreateAndDeleteBucket4.png)
 
-A new window opens, here we can define the name(1) and confirm this with "Create"(2):
+A new window opens, where we can define the name(1) and confirm this with "Create"(2):
 
 ![](attachments/CreateAndDeleteBucket5.png)
 
@@ -99,14 +99,14 @@ Confirm the action by clicking on "Delete"(1) once again.
 
 ## Boto3
 
-In Boto3 we first need the S3 identifier so that a script can be used. For details see: [Create and use S3 credentials #Boto3](/openstack/storage/s3_documentation/createanduses3credentials/#boto3)
+In Boto3, we first need the S3 credentials so that a script can be used. For details, see: [Create and use S3 credentials #Boto3](/openstack/s3_storage/createanduses3credentials/#boto3).
 
 ### Create a bucket
 
-To create a bucket, we first need a client for it and we will then create the bucket afterwards.
+To create a bucket, we first need a client, and then we create the bucket.
 One option looks like this:
 
-```bash
+```python
 ## Create the S3 client
 s3 = boto3.client('s3')
 
@@ -114,7 +114,7 @@ s3 = boto3.client('s3')
 s3.create_bucket(Bucket='iNNOVO-Test')
 ```
 
-A complete script for boto 3 including authentication may look like this:
+A complete script for Boto3 including authentication may look like this:
 
 ```python
 #!/usr/bin/env/python
@@ -150,7 +150,7 @@ s3 = boto3.client('s3')
 s3.delete_bucket(Bucket='iNNOVO-Test')
 ```
 
-A complete script for boto 3 including authentication may look like this:
+A complete script for Boto3 including authentication may look like this:
 
 ```python
 #!/usr/bin/env/python

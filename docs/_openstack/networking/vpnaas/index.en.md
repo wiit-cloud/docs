@@ -8,25 +8,25 @@ parent: Networking
 
 # VPN as a Service (VPNaaS)
 
-OpenStack supports on demand Site-to-Site VPNs as a service.
+OpenStack supports on-demand site-to-site VPNs as a service.
 This allows the user to connect two private networks to each other. To achieve this, OpenStack will configure a fully functional IPsec VPN within a project, without the need for additional networking VMs.
 
-## Setting up a Site-to-Site IPSec VPN
+## Setting up a site-to-site IPsec VPN
 
 ### Create left and right networks and subnets
 
 Before we can create a VPN, we need two separate networks to connect to each other. For this guide, we will create these networks in two different OpenStack projects which will be referred to as "left" and "right".
 The following steps have to be repeated for both networks ("left" and "right"), assuming you want to connect two different OpenStack clusters.
-For the sake of simplicity, this guide will only demonstrate how to create the left network. For OpenStack, the steps to create the right network are exactly the same with exception to naming and subnet prefix
+For the sake of simplicity, this guide will only demonstrate how to create the left network. For OpenStack, the steps to create the right network are exactly the same, with the exception of naming and subnet prefix.
 In this example, we will be using the subnet prefix `2001:db8:1:33bc::/64` for the left network and `2001:db8:1:33bd::/64` for the right.
 
-**If you already have two networks you would like to connect via Site-to-Site VPN, you can skip to [creating IKE and IPSec policies](#Create-IKE-and-IPSec-policies-on-both-sides)**.
+**If you already have two networks you would like to connect via site-to-site VPN, you can skip to [creating IKE and IPsec policies](#create-ike-and-ipsec-policies-on-both-sides)**.
 
 #### Using the CLI
 
 1. Create the left network using the `openstack network create` command.
 
-```
+```bash
 $ openstack network create vpnaas-left-network
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
@@ -63,7 +63,7 @@ $ openstack network create vpnaas-left-network
 
 2. Create a new subnet and allocate it to the newly created network, using the `openstack subnet create` command.
 
-```
+```bash
 $ openstack subnet create \
   vpnaas-left-network-subnet \
   --subnet-range 2001:db8:1:33bc::/64 --ip-version 6 \
@@ -102,7 +102,7 @@ $ openstack subnet create \
 
 1. Create a router using the `openstack router create` command.
 
-```
+```bash
 $ openstack router create vpnaas-left-router
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
@@ -129,7 +129,7 @@ $ openstack router create vpnaas-left-router
 
 2. Use the `openstack router set` command to set the provider network as an external gateway for the router.
 
-```
+```bash
 $ openstack router set vpnaas-left-router --external-gateway provider
 ```
 
@@ -139,17 +139,17 @@ $ openstack router set vpnaas-left-router --external-gateway provider
 
 Use the `openstack router add subnet` command to add the subnet to the router.
 
-```
+```bash
 $ openstack router add subnet vpnaas-left-router vpnaas-left-network-subnet
 ```
 
-### Create IKE and IPSec policies on both sides
+### Create IKE and IPsec policies on both sides
 
-The IKE and IPSec policies need to be configured identically on both sides. For the purpose of this guide, we will be using the following parameters.
+The IKE and IPsec policies need to be configured identically on both sides. For the purpose of this guide, we will be using the following parameters.
 
-| Parameter               | IKE Policy | IPSec Policy |
+| Parameter               | IKE Policy | IPsec Policy |
 | ----------------------- | ---------- | ------------ |
-| Authorization algorithm | `SHA256`   | `SHA256`     |
+| Authentication algorithm | `SHA256`   | `SHA256`     |
 | Encryption algorithm    | `AES-256`  | `AES-256`    |
 | Encapsulation mode      | N/A        | `TUNNEL`     |
 | IKE Version             | `V2`       | N/A          |
@@ -160,7 +160,7 @@ The IKE and IPSec policies need to be configured identically on both sides. For 
 
 1. Create the IKE policy using the `openstack vpn ike policy create` command.
 
-```
+```bash
 $ openstack vpn ike policy create \
   vpnaas-left-ike-policy \
   --auth-algorithm sha256 \
@@ -184,9 +184,9 @@ $ openstack vpn ike policy create \
 +-------------------------------+--------------------------------------+
 ```
 
-2. Create the IPSec policy using the `openstack vpn ipsec policy create` command.
+2. Create the IPsec policy using the `openstack vpn ipsec policy create` command.
 
-```
+```bash
 $ openstack vpn ipsec policy create \
   vpnaas-left-ipsec-policy \
   --auth-algorithm sha256 \
@@ -216,7 +216,7 @@ $ openstack vpn ipsec policy create \
 
 Use the `openstack vpn service create` command to create the VPN service.
 
-```
+```bash
 $ openstack vpn service create vpnaas-left-vpn --router vpnaas-left-router
 +----------------+--------------------------------------+
 | Field          | Value                                |
@@ -239,14 +239,13 @@ $ openstack vpn service create vpnaas-left-vpn --router vpnaas-left-router
 ### Create the endpoint groups
 
 {: .warning }
-
 When using multiple subnets, make sure your VPN endpoint supports routing multiple subnets through the same connection. While OpenStack does, for implementations that do not support this, multiple endpoint groups need to be created, one for each subnet.
 
 #### Using the CLI
 
 1. Use the `openstack vpn endpoint group create` command to create the local endpoint group for the left side.
 
-```
+```bash
 $ openstack vpn endpoint group create \
   vpnaas-left-local \
   --type subnet \
@@ -266,7 +265,7 @@ $ openstack vpn endpoint group create \
 
 2. Use the `openstack vpn endpoint group create` command again to create the peer endpoint group for the left side.
 
-```
+```bash
 $ openstack vpn endpoint group create \
   vpnaas-left-remote \
   --type cidr \
@@ -287,16 +286,15 @@ $ openstack vpn endpoint group create \
 ### Create the site connections
 
 {: .warning }
-
 Just like with the endpoint groups, if your VPN endpoint does not support routing multiple subnets through the same connection, you need to create multiple site connections, one for each subnet/endpoint group.
 
 When configuring the remote VPN endpoint, make sure to use the public IPs from the VPN service (external_v4_ip / external_v6_ip), not those from the router.
 
 #### Using the CLI
 
-Use the `openstack vpn ipsec site connection create` command to create the VPN service.
+Use the `openstack vpn ipsec site connection create` command to create the site connection.
 
-```
+```bash
 $ openstack vpn ipsec site connection create \
   vpnaas-left-connection \
   --vpnservice vpnaas-left-vpn \

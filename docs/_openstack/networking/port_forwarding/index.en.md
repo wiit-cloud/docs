@@ -9,7 +9,7 @@ nav_order: 2100
 Port Forwarding on Floating IPs
 ==================================
 
-Floating IP port forwarding allows users to forward traffic from a TCP/UDP/other protocol port of a floating IP to a TCP/UDP/other protocol port associated to one of the fixed IPs of a Neutron port.
+Floating IP port forwarding allows users to forward traffic from a TCP/UDP/other protocol port of a floating IP to a TCP/UDP/other protocol port associated with one of the fixed IPs of a Neutron port.
 
 Create a port forwarding rule on a floating IP
 ---------------
@@ -23,7 +23,7 @@ In order to apply port forwarding on a floating IP, the following information is
 * The specific protocol to be used in the port forwarding (in this example TCP)
 * The floating IP for the port forwarding rule to be applied on.
 
-The example below demonstrates creation of port forwarding on a floating IP, using the required options:
+The example below demonstrates the creation of port forwarding on a floating IP, using the required options:
 
 ```bash
 $ openstack floating ip port forwarding create \
@@ -41,16 +41,16 @@ Within a project, a list of port forwarding rules applied to specific floating I
 
 `$ openstack floating ip port forwarding list 185.116.244.141`
 
-The command above can be further refined using `--sort-column` `--port`, `--external-protcol-port` and `--protocol` flags before the floating IP.
+The command above can be further refined using the `--sort-column`, `--port`, `--external-protocol-port` and `--protocol` flags before the floating IP.
 
 Display details of a specific port forwarding rule
 ---------------
 
-To display the specific details of a Port Forwarding rule for a Floating IP, the following command can be used:
+To display the specific details of a port forwarding rule for a floating IP, the following command can be used:
 
 `$ openstack floating ip port forwarding show <floating-ip> <port-forwarding-id>`
 
-Modifying Floating IP Port Forwarding Properties
+Modify floating IP port forwarding properties
 ---------------
 
 If a port forwarding configuration on a floating IP has already been created using `$ openstack floating ip port forwarding create`, further changes can be made to the existing configuration using `$ openstack floating ip port forwarding set ...`.
@@ -73,8 +73,8 @@ $ openstack floating ip port forwarding set \
      --internal-protocol-port <port-number> \
      --external-protocol-port <port-number> \
      --protocol <protocol> \
-     --description <description>] \
-    <floating-ip> <port-forwarding-id>`
+     --description <description> \
+    <floating-ip> <port-forwarding-id>
 ```
 
 Delete port forwarding from a floating IP
@@ -82,9 +82,9 @@ Delete port forwarding from a floating IP
 
 To remove a port forwarding rule from a floating IP, we need the following information:
 
-* The floating IP from which the port forwarding rule is to be removed from.
-* The port forwarding ID (This ID is applied upon creation and can be obtained using the `$ openstack floating ip port forwarding list ...` command)
+* The floating IP from which the port forwarding rule is to be removed.
+* The port forwarding ID (this ID is assigned upon creation and can be obtained using the `$ openstack floating ip port forwarding list ...` command)
 
-The following command removes the port forwarding rule from a floating ip:
+The following command removes the port forwarding rule from a floating IP:
 
 `$ openstack floating ip port forwarding delete <floating-ip> <port-forwarding-id>`

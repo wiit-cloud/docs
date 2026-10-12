@@ -9,7 +9,7 @@ last_modified_date: 2025-07-21
 
 # OpenStack Default Quotas
 
-In the OpenStack-Platform we have defined default quotas for the OpenStack Compute service, the OpenStack Block Storage service, and the OpenStack Networking service. We also have separate quotas for the Octavia Loadbalancer service and its associated components. These default values for new projects are listed below, if you need some quota to be increased please open a ticket for it via [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
+On the OpenStack platform, we have defined default quotas for the OpenStack Compute service, the OpenStack Block Storage service, and the OpenStack Networking service. We also have separate quotas for the Octavia load balancer service and its associated components. These default values for new projects are listed below. If you need a quota increase, please open a ticket via [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one).
 
 ## Compute
 
@@ -22,7 +22,7 @@ In the OpenStack-Platform we have defined default quotas for the OpenStack Compu
 | Instances                |        100          |
 | Key Pairs                |        100          |
 | Properties               |        128          |
-| Ram                      |        524288       |
+| RAM                      |        524288       |
 | Server Groups            |        10           |
 | Server Group Members     |        10           |
 
@@ -51,7 +51,7 @@ In the OpenStack-Platform we have defined default quotas for the OpenStack Compu
 | RBAC Policies            |        100          |
 | Subnetpools              |        Unlimited    |
 
-## Octavia Loadbalancers
+## Octavia Load Balancers
 
 |**Field**                 |**Value**            |
 |:-------------------------|:--------------------|

@@ -5,7 +5,7 @@ permalink: /openstack/s3_storage/
 nav_order: 3100
 has_children: true
 ---
-S3 compatible Object Storage
+S3-compatible Object Storage
 =================================================
 
 What exactly is Object Storage?
@@ -13,7 +13,7 @@ What exactly is Object Storage?
 
 Object storage is an alternative to classic block storage. The individual data is not assigned to individual blocks on a device, but is stored as binary objects within a storage cluster. The necessary metadata is stored in a separate database.
 The storage cluster consists of several individual servers (nodes), which in turn have several storage devices installed. With the storage devices, we have a mix of classic HDDs, SSDs, and modern NVMe solutions.
-The CRUSH algorithm, which is implemented on the server-side of the Object Storage, decides which device an object ultimately lands on.
+The CRUSH algorithm, which is implemented on the server side of the Object Storage, decides which device an object ultimately lands on.
 
 How can I access it?
 -----
@@ -29,7 +29,7 @@ Regardless of which protocol you use, you always have access to all your data. Y
 There are tools for all common platforms to work with the data in the object storage:
 
 - Windows: s3cmd, Cyberduck
-- MacOS: s3cmd, Cyberduck
+- macOS: s3cmd, Cyberduck
 - Linux: s3cmd
 
 In addition, there are integrations in all popular programming languages.
@@ -37,7 +37,7 @@ In addition, there are integrations in all popular programming languages.
 How secure is my data?
 -----
 
-The Object Storage is based on our Openstack Cloud Platform with the distributed Ceph Storage Cluster. The objects are distributed and replicated on the server-side across several storage devices.
+The Object Storage is based on our OpenStack Cloud Platform with the distributed Ceph storage cluster. The objects are distributed and replicated on the server side across several storage devices.
 Ceph ensures the replication and integrity of the data sets. If a server or hard disk fails, the affected data records are replicated to available servers and the desired replication level is automatically restored.
 
 In addition, the data is mirrored to another data centre on another dedicated storage cluster and can be used from there in the event of a disaster.
@@ -49,7 +49,7 @@ Advantages at a glance
 - Supports all common operating systems and programming languages.
 - Full scalability - Storage can be used dynamically.
 - Maximum reliability thanks to integrated replication and mirroring via 2 independent data centres.
-- Access is possible from almost any internet-enabled device - thus a good alternative to NFS and Co.
+- Access is possible from almost any internet-enabled device - thus a good alternative to NFS and similar solutions.
 - PAYG billing according to used monthly average.
 - Transparent billing and therefore good predictability - no extra traffic costs or costs for access to the data.
-- Ability to define s3 lifecycle policies to manage the objects inside the buckets.
+- Ability to define S3 lifecycle policies to manage the objects inside the buckets.

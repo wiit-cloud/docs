@@ -1,7 +1,7 @@
 ---
 title: "OpenStack Client commands"
 lang: "en"
-permalink: /openstack/quckickstart/osclient_commands/
+permalink: /openstack/quickstart/osclient_commands/
 nav_order: 1013
 parent: Quickstart
 ---
@@ -40,15 +40,15 @@ Here is a list of some common commands:
 
 ## Security Group
 
-Security Groups are used to allow or deny incoming and outgoing network
-traffic based on IP adresses and ports for VMs.
+Security groups are used to allow or deny incoming and outgoing network
+traffic based on IP addresses and ports for VMs.
 
 You can also manage security groups in the OpenStackClient.
 
 Here are some common commands:
 
 - `openstack security group create`
-    Creates a new security group.
+    Creates a new security group
 - `openstack security group delete`
     Deletes a security group
 - `openstack security group list`
@@ -75,7 +75,7 @@ To create VMs, a network is required. Here are some common network commands:
 
 ## Router
 
-For the VMs on your network to reach the internet, you need a router. Here are some common router commands.
+For the VMs on your network to reach the internet, you need a router. Here are some common router commands:
 
 - `openstack router create`
     Creates a new router
@@ -96,26 +96,26 @@ administrated with `openstack subnet`. Here are some common commands:
 - `openstack subnet delete`
     Deletes a subnet
 - `openstack subnet show`
-    Shows all infomation about a subnet
+    Shows all information about a subnet
 
 ## Port
 
 Ports connect your VMs to your network. Here are some common commands:
 
 - `openstack port create`
-    Create a new port
+    Creates a new port
 - `openstack port delete`
     Deletes a port
 - `openstack port show`
-    Shows all infomation about a port
+    Shows all information about a port
 
 ## Volume
 
 Volumes are storage locations that persist across the existence of individual instances. Here are some common commands:
 
 - `openstack volume create`
-    Creates a new Volume
+    Creates a new volume
 - `openstack volume delete`
     Deletes a volume
 - `openstack volume show`
-    Shows all infomation about a volume
+    Shows all information about a volume

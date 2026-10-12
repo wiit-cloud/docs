@@ -15,7 +15,7 @@ parent: Object Storage
 - [Cyberduck](#cyberduck)
 - [Boto3](#boto3)
 
-To upload your data (documents, photos, videos, etc.) it is first necessary to [create a bucket](/openstack/storage/s3_documentation/createanddeletebucket/).
+To upload your data (documents, photos, videos, etc.), it is first necessary to [create a bucket](/openstack/s3_storage/createanddeletebucket/).
 A file can only be saved in a bucket.
 
 ## S3cmd
@@ -28,7 +28,7 @@ To upload a file, use the following command:
 s3cmd put NameOfTheFile s3://NameOfTheBucket/NameOfTheFile
 ```
 
-The output in the command will be similar to this:
+The output of the command will be similar to this:
 
 ```bash
 $ s3cmd put innovo.txt s3://innovo-test/innovo.txt
@@ -44,7 +44,7 @@ To delete a file, use the following command:
 s3cmd del s3://NameOfTheBucket/NameOfTheFile
 ```
 
-The output in the command will be similar to this:
+The output of the command will be similar to this:
 
 ```bash
 $ s3cmd del s3://innovo-test/innovo.txt
@@ -55,7 +55,7 @@ delete: 's3://innovo-test/innovo.txt'
 
 ### Upload an object
 
-After opening S3Browser, we click on the desired "Bucket"(1), then select "Upload"(2) and finally "Upload file(s)"(3)
+After opening S3Browser, we click on the desired "Bucket"(1), then select "Upload"(2) and finally "Upload file(s)"(3).
 
 ![](attachments/UploadAndDeleteObject1.png)
 
@@ -75,7 +75,7 @@ Finally, confirm the action with "Yes".
 
 ### Upload an object
 
-After opening Cyberduck, click on the Bucket(1), then click on Action(2) and then on Upload(3).
+After opening Cyberduck, click on the bucket(1), then click on Action(2) and then on Upload(3).
 
 ![](attachments/UploadAndDeleteObject4.png)
 
@@ -91,14 +91,14 @@ This action is then confirmed by clicking on "Delete" again.
 
 ## Boto3
 
-At boto3 we first need the S3 identifier so that a script can be used. For details: [Create and use S3 credentials #Boto3](/openstack/storage/s3_documentation/createanduses3credentials/#boto3).
+In Boto3, we first need the S3 credentials so that a script can be used. For details, see: [Create and use S3 credentials #Boto3](/openstack/s3_storage/createanduses3credentials/#boto3).
 
 ### Upload an object
 
-To upload a file, we have to use a client and specify the bucket which the file should be uploaded to.
+To upload a file, we have to use a client and specify the bucket to which the file should be uploaded.
 One option could look like this:
 
-```bash
+```python
 ## Create the S3 client
 s3 = boto3.client('s3')
 
@@ -106,7 +106,7 @@ s3 = boto3.client('s3')
 s3.upload_file(Bucket='iNNOVO-Test', Key='innovo.txt')
 ```
 
-A complete script for boto 3 including authentication may be similar to this:
+A complete script for Boto3 including authentication may be similar to this:
 
 ```python
 #!/usr/bin/env/python
@@ -131,11 +131,11 @@ s3.upload_file(Bucket='iNNOVO-Test', Key='innovo.txt')
 
 ### Delete an object
 
-As well as being used to upload a file, the client is also required to delete the file.
+Just as for uploading a file, the client is also required to delete a file.
 For this, we specify the bucket in which the file is stored, in addition to the file itself.
 One option could look like this:
 
-```bash
+```python
 ## Create the S3 client
 s3 = boto3.client('s3')
 
@@ -143,7 +143,7 @@ s3 = boto3.client('s3')
 s3.delete_object(Bucket='iNNOVO-Test', Key='innovo.txt')
 ```
 
-A complete script for boto 3 including authentication may look like this:
+A complete script for Boto3 including authentication may look like this:
 
 ```python
 #!/usr/bin/env/python

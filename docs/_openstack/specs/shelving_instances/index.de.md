@@ -3,7 +3,7 @@ title: Shelving-Instanzen
 lang: "de"
 permalink: /openstack/specs/shelving_instances/
 parent: Spezifikationen
-nav_order: 9500
+nav_order: 9600
 last_modified_date: 2025-07-21
 ---
 
@@ -11,19 +11,19 @@ last_modified_date: 2025-07-21
 
 ## Einführung
 
-Auf der OpenStack Platform haben Sie die Möglichkeit, eine Instanz zurückzustellen. Shelving-Instanzen ermöglichen es Ihnen, eine Instanz zu stoppen, ohne dass sie Ressourcen verbraucht.
-Eine zurückgestellte Instanz sowie die ihr zugewiesenen Ressourcen (z.B. IP-Adresse, usw.) werden als bootfähige Instanz beibehalten.
+Auf der OpenStack-Plattform haben Sie die Möglichkeit, eine Instanz zurückzustellen. Shelving-Instanzen ermöglichen es Ihnen, eine Instanz zu stoppen, ohne dass sie Ressourcen verbraucht.
+Eine zurückgestellte Instanz sowie die ihr zugewiesenen Ressourcen (z. B. IP-Adresse usw.) werden als bootfähige Instanz beibehalten.
 
 Diese Funktion kann als Teil eines Lifecycle-Prozesses einer Instanz oder zum Einsparen von Ressourcen verwendet werden.
 
 ## Shelving einer Instanz
 
-Instanzen auf Openstack können wie folgt abgelegt werden:
+Instanzen auf OpenStack können wie folgt zurückgestellt werden:
 `$ openstack server shelve <server-id>`
 
 ## Unshelving einer Instanz
 
-Instanzen können mit dem folgenden Befehl Unshelved werden:
+Instanzen können mit dem folgenden Befehl unshelved werden:
 `$ openstack server unshelve <server-id>`
 
 ## Eventliste für eine Instanz anzeigen
@@ -42,13 +42,13 @@ $ openstack server event list <server-id>
 
 ## Warum Shelving verwenden?
 
-Diese Funktion ist nützlich, um Instanzen zu archivieren, die Sie derzeit nicht verwenden, aber nicht löschen möchten. Das Shelving einer Instanz ermöglicht es Ihnen, die Instanzdaten und Ressourcenzuordnungen beizubehalten, gibt aber CPU und Arbeitsspeicher Ressourcen der Instanz frei.
+Diese Funktion ist nützlich, um Instanzen zu archivieren, die Sie derzeit nicht verwenden, aber nicht löschen möchten. Das Shelving einer Instanz ermöglicht es Ihnen, die Instanzdaten und Ressourcenzuordnungen beizubehalten, gibt aber CPU- und Arbeitsspeicher-Ressourcen der Instanz frei.
 
 Wenn Sie eine Instanz zurückstellen, generiert der Compute-Dienst ein Snapshot-Image, das den Status der Instanz erfasst, und lädt es in die Glance-Library hoch. Wenn die Instanz unshelved wird, wird sie mithilfe des Snapshots neu erstellt.
 Das Snapshot-Image wird gelöscht, wenn die Instanz unshelved oder gelöscht wird.
 
 ## Abrechnung von Shelved Instances
 
-Bei einer Shelved Instance wird nur die Root Disk der Instanz weiterhin abgerechnet. CPU- und Arbeitsspeicher- Ressourcen aus dem Flavor der Instanz werden ab dem Zeitpunkt des Shelvings nicht mehr in Rechnung gestellt und nach dem unshelving automatisch wieder berechnet.
+Bei einer Shelved Instance wird nur die Root-Disk der Instanz weiterhin abgerechnet. CPU- und Arbeitsspeicher-Ressourcen aus dem Flavor der Instanz werden ab dem Zeitpunkt des Shelvings nicht mehr in Rechnung gestellt und nach dem Unshelving automatisch wieder berechnet.
 
-Shelving hat keine Auswirkungen auf die Auslastung der Quotas im Projekt. Shelved Ressourcen werden nicht in der Quota freigegeben, um jederzeit ausreichend Ressourcen für das unshelving der Instanz im Projekt zu gewährleisten.
+Shelving hat keine Auswirkungen auf die Auslastung der Quotas im Projekt. Shelved Ressourcen werden nicht in der Quota freigegeben, um jederzeit ausreichend Ressourcen für das Unshelving der Instanz im Projekt zu gewährleisten.

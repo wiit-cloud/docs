@@ -37,7 +37,7 @@ openstack network rbac create --type network --action access_as_shared --target-
 
 When accessing a shared network, there are limitations that must be considered. One limitation is that no remote security groups can be used.
 Additionally, there is no insight into ports and IP addresses from the other project.
-Therefore, one can also specify any specific IP addresses for new ports in a subnet (in the shared network), as it would be possible to find IPs that are already in use.
+Therefore, one cannot specify specific IP addresses for new ports in a subnet (in the shared network), as this would make it possible to find IPs that are already in use.
 
 In order to make use of the shared network, there is the option to create a new port. This then receives a random IP address to use, for example, to add a router through this port.
 This is not possible in the Horizon dashboard; we need to use the [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/).
@@ -47,7 +47,7 @@ Please ensure that no spaces or special characters are used in names, as using t
 First, we create the port and specify the shared network there:
 
 ```bash
-openstack port create --network <ID of shared Networks> <Name of Ports>
+openstack port create --network <ID of shared Network> <Name of Port>
 ```
 
 Now, for example, a router can be created and then mapped to the newly created port:
@@ -74,4 +74,4 @@ The network "shared" is also visible in project 2 and was attached to the router
 
 You have to make sure that the corresponding route is set in the subnet "host route" configuration of the "shared" network in project 1 in order to enable the correct return transport of the packets.
 
-In our example the following route is required: `10.0.1.0/24,10.0.0.1`
+In our example, the following route is required: `10.0.1.0/24,10.0.0.1`

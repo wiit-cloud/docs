@@ -9,7 +9,7 @@ last_modified_date: 2025-07-21
 
 # OpenStack Default Quotas
 
-In der OpenStack-Plattform haben wir Standardwerte für den OpenStack Compute-Dienst, den OpenStack Block Storage-Dienst und den OpenStack Networking-Dienst definiert. Wir haben auch separate Quotas für den Octavia Loadbalancer-Dienst und die zugehörigen Komponenten. Diese Standardwerte für neu erstellte Projekte sind unten aufgeführt, sollten sie eine Anpassung benötigen erstellen sie bitte ein Ticket über unseren Helpdesk: [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
+In der OpenStack-Plattform haben wir Standardwerte für den OpenStack-Compute-Dienst, den OpenStack-Block-Storage-Dienst und den OpenStack-Networking-Dienst definiert. Wir haben auch separate Quotas für den Octavia-Load-Balancer-Dienst und die zugehörigen Komponenten. Diese Standardwerte für neu erstellte Projekte sind unten aufgeführt. Sollten Sie eine Anpassung benötigen, erstellen Sie bitte ein Ticket über unseren Helpdesk: [helpdesk.de@wiit.one](mailto:helpdesk.de@wiit.one)
 
 ## Compute
 
@@ -22,7 +22,7 @@ In der OpenStack-Plattform haben wir Standardwerte für den OpenStack Compute-Di
 | Instances                |        100          |
 | Key Pairs                |        100          |
 | Properties               |        128          |
-| Ram                      |        524288       |
+| RAM                      |        524288       |
 | Server Groups            |        10           |
 | Server Group Members     |        10           |
 
