@@ -29,10 +29,10 @@ In general, you can:
 * set the AZ's per Machine Deployment
 
 General your final VM count is based on replicas, Machine Deployments and Availability Zones. The Replica count can be different per Machine Deployment. For example 
-* if you have one Machine Deployment in all 3 AZ's with a replica count of 3 for your normal workload you end up with: 1 (Machine Deployment) * 3 (AZ's) * 3 (replicas) = 9 Nodes.
-* if you have one Machine Deployment in all 3 AZ's with a replica count of 2 for your infrastructure tools you end up with: 1 (Machine Deployment) * 3 (AZ's) * 2 (replicas) = 6 Nodes.
+* if you have one Machine Deployment in all 3 AZs with a replica count of 3 for your normal workload you end up with: 1 (Machine Deployment) * 3 (AZs) * 3 (replicas) = 9 Nodes.
+* if you have one Machine Deployment in all 3 AZs with a replica count of 2 for your infrastructure tools you end up with: 1 (Machine Deployment) * 3 (AZs) * 2 (replicas) = 6 Nodes.
 
-This means the VM count is a product of an multiplication and therefore if you use more than one AZ (what is highly adviced) you can't have something like 5 VM's.
+This means the VM count is the product of a multiplication, and therefore if you use more than one AZ (which is highly advised) you can't have something like 5 VMs.
 
 
 ## What is Cluster Autoscaler?
@@ -49,7 +49,7 @@ Cluster Autoscaler decreases the size of the cluster when some nodes are consist
 Yes, you can use the `loadbalancer.openstack.org/keep-floatingip` annotation to ensure that the floating IP remains associated with your project and is reused by the Kubernetes service.
 
 Here's an example of how to configure a Kubernetes service with a reserved IP address using the annotation:
-```bash
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,14 +63,14 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-  loadBalancerIP: 45.94.08.9 # Specific floating IP to be reserved for the service
+  loadBalancerIP: 45.94.8.9 # Specific floating IP to be reserved for the service
 ```
 
 ## Can We Create a Kubernetes Service with a Specific Floating IP?
 Yes, you can create a Kubernetes Service that uses a specific floating IP by setting the loadBalancerIP field in the service definition. The IP you specify as loadBalancerIP must already be allocated as a floating IP in OpenStack.
 
 Here's an example of how you can specify a floating IP for a Kubernetes Service:
-```bash 
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -82,10 +82,10 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-  loadBalancerIP: 45.94.08.9 # Specific floating IP to be reserved for the service
+  loadBalancerIP: 45.94.8.9 # Specific floating IP to be reserved for the service
 ```
 By using the loadBalancerIP field, you ensure that the service will use the specified floating IP when a load balancer is provisioned.
 
-## Can I use external-dns and openstack designate for automatic dns?
+## Can I use external-dns and OpenStack Designate for automatic dns?
 
 Yes, a few installation and configuration steps are necessary for this which are explained [here](/managedk8s/faq/automatic_dns).

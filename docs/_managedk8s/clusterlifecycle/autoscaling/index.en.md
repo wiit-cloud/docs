@@ -8,14 +8,14 @@ parent: Cluster Lifecycle
 # Cluster Node Autoscaler
 The Cluster Node Autoscaler automatically adjusts the number of nodes in a Kubernetes cluster to match the current workload. It ensures efficient resource utilization by scaling the cluster up when there is insufficient capacity to run all scheduled pods and scaling it down when there are unused nodes.
 
-# How the Cluster Autoscaler Works:
+# How the Cluster Autoscaler Works
 **Scaling Up:**
-When the autoscaler detects that some pods cannot be scheduled due to insufficient resources (CPU, memory), it will automatically add new nodes to the cluster to provide the necessary capacity. It evaluates the capacity available to Kubernetes pods, not the raw CPU and memory of the OpenStack flavor. Node reservations and requests from platform components reduce the capacity available to your workloads. See [Node Resource Availability](/managedk8s/clusterlifecycle/node-resources/) for details.
+When the autoscaler detects that some pods cannot be scheduled due to insufficient resources (CPU, memory), it will automatically add new nodes to the cluster to provide the necessary capacity. It evaluates the capacity available to Kubernetes pods, not the raw CPU and memory of the OpenStack flavor. Node reservations and requests from platform components reduce the capacity available to your workloads. See [Allocatable Resources](/managedk8s/clusterlifecycle/allocatable-resources/) for details.
 
 **Scaling Down:**
 If the autoscaler identifies nodes that are underutilized or completely not used for a configurable period, it will remove those nodes to optimize resource usage and reduce costs. Before scaling down, it ensures that there are no critical pods running on those nodes and that workloads can be safely moved to other nodes.
 
-The Cluster Nodes Autoscaler is not enabled by default. To enable it, please contact us using the instructions provided [here](/managedk8s/about/support/).
+The Cluster Node Autoscaler is not enabled by default. To enable it, please contact us using the instructions provided [here](/managedk8s/about/support/).
 
 When reaching out, include the following information:
 
@@ -61,4 +61,4 @@ per-group changes, and the options or flags you want.
 
 We support scale from zero. You can set the minimum nodes to 0, and when there are no pods, the autoscaler will scale down to 0 worker nodes. When a pending workload needs a new node, the autoscaler uses the selected worker flavor's calculated allocatable CPU and memory. It does not assume that the full flavor capacity is available for pods. Platform components are scheduled and consume their resource requests after the node is created.
 
-For a detailed explanation of reservations, allocatable capacity, and platform pod requests, see [Node Resource Availability](/managedk8s/clusterlifecycle/node-resources/).
+For a detailed explanation of reservations, allocatable capacity, and platform pod requests, see [Allocatable Resources](/managedk8s/clusterlifecycle/allocatable-resources/).
