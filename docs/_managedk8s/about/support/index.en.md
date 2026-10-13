@@ -7,9 +7,9 @@ parent: About Managed Kubernetes
 ---
 
 # Support Channels
-During the onboarding process, we will choose the suitable communication channel for your organization. The following support channels are available for you to choose from:
+During the onboarding process, we will agree on a suitable communication channel for your organization. The following support channels are available for you to choose from:
 ### Microsoft Teams
-We can create a dedicated support channel within Microsoft Teams for your organization. This channel enables real-time communication with our support engineers, allowing for quick response. It's ideal for organizations that use Microsoft Teams as their primary communication tool.
+We can create a dedicated support channel within Microsoft Teams for your organization. This channel enables real-time communication with our support engineers, allowing for quick responses. It's ideal for organizations that use Microsoft Teams as their primary communication tool.
 
 Availability: During standard business hours.
 
@@ -20,10 +20,10 @@ Availability: During standard business hours.
 ### Email
 For formal communication, you can reach our support team via email.
 
-Response Time: Typically, you will receive a response during the working hours. The response time may vary depending on the nature and severity of the issue.
+Response Time: Typically, you will receive a response during standard business hours. The response time may vary depending on the nature and severity of the issue.
 
 ### Phone Support
-For critical issues that require immediate attention, we provide on-call support. This is ideal for high-priority incidents that may impact your production environment during non-working hours.
+For critical issues that require immediate attention, we provide on-call support. This is ideal for high-priority incidents that may impact your production environment outside business hours.
 
 Availability: 24/7 for critical issues, depending on your SLA.
 
@@ -31,7 +31,7 @@ During the onboarding process, we will discuss and agree upon the preferred supp
 
 ### WIIT Resource Name
 
-When creating a WKP Cluster, we provide you with a WIIT resource name to make future support queries easier. The WRN for now includes the service, region, resource type and resource id.
+When creating a WKP cluster, we provide you with a WIIT resource name to make future support queries easier. Currently, the WRN includes the service, region, resource type, and resource ID.
 
 Example:
 
@@ -39,4 +39,4 @@ Example:
 wrn:v1:wkp:de-west-01:cluster:07785ae2-c22f-4d42-abe7-07c08696cd08
 ```
 
-A WKP Cluster in de-west-01 with the id 07785ae2-c22f-4d42-abe7-07c08696cd08
+This identifies a WKP cluster in de-west-01 with the ID 07785ae2-c22f-4d42-abe7-07c08696cd08

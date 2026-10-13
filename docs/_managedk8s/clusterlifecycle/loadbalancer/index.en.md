@@ -26,7 +26,7 @@ If you don't have a specific reason to change it, keep the default (`amphora`).
 ## Differences from `amphora`
 
 - No dedicated amphora virtual machines are created, so load balancers provision faster and use fewer OpenStack resources.
-- Only Layer 4 (TCP/UDP) is supported - Layer 7 features such as host/path based routing, TLS termination or header manipulation are not available.
+- Only Layer 4 (TCP/UDP) is supported - Layer 7 features such as host/path-based routing, TLS termination or header manipulation are not available.
 - The Prometheus metrics endpoint (the `PROMETHEUS` listener protocol) is not supported.
 - The [API server allowlist](/managedk8s/clusterlifecycle/apiallowlist/) is not supported; requests combining both are rejected.
 

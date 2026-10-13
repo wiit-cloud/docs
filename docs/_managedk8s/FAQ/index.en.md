@@ -9,10 +9,10 @@ has_children: true
 
 ## What's the recommended cluster size?
 For high availability and fault tolerance, a common recommendation is to have:
-- 3 control plane Nodes. With the Flavor s1.medium (4 vCPU / 8 GB RAM).
-- 3 Worker Nodes: Having at least two worker nodes per machine deployment helps distribute the workload and provides redundancy. If one worker node fails, the other can continue to run the applications, minimizing downtime.
+- 3 control plane nodes with the s1.medium flavor (4 vCPU / 8 GB RAM).
+- 3 Worker Nodes: Having at least two worker nodes per machine deployment helps distribute the workload and provides redundancy. If one worker node fails, the others can continue to run the applications, minimizing downtime.
 
-The recommended approach for machine deployment is to create separate machine deployments in each Availability Zones (AZs). This helps ensure that your application remains available even if one or more AZs experience failures.
+The recommended approach for machine deployment is to create separate machine deployments in each Availability Zone (AZ). This helps ensure that your application remains available even if one or more AZs experience failures.
 
 For example, create three machine deployments:
  * Machine Deployment in az1
@@ -22,13 +22,13 @@ For example, create three machine deployments:
 For each machine deployment, you should configure at least 2 replicas. This ensures that there is redundancy within each AZ.
 
 
-## What can i configure where
+## What can I configure where?
 In general, you can:
 * set the flavor per Machine Deployment
 * set the replicas per Machine Deployment
-* set the AZ's per Machine Deployment
+* set the AZs per Machine Deployment
 
-General your final VM count is based on replicas, Machine Deployments and Availability Zones. The Replica count can be different per Machine Deployment. For example 
+In general, your final VM count is based on replicas, Machine Deployments and Availability Zones. The replica count can be different per Machine Deployment. For example:
 * if you have one Machine Deployment in all 3 AZs with a replica count of 3 for your normal workload you end up with: 1 (Machine Deployment) * 3 (AZs) * 3 (replicas) = 9 Nodes.
 * if you have one Machine Deployment in all 3 AZs with a replica count of 2 for your infrastructure tools you end up with: 1 (Machine Deployment) * 3 (AZs) * 2 (replicas) = 6 Nodes.
 
@@ -67,7 +67,7 @@ spec:
 ```
 
 ## Can We Create a Kubernetes Service with a Specific Floating IP?
-Yes, you can create a Kubernetes Service that uses a specific floating IP by setting the loadBalancerIP field in the service definition. The IP you specify as loadBalancerIP must already be allocated as a floating IP in OpenStack.
+Yes, you can create a Kubernetes Service that uses a specific floating IP by setting the `loadBalancerIP` field in the service definition. The IP you specify as `loadBalancerIP` must already be allocated as a floating IP in OpenStack.
 
 Here's an example of how you can specify a floating IP for a Kubernetes Service:
 ```yaml
@@ -84,8 +84,8 @@ spec:
     targetPort: 80
   loadBalancerIP: 45.94.8.9 # Specific floating IP to be reserved for the service
 ```
-By using the loadBalancerIP field, you ensure that the service will use the specified floating IP when a load balancer is provisioned.
+By using the `loadBalancerIP` field, you ensure that the service will use the specified floating IP when a load balancer is provisioned.
 
-## Can I use external-dns and OpenStack Designate for automatic dns?
+## Can I use external-dns and OpenStack Designate for automatic DNS?
 
 Yes, a few installation and configuration steps are necessary for this which are explained [here](/managedk8s/faq/automatic_dns).

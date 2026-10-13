@@ -1,11 +1,11 @@
 ---
-title: Allocatable resources
+title: Allocatable Resources
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/allocatable-resources/
 nav_order: 3530
 parent: Cluster Lifecycle
 ---
-# Allocatable resources
+# Allocatable Resources
 
 The CPU and memory shown by an OpenStack flavor describe the capacity of the virtual machine. They do not represent the capacity available for your applications. Every worker node needs capacity for the operating system, Kubernetes itself, and the managed platform components that run in your cluster.
 
@@ -41,7 +41,7 @@ A managed Kubernetes cluster needs platform components for networking, DNS, Open
 
 These platform components declare resource requests and, where appropriate, resource limits. Requests are used for scheduling and therefore reduce the capacity available to your workloads. Limits cap runtime usage but do not reserve additional capacity for scheduling. DaemonSet, Deployment, and Job requests apply to the nodes where their pods run; a DaemonSet normally places one pod on each eligible node. The capacity available for your application pods is therefore the node's allocatable capacity minus the requests of the platform pods scheduled on that node and the requests of your other workloads.
 
-Read more: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
+Read more in the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits).
 
 ## Impact on workloads and autoscaling
 

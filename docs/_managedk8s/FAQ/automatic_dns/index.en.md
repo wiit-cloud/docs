@@ -1,11 +1,11 @@
 ---
-title: Can I use external-dns and OpenStack Designate for automatic dns?
+title: Can I use external-dns and OpenStack Designate for automatic DNS?
 lang: "en"
 permalink: /managedk8s/faq/automatic_dns
 nav_order: 4100
 parent: FAQ
 ---
-# Can I use [external-dns](https://github.com/kubernetes-sigs/external-dns) and OpenStack Designate for automatic dns?
+# Can I use [external-dns](https://github.com/kubernetes-sigs/external-dns) and OpenStack Designate for automatic DNS?
 
 Yes, to reduce manual effort and automate the configuration of DNS zones, you may want to use [external-dns](https://github.com/kubernetes-sigs/external-dns).
 In summary, [external-dns](https://github.com/kubernetes-sigs/external-dns) allows you to control DNS records dynamically with Kubernetes resources in a DNS provider-agnostic way. [external-dns](https://github.com/kubernetes-sigs/external-dns) is not a DNS server by itself, but merely configures other DNS providers (for example, OpenStack Designate, Amazon Route53, Google Cloud DNS, and so on.)
@@ -14,7 +14,7 @@ In summary, [external-dns](https://github.com/kubernetes-sigs/external-dns) allo
 
 To successfully complete the following steps, you need the following:
 
-* `kubectl` [latest version](https://kubernetes.io/de/docs/tasks/tools/install-kubectl/)
+* `kubectl` [latest version](https://kubernetes.io/docs/tasks/tools/)
 * A running Kubernetes cluster on our OpenStack
 * A valid `kubeconfig` for your cluster
 * Installed [OpenStack CLI tools](https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html)
@@ -55,8 +55,8 @@ $ openstack zone show example.foo.
 > **Attention:**
 > It is important to log in with your **service user** into your OpenStack project, because **Application Credentials** are user specific.
 
-Visit the web UI and go to **Identity -> Application Credentials**, then click on the Button `+ CREATE APPLICATION CREDENTIAL` or
-create credentials via cli:
+Visit the web UI and go to **Identity -> Application Credentials**, then click the `+ CREATE APPLICATION CREDENTIAL` button, or
+create credentials via the CLI:
 
 ```bash
 $ openstack application credential create <name_of_app_credentials>
@@ -66,7 +66,7 @@ $ openstack application credential create <name_of_app_credentials>
 
 > **Note:**
 > Don't forget to change the OpenStack application credentials and the command line arguments in the [external-dns](https://github.com/kubernetes-sigs/external-dns) deployment `--domain-filter=example.foo` and the `--txt-owner-id=<owner-id>`.
->The domain-filter is the dns zone. With the txt-owner-id external-dns can identify the entries managed by itself. You should change the image to a new version if available (and schedule updates) if you want to use it in production.
+> The domain filter is the DNS zone. With the TXT owner ID, external-dns can identify the entries it manages. If you want to use it in production, change the image to a newer version if available and keep it updated.
 
 * Namespace:
 
@@ -175,7 +175,7 @@ spec:
 
 ## Annotate the service or ingress
 
-To add the dns entry to designate the service or ingress needs to be annotated with `external-dns.alpha.kubernetes.io/hostname: my-app.example.foo`.
+To add the DNS entry to Designate, annotate the service or ingress with `external-dns.alpha.kubernetes.io/hostname: my-app.example.foo`.
 For example:
 
 ```yaml

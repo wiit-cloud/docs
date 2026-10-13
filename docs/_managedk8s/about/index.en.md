@@ -6,7 +6,7 @@ nav_order: 1000
 has_children: true
 ---
 # About Our Managed Kubernetes
-We provide a Hosted CNCF Certified Kubernetes Cluster tailored to your needs. Unlike self-service Kubernetes offerings, we take full responsibility for creating, updating, and managing your Kubernetes clusters. Once the cluster is set up, we provide you with a kubeconfig file that grants you secure access to the cluster.
+We provide a hosted, CNCF-certified Kubernetes cluster tailored to your needs. Unlike self-service Kubernetes offerings, we take full responsibility for creating, updating, and managing your Kubernetes clusters. Once the cluster is set up, we provide you with a kubeconfig file that grants you secure access to the cluster.
 
 # What We Manage for You
 As part of our managed Kubernetes service, we handle the following tasks:
@@ -18,6 +18,7 @@ As part of our managed Kubernetes service, we handle the following tasks:
 By managing these core elements, we enable you to focus on your applications without worrying about the operational complexities of Kubernetes.
 
 In case anything goes wrong, you can reach us [here](/managedk8s/about/support/).
+
 # Getting Started
 ## Step 1: Receive Your kubeconfig File
 Once your Kubernetes cluster is ready, we will provide you with a kubeconfig file. This file contains the necessary credentials and connection details to access the cluster.
@@ -26,7 +27,7 @@ Once your Kubernetes cluster is ready, we will provide you with a kubeconfig fil
 To interact with your managed Kubernetes cluster, you'll need to install kubectl, the Kubernetes command-line tool.
 
 Installation Instructions:
-- On macOS: brew install kubectl
+- On macOS: `brew install kubectl`
 - On Windows: Download the executable from Kubernetes Releases
 - On Linux: Use the package manager for your distribution or download from Kubernetes Releases
 
@@ -71,7 +72,7 @@ kubectl apply -f your-deployment-file.yaml
 <img src="certified-kubernetes.png" alt="Certified Kubernetes Logo" width="100"/>
 
 Our Managed Kubernetes service is a product to efficiently set up and operate Kubernetes clusters on WIIT Cloud.
-Customers can use a managed Kubernetes cluster that passes the conformance checks and requirements by the
+Customers can use a managed Kubernetes cluster that passes the conformance checks and requirements defined by the
 [Cloud Native Computing Foundation](https://cncf.io/ck).
 
 Conformance results of our platform can be validated and checked at
