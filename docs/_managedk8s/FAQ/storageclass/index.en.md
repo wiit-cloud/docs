@@ -2,7 +2,7 @@
 title: StorageClass Setup
 lang: "en"
 permalink: /managedk8s/storageclasses/
-nav_order: 4200
+nav_order: 4300
 parent: FAQ
 ---
 # StorageClass Setup
@@ -17,9 +17,9 @@ NAME                   PROVISIONER                AGE
 cinder-csi (default)   cinder.csi.openstack.org   6h45m
 ```
 
-## Openstack Volume Types
+## OpenStack Volume Types
 
-The Openstack volume types sorted by maximum possible IOPS:
+The OpenStack volume types sorted by maximum possible IOPS:
 
 * standard <- used in the default class
 * high-iops
@@ -30,7 +30,7 @@ We don't provide `Read-Write-Many` Volumes. All Volumes are `Read-Write-Once`!
 
 ## Adding Your Own Classes
 
-If you need use one of the other types, you can add your own definitions.
+If you need to use one of the other types, you can add your own definitions.
 
 Example:
 
@@ -49,8 +49,8 @@ Apply with `kubectl apply -f storage-class.yaml`.
 
 * `name`: Choose a unique one, as we don't want to interfere with the default names.
 * `provisioner`: Use the one of your cluster. You can always have a look in the default class to verify the right provider.
-* `type`: Use one of the [official provided types](/openstack/specs/volume_specification/#volume-types) from the Openstack platform (at the time of writing standard and high-iops).
-* `volumeBindingMode`: There are two options. `WaitForFirstConsumer` is the suggested one. Because if you are using more than one availability Zone in combination with some pod placement policies `Immediate` will give you some unpredictable challenges.
+* `type`: Use one of the [official provided types](/openstack/specs/volume_specification/#volume-types) from the OpenStack platform (at the time of writing standard and high-iops).
+* `volumeBindingMode`: There are two options. `WaitForFirstConsumer` is the suggested one. Because if you are using more than one availability zone in combination with some pod placement policies `Immediate` will give you some unpredictable challenges.
   * `WaitForFirstConsumer`: The volume is created when a pod requests it.
   * `Immediate`: The volume is created at the moment the pvc is created. 
 

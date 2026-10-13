@@ -9,7 +9,7 @@ parent: About Managed Kubernetes
 # Support Channels
 During the onboarding process, we will choose the suitable communication channel for your organization. The following support channels are available for you to choose from:
 ### Microsoft Teams
-We can create a dedicated support channel within Microsoft Teams for your organization. This channel enables real-time communication with our support engineers, allowing for quick response. It's ideally for organizations that use Microsoft Teams as their primary communication tool.
+We can create a dedicated support channel within Microsoft Teams for your organization. This channel enables real-time communication with our support engineers, allowing for quick response. It's ideal for organizations that use Microsoft Teams as their primary communication tool.
 
 Availability: During standard business hours.
 
@@ -23,7 +23,7 @@ For formal communication, you can reach our support team via email.
 Response Time: Typically, you will receive a response during the working hours. The response time may vary depending on the nature and severity of the issue.
 
 ### Phone Support
-For critical issues that require immediate attention, we provide a oncall support. This is ideal for high-priority incidents that may impact your production environment during the non working hours.
+For critical issues that require immediate attention, we provide on-call support. This is ideal for high-priority incidents that may impact your production environment during non-working hours.
 
 Availability: 24/7 for critical issues, depending on your SLA.
 
@@ -31,7 +31,7 @@ During the onboarding process, we will discuss and agree upon the preferred supp
 
 ### WIIT Resource Name
 
-When creating a WKP Cluster, we provide you a WIIT resource name to make future support queries easier. The WRN for now includes the service, region, resource type and resource id.
+When creating a WKP Cluster, we provide you with a WIIT resource name to make future support queries easier. The WRN for now includes the service, region, resource type and resource id.
 
 Example:
 

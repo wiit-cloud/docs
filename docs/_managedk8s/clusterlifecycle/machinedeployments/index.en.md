@@ -9,7 +9,7 @@ parent: Cluster Lifecycle
 
 ## Machine Deployment Creation
 
-- We are responsible for creating machine deployments based on the your requirements.
+- We are responsible for creating machine deployments based on your requirements.
 - Each machine deployment will be configured to meet specific needs such as compute capacity, storage, and availability zone.
 - Please provide the name of the machineDeployment(s). If the machine deployment name is not provided, the name will default to the format `clusterName-az-md` (e.g., cluster-test-az2-md).
 - We can enable autoscaler for you, please see [here](/managedk8s/clusterlifecycle/autoscaling/)
@@ -38,15 +38,15 @@ If you need any other changes in the configuration, please mention them when req
  * Flavor/Machine Type - the default type is s1.large (`8 cores`, `16GB RAM` and `20GB` disk size), you can select each flavor that you can see in your OpenStack project, but make sure the flavor:
     * has at least 2 cores and 2 GB RAM
     * is not a windows image
-    * provides enough capacity for both platform components and workloads. The resources available to your application pods are lower than the selected instance flavor size. See [Node Resource Availability](https://github.com/managedk8s/clusterlifecycle/node-resources/) for details.
-* Number of replicas  the default is 3 nodes. 
+    * provides enough capacity for both platform components and workloads. The resources available to your application pods are lower than the selected instance flavor size. See [Allocatable Resources](/managedk8s/clusterlifecycle/allocatable-resources/) for details.
+* Number of replicas - the default is 3 nodes. 
 * Availability zone (AZ) - if preferred, specify the AZ from `az1`, `az2`, `az3` or `sz1` available zones. The default value will be a random AZ.
   * Warning: `sz1` is a special stretched zone. Please review [Stretched Zone (SZ1)](https://docs.wiit-cloud.io/openstack/intro/#stretched-zone-sz1) before selecting it.
   * `sz1` may not be combined with other AZs in the same machine deployment.
   * If there are multiple AZs configured, there will be a machineDeployment created for each AZ with the specified replica count. For example if you want to use 3 replicas with AZs az1 and az2, there will be 2 machineDeployments each with 3 replicas.
-* Custom root disk size and/or volume type - if not enabled for more information please see [here](/managedk8s/clusterlifecycle/rootdisks)
-* roles are set as labels on the nodes. where the labels have the following format: `node-role.kubernetes.io/<ROLENAME>: ""`
-* restrictions are set as labels on the nodes. where the labels have the following format: `node-role.kubernetes.io/<RESTRICTIONNAME>: ""`
+* Custom root disk size and/or volume type - if not enabled for more information please see [here](/managedk8s/clusterlifecycle/rootdisk/)
+* roles are set as labels on the nodes, where the labels have the following format: `node-role.kubernetes.io/<ROLENAME>: ""`
+* restrictions are set as labels on the nodes, where the labels have the following format: `node-role.kubernetes.io/<RESTRICTIONNAME>: ""`
 
 Please be aware that we only accept this format for role and restriction: `node-role.kubernetes.io/NAME: ""`
 
@@ -72,19 +72,19 @@ Please be aware that we only accept this format for role and restriction: `node-
 
 - We can create a new machine deployment(s) for you.
 - Please be aware that: 
-  * We can not update the availability zone , as the volumes will be stuck in the old availability zone.
-  * We can not create a machine deployment in different availability zone, if you need multiple availability zone you need to create multiple machine deployments in each availability zone. 
+  * We cannot update the availability zone, as the volumes will be stuck in the old availability zone.
+  * We cannot create a machine deployment in different availability zones; if you need multiple availability zones, you need to create multiple machine deployments in each availability zone. 
   * We will regularly update the operating system to ensure they are running the latest software versions, patches, and security updates.
 
 ## Node Rotation
 
 We are rotating the nodes in your Kubernetes cluster to ensure optimal performance, security, and reliability. 
-We are rotating the nodes of all the machine deployments on the same time. The process is the following:
+We are rotating the nodes of all the machine deployments at the same time. The process is the following:
 
-* if configured all nodes in the machine deployment will be cordoned (only triggered by an image update)
-* Creating a new one(s): A new node(s) is created to replace the drained one
-* Draining the nodes(s): We start by safely draining each node(s) to gracefully evict all running pods.
-* Deleting the old node(s): Once the new node is fully operational and all workloads are running smoothly, the old node is deleted. 
+* Cordoning the old node(s): If configured, all nodes in the machine deployment will be cordoned first (only triggered by an image update).
+* Creating new node(s): A new node is created to replace an old one.
+* Draining the old node(s): We safely drain each old node to gracefully evict all running pods.
+* Deleting the old node(s): Once the new node is fully operational and all workloads are running smoothly, the old node is deleted.
 
 This process is applied to all nodes in the cluster's machine deployments, and it's performed periodically or whenever needed to maintain the desired state of the cluster.
 

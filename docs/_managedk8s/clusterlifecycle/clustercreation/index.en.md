@@ -9,12 +9,12 @@ parent: Cluster Lifecycle
 To successfully create a cluster, please provide the required information outlined below. Ensure all details are filled correctly before proceeding with the cluster creation.
 Copy the block below and complete it with the necessary information for your new cluster:
 ```
-# required infromation
+# required information
 cluster_name: 
 customer_id: 
 
 # other k8s version
-(by default latest supported k8s minor version provided by us)
+# by default the latest supported k8s minor version provided by us
 kubernetes_version: 
 
 # controlplane flavor 
@@ -81,18 +81,18 @@ You must have an existing or newly created OpenStack tenant. In this tenant, cre
 ### Optional Requirements and Configurable Features (with Default Values)
 #### Kubernetes Version
 If not specified, the cluster will be deployed with the latest supported Kubernetes minor version.
-We support the manual setting of the major.minor (e.g. 1.33), this needs to manual updated if a new version is needed. 
+We support manually setting the major.minor version (e.g. 1.33); it then needs to be updated manually if a new version is needed.
 The Patch level is updated by us and will be automatically deployed.
 
 For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesversions/)
 
 #### OpenStack Network
 Provide an existing network ID, or we will create a new network for you.
-Provided Network will not be deleted, wen the cluster is deleted. They can be reused, after cluster deletion.
+Provided networks will not be deleted when the cluster is deleted. They can be reused after cluster deletion.
 Automatically created ones will be deleted with cluster deletion.
 
 If you have no special requirements, use the automatically created ones. So you don't need any creation/cleanup process on our side.
-For requirements like, shared networks, added VPNs, etc. please use the provides options.
+For requirements like shared networks, added VPNs, etc., please use the provided options.
 
 #### Load Balancer provider
 `type: LoadBalancer` Services are backed by OpenStack Octavia. By default, the `amphora` provider is used; the `ovn` provider is also available.
@@ -106,13 +106,11 @@ Not available together with the `ovn` load balancer provider.
 Details can be found [here](/managedk8s/clusterlifecycle/apiallowlist/)
 
 ### Machine Deployments, Worker Nodes and Autoscaling
-For Machine Deployment look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/)
+For Machine Deployments, look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/), as there are some more options.
 
-As there are a some more options. 
+Default will get you a single Machine Deployment with 3 Nodes on 1 AZ.
 
-Default will get you a single Machine Deployment with 3 Nodes on 1 AZ
-
-#### Cluster autoscaler  (the same for each machineDeployment if more than one)
+#### Cluster autoscaler (the same for each machineDeployment if more than one)
 We support the Cluster Autoscaler which we can activate separately for each Machine Deployment.
 
 Details can be found [here](/managedk8s/clusterlifecycle/autoscaling/)

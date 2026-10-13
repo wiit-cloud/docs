@@ -70,9 +70,9 @@ kubectl apply -f your-deployment-file.yaml
 
 <img src="certified-kubernetes.png" alt="Certified Kubernetes Logo" width="100"/>
 
-Our managed kubernetes service is a product to efficiently set up and operate Kubernetes clusters on Wiit Cloud.
-Customers can use a managed kubernetes cluster that pass the conformance checks and requirements by the
+Our Managed Kubernetes service is a product to efficiently set up and operate Kubernetes clusters on WIIT Cloud.
+Customers can use a managed Kubernetes cluster that passes the conformance checks and requirements by the
 [Cloud Native Computing Foundation](https://cncf.io/ck).
 
 Conformance results of our platform can be validated and checked at
-[CNCF Kubernetes Conformance](https://github.com/cncf/k8s-conformance)
+[CNCF Kubernetes Conformance](https://github.com/cncf/k8s-conformance).

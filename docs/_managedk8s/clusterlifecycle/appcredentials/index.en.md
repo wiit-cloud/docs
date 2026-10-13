@@ -1,12 +1,12 @@
 ---
-title: Openstack Application Credentials
+title: OpenStack Application Credentials
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/appcredentials/
 nav_order: 3300
 parent: Cluster Lifecycle
 ---
 
-To set up a managed Kubernetes cluster on OpenStack, we require a pair of OpenStack application credentials to ensure proper access within the OpenStack project. Follow the guidelines [Openstack Documentation](openstack/quickstart/application_credentials/) to create and manage these credentials securely.
+To set up a managed Kubernetes cluster on OpenStack, we require a pair of OpenStack application credentials to ensure proper access within the OpenStack project. Follow the guidelines [OpenStack Documentation](/openstack/quickstart/application_credentials/) to create and manage these credentials securely.
 
 
 Please be aware :

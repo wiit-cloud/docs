@@ -35,7 +35,7 @@ You can find the list of supported Kubernetes versions and their planned End-of-
 
 **What Does an End-of-Life Announcement Mean for Me?**
 
-If an End-of-Life announcement has been made for a specific Kubernetes version, we suggest customers to contact us for upgrading their clusters to a newer version, preferably the latest one.
+If an End-of-Life announcement has been made for a specific Kubernetes version, we suggest that customers contact us for upgrading their clusters to a newer version, preferably the latest one.
 
 **What Happens If I Do Not Update Before the EOL Date?**
 
@@ -56,7 +56,7 @@ If a Kubernetes version reaches End-of-Life, we have to remove its support from 
 It is important to emphasize the following technical limitations in Kubernetes:
 
 * A (control plane of a) Kubernetes cluster can be upgraded by one version at a time, e.g. from v1.30 -> v1.31.
-* It is not possible to upgrade more than one versions at once.
+* It is not possible to upgrade more than one version at once.
 * It is not possible to downgrade a cluster.
 
 This means that if customers do not update their clusters before the removal of the **next** EOL version, they risk not being able to upgrade after the removal of the **next** deprecated version.
@@ -71,6 +71,6 @@ We will initiate an automated Kubernetes upgrade for the control plane and the M
 
 While this *should* work, it cannot be guaranteed to work, given the diversity of applications and use cases.
 
-Breaking changes in the Kubernetes API can lead to broken/incompatible applications inside the Kubernetes cluster. **We can not overtake responsibility for such problems**.
+Breaking changes in the Kubernetes API can lead to broken/incompatible applications inside the Kubernetes cluster. **We cannot take responsibility for such problems**.
 
 To ensure optimal performance and security, we strongly advise all customers to keep their Kubernetes clusters up to date. Please contact us for executing your cluster upgrades.

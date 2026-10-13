@@ -20,7 +20,7 @@ Customers are responsible for managing their application logs, pod metrics, and 
 
 We recommend the following practices for managing application logs and metrics independently:
 
-- Deploy Logging Solutions: Configure logging agents (e.g., Fluentd, Logstash) on each node to collect logs from your applications and forward them to a centralized logging service of your choice (e.g., Elasticsearch, Loki), we recommand to ship the data to our [central logging system Elastic](https://docs.wiit-cloud.io/ece/shipdata/)
+- Deploy Logging Solutions: Configure logging agents (e.g., Fluentd, Logstash) on each node to collect logs from your applications and forward them to a centralized logging service of your choice (e.g., Elasticsearch, Loki), we recommend to ship the data to our [central logging system Elastic](https://docs.wiit-cloud.io/ece/shipdata/)
 
 - Set Up Prometheus and Grafana: For a complete metrics solution, deploy Prometheus and Grafana to monitor and visualize resource usage, custom metrics, and application performance.
 
