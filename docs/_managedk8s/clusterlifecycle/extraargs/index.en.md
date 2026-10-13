@@ -8,7 +8,7 @@ parent: Cluster Lifecycle
 # Component Extra Args
 
 You can pass extra command-line flags to several cluster components. Use this to enable
-behaviour that has no dedicated setting, for example extra audit logging on the API server
+behavior that has no dedicated setting, for example extra audit logging on the API server
 or workload-identity issuer flags.
 
 Open a [support request](/managedk8s/about/support/) that lists the component, the flag name,
@@ -23,7 +23,7 @@ and the flag value. We add the flags to your cluster.
 | `kube-scheduler`                | Pod scheduling.                                                                                                                                                                                                                          |
 | `etcd`                          | The cluster datastore (wrong flags here can corrupt data, request with care).                                                                                                                                                            |
 | `kubelet` (control plane nodes) | The kubelet on control plane nodes only. Worker-node kubelet flags are not configurable.                                                                                                                                                 |
-| `cluster-autoscaler`            | Flags for the single cluster-wide autoscaler process. These apply to every worker group. Per worker group settings (enable, min, max, scale-down tuning) live with [autoscaling](/managedk8s/clusterlifecycle/autoscaling/). |
+| `cluster-autoscaler`            | Flags for the single cluster-wide autoscaler process. These apply to every worker group. Per-worker-group settings (enable, min, max, scale-down tuning) live with [autoscaling](/managedk8s/clusterlifecycle/autoscaling/). |
 
 A value you set overrides our default for that flag.
 
@@ -41,7 +41,7 @@ A few flags are managed by us and cannot be set. A request that includes one is 
 | `cluster-autoscaler`      | `cloud-provider`, `kubeconfig`, `clusterapi-cloud-config-authoritative`, `node-group-auto-discovery` |
 
 {: .warning }
-Extra args change low-level component behaviour. A wrong flag can break your cluster,
+Extra args change low-level component behavior. A wrong flag can break your cluster,
 including the control plane, which we cannot always recover automatically. You own the flags
 you request. We may decline a flag that endangers platform operations or compliance.
 

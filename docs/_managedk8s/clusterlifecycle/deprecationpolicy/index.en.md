@@ -23,19 +23,19 @@ Kubernetes follows an N-2 support policy (meaning that the 3 most recent minor v
 | 1.29        | 2025-02-28     | deprecated                  |
 
 
-Managed Kubernetes aligns loosely to this lifecycle by continuously introducing new versions and deprecating older ones.
+Managed Kubernetes loosely aligns with this lifecycle by continuously introducing new versions and deprecating older ones.
 
-After a given Kubernetes version has reached End-of-Life, it will not get any bugfixes or security updates. Hence, we cannot support it anymore either and have to deprecate it.
+After a given Kubernetes version has reached End-of-Life, it will not get any bug fixes or security updates. Hence, we cannot support it anymore either and have to deprecate it.
 
 ## Deprecation Process
 
-If we decide to deprecate a specific Kubernetes version, we will notify you well in advance. The notification will include an End-of-Life announcement outlining the version's deprecation timeline. During that time you should plan and prepare for the upgrade of your cluster to a supported Kubernetes version before the deprecated version is removed.
+If we decide to deprecate a specific Kubernetes version, we will notify you well in advance. The notification will include an End-of-Life announcement outlining the version's deprecation timeline. During that time, you should plan and prepare for the upgrade of your cluster to a supported Kubernetes version before the deprecated version is removed.
 
 You can find the list of supported Kubernetes versions and their planned End-of-Life dates [here](/managedk8s/about/kubernetesversions/).
 
 **What Does an End-of-Life Announcement Mean for Me?**
 
-If an End-of-Life announcement has been made for a specific Kubernetes version, we suggest that customers contact us for upgrading their clusters to a newer version, preferably the latest one.
+If an End-of-Life announcement has been made for a specific Kubernetes version, we suggest that customers contact us to upgrade their clusters to a newer version, preferably the latest one.
 
 **What Happens If I Do Not Update Before the EOL Date?**
 
@@ -47,23 +47,23 @@ After the EOL period has ended:
 
 **Can I Stay on an EOL Version Forever?**
 
-No, as this would possibly mean serious security issues in the future.
+No, as this could lead to serious security issues in the future.
 
 ## Force Upgrade Policy
 
-If a Kubernetes version reaches End-of-Life, we have to remove its support from Managed Kubernetes since it will not receive any bugfixes or security updates anymore.
+If a Kubernetes version reaches End-of-Life, we have to remove its support from Managed Kubernetes since it will not receive any bug fixes or security updates anymore.
 
 It is important to emphasize the following technical limitations in Kubernetes:
 
-* A (control plane of a) Kubernetes cluster can be upgraded by one version at a time, e.g. from v1.30 -> v1.31.
+* A (control plane of a) Kubernetes cluster can only be upgraded by one minor version at a time, e.g. from v1.30 to v1.31.
 * It is not possible to upgrade more than one version at once.
 * It is not possible to downgrade a cluster.
 
-This means that if customers do not update their clusters before the removal of the **next** EOL version, they risk not being able to upgrade after the removal of the **next** deprecated version.
+This means that if customers do not upgrade their clusters before an EOL version is removed, they risk not being able to upgrade at all once the **next** deprecated version is removed.
 
-This would imply a serious problem as their only alternative would be to create a new cluster and migrate the workload from the old one as upgrading would not be possible (since it would require upgrading two versions at once).
+This would be a serious problem, as their only alternative would be to create a new cluster and migrate the workload from the old one, since upgrading would not be possible (since it would require upgrading two versions at once).
 
-To overcome this issue, we need to actively force customers to upgrade clusters running on an EOL Kubernetes version, before we remove the next deprecated version.
+To overcome this issue, we need to actively force customers to upgrade clusters running on an EOL Kubernetes version before we remove the next deprecated version.
 
 **What Happens to My Clusters During Force Upgrade?**
 
@@ -73,4 +73,4 @@ While this *should* work, it cannot be guaranteed to work, given the diversity o
 
 Breaking changes in the Kubernetes API can lead to broken/incompatible applications inside the Kubernetes cluster. **We cannot take responsibility for such problems**.
 
-To ensure optimal performance and security, we strongly advise all customers to keep their Kubernetes clusters up to date. Please contact us for executing your cluster upgrades.
+To ensure optimal performance and security, we strongly advise all customers to keep their Kubernetes clusters up to date. Please contact us to schedule your cluster upgrades.

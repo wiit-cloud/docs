@@ -6,22 +6,22 @@ nav_order: 3100
 parent: Cluster Lifecycle
 ---
 # Cluster creation
-To successfully create a cluster, please provide the required information outlined below. Ensure all details are filled correctly before proceeding with the cluster creation.
+To successfully create a cluster, please provide the required information outlined below. Ensure all details are filled in correctly before proceeding with the cluster creation.
 Copy the block below and complete it with the necessary information for your new cluster:
 ```
 # required information
 cluster_name: 
 customer_id: 
 
-# other k8s version
+# Kubernetes version
 # by default the latest supported k8s minor version provided by us
 kubernetes_version: 
 
-# controlplane flavor 
+# control plane flavor
 # by default s1.medium
 flavor: 
 
-## Machine deployments one block per MD (default: 1 md, 3 replicas, s1.large, random AZ)
+## Machine deployments: one block per MD (default: 1 md, 3 replicas, s1.large, random AZ)
 # machine deployment name
 # by default clusterName-az-md
 md_name:  
@@ -45,9 +45,9 @@ Detailed information about options can be found below.
 
 ## Optional Settings
 
-The IP ranges can be adjusted for pods in-cluster addresses and the addresses services will get.
+The IP ranges used for pod addresses and service addresses can be adjusted.
 If not provided, we will use the defaults shown below.
-Note that these should only be changed if a clash occurs with an externally routed network.
+Note that these should only be changed if they clash with an externally routed network.
 
 ```
 # the IP range for pod allocation
@@ -56,7 +56,7 @@ pod_cidr: 172.25.0.0/16
 # the IP range for service allocation
 service_cidr: 10.96.0.0/12
 
-# the core dns address is the 10th address of the service cidr
+# the CoreDNS address is the 10th address of the service CIDR
 dns_service_address: 10.96.0.10
 ```
 
@@ -70,7 +70,7 @@ After the cluster is created, you will receive an admin kubeconfig through a sec
 ## Prerequisites
 ### OpenStack Credentials
 You must have an existing or newly created OpenStack tenant. In this tenant, create and provide the following:
-- [Application credentials](/managedk8s/clusterlifecycle/appcredentials/)linked to the project where you want the new cluster to be created.
+- [Application credentials](/managedk8s/clusterlifecycle/appcredentials/) linked to the project where you want the new cluster to be created.
 
 
 ### Required Information for the New Cluster
@@ -82,35 +82,35 @@ You must have an existing or newly created OpenStack tenant. In this tenant, cre
 #### Kubernetes Version
 If not specified, the cluster will be deployed with the latest supported Kubernetes minor version.
 We support manually setting the major.minor version (e.g. 1.33); it then needs to be updated manually if a new version is needed.
-The Patch level is updated by us and will be automatically deployed.
+The patch level is updated by us and deployed automatically.
 
-For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesversions/)
+For more details on supported versions, deprecations, EOL, or other version concerns, [click here](/managedk8s/about/kubernetesversions/).
 
 #### OpenStack Network
 Provide an existing network ID, or we will create a new network for you.
 Provided networks will not be deleted when the cluster is deleted. They can be reused after cluster deletion.
 Automatically created ones will be deleted with cluster deletion.
 
-If you have no special requirements, use the automatically created ones. So you don't need any creation/cleanup process on our side.
+If you have no special requirements, use an automatically created network. This way, no separate creation or cleanup process is needed on our side.
 For requirements like shared networks, added VPNs, etc., please use the provided options.
 
-#### Load Balancer provider
+#### Load Balancer Provider
 `type: LoadBalancer` Services are backed by OpenStack Octavia. By default, the `amphora` provider is used; the `ovn` provider is also available.
 
-Details can be found [here](/managedk8s/clusterlifecycle/loadbalancer/)
+Details can be found [here](/managedk8s/clusterlifecycle/loadbalancer/).
 
 #### API Server Allowlist
 By default, the Kubernetes API is reachable from everywhere. You can restrict it to a list of IP ranges.
 Not available together with the `ovn` load balancer provider.
 
-Details can be found [here](/managedk8s/clusterlifecycle/apiallowlist/)
+Details can be found [here](/managedk8s/clusterlifecycle/apiallowlist/).
 
 ### Machine Deployments, Worker Nodes and Autoscaling
 For Machine Deployments, look into the more detailed [docs](/managedk8s/clusterlifecycle/machinedeployments/), as there are some more options.
 
-Default will get you a single Machine Deployment with 3 Nodes on 1 AZ.
+By default, you get a single machine deployment with 3 nodes in one AZ.
 
 #### Cluster autoscaler (the same for each machineDeployment if more than one)
 We support the Cluster Autoscaler which we can activate separately for each Machine Deployment.
 
-Details can be found [here](/managedk8s/clusterlifecycle/autoscaling/)
+Details can be found [here](/managedk8s/clusterlifecycle/autoscaling/).

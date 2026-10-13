@@ -6,4 +6,4 @@ nav_order: 1000
 has_children: true
 ---
 
-Es wird keine Deutsche übersetzung der Dokumentation geben, bitte benutzt die englische Variante
+Es wird keine deutsche Übersetzung der Dokumentation geben. Bitte benutzt die englische Version.
