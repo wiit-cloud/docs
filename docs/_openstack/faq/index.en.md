@@ -10,7 +10,7 @@ last_modified_date: 2025-07-21
 
 ## The command `openstack --help` shows the error "Could not load EntryPoint.parse"
 
-In this case some components of the OpenstackClient are outdated. To get an overview of the components that need
+In this case some components of the OpenStackClient are outdated. To get an overview of the components that need
 to be updated, use the following command:
 
 ```bash
@@ -26,7 +26,7 @@ pip install python-<PROJECT>client -U
 
 ## How can I use [VRRP](https://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol)?
 
-To use VRRP, it must first be enabled in a security group which is then assigned to an actual VM. You can only add this with the
+To use VRRP, it must first be enabled in a security group, which is then assigned to an actual VM. You can only add this with the
 OpenStack client. For example:
 
 ```bash
@@ -41,7 +41,7 @@ openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-ad
 
 If multiple VIPs are to be used (for example in a network with IPv4 and IPv6 subnets), a separate virtual port must be created for each VIP.
 
-In addition to the virtual port you need to configure the VIP as an allowed address on your instance ports:
+In addition to the virtual port, you need to configure the VIP as an allowed address on your instance ports:
 
 ```bash
 openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
@@ -57,7 +57,7 @@ We therefore recommend sending GARP messages regularly in such setups:
 
 Example for keepalived:
 
-```bash
+```conf
 # /etc/keepalived/keepalived.conf
 
 # minimum time interval for refreshing gratuitous ARPs while MASTER
@@ -78,7 +78,7 @@ sudo pcs resource update res_ip arp_count_refresh=1 arp_bg=true
 We have to charge for reserved Floating IPs. In this case, there is a high probability that Floating IPs were created but not deleted correctly after use.
 
 To get an overview of your Floating IPs, you can use the [Horizon Dashboard](https://openstack.wiit-cloud.io/), where you can find the list
-_Project_ → _Network_ → _Floating-IPs_.
+_Project_ → _Network_ → _Floating IPs_.
 
 You can accomplish the same using the OpenStack client:
 
@@ -91,7 +91,7 @@ $ openstack floating ip list
 +--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+
 ```
 
-## FIP on VM not working when member of ovn lb
+## FIP on VM not working when member of OVN LB
 
 This is a known limitation: Floating IPs (FIPs) attached to a VM will not work when that VM is a member of an OVN load balancer.
 
@@ -99,12 +99,12 @@ If SSH access to the VM is required, use a bastion host in the same subnet that 
 
 ## How can I change the flavor of a virtual machine (instance resize)?
 
-In the openstack Stack you can change the flavor of an instance -- the available RAM
+In OpenStack, you can change the flavor of an instance -- the available RAM
 and vCPUs -- with the following steps:
 
 ### Resizing using the command line
 
-With the name or UUID of the server you wish to resize, you can resize it with the openstack server resize command.
+With the name or UUID of the server you wish to resize, you can resize it with the `openstack server resize` command.
 
 Specify the desired new flavor and then the instance name or UUID:
 
@@ -121,40 +121,39 @@ openstack server resize --confirm SERVER
 ```
 
 {: .warning }
+Resizes are confirmed automatically after 1 hour if not confirmed or reverted manually.
 
-Resizes are confirmed automatically after 1 hour, if not confirmed or reverted manually.
+### Resizing with the OpenStack Dashboard
 
-### Resizing with the openstack dashboard
-
-On [openstack Dashboard → Instances](https://openstack.wiit-cloud.io/project/instances/) navigate to the instance to resize, then
+On [OpenStack Dashboard → Instances](https://openstack.wiit-cloud.io/project/instances/) navigate to the instance to resize, then
 choose: _Actions_ → _Resize Flavor_.
 
 The current flavor is shown. To choose the new flavor, use the "Select a new flavor" dropdown list, and confirm with "Resize".
 
-## Why are the logs of the compute instance in the openstack dashboard empty?
+## Why are the logs of the compute instance in the OpenStack Dashboard empty?
 
 Due to maintenance work or load redistribution in OpenStack, the instance may have been migrated. In this case, the log file will be recreated and new messages logged here.
 
-## Why do I get the error "Conflict (HTTP 409)" when creating a swift / S3 bucket?
+## Why do I get the error "Conflict (HTTP 409)" when creating a Swift / S3 bucket?
 
 Swift / S3 uses unique names across the entire OpenStack environment. The error message states that the selected name is already in use.
 
-## HowTo Mount Cinder Volumes to Instances by UUID
+## How to Mount Cinder Volumes to Instances by UUID
 
 When attaching multiple Cinder Volumes to an instance, the mount points may be shuffled on every reboot. Mounting the
 volumes by UUID ensures that the correct volumes are reattached to the correct mount points in the event the instance requires a power cycle.
 
-Change the mountpoint in `/etc/fstab` to use the UUID after fetching the infos with `blkid` on e.g.:
+Change the mount point in `/etc/fstab` to use the UUID after fetching the information with `blkid`, e.g.:
 
-```bash
+```conf
 # /boot was on /dev/sda2 during installation
 /dev/disk/by-uuid/f6a0d6f3-b66c-bbe3-47ba-d264464cb5a2 /boot ext4    defaults        0       2
 ```
 
 ## Is it possible to have multiattached volumes on Cinder?
 
-We do not support multiattached volumes on our instances as cluster-capable file systems are required for multi attach volumes to handle concurrent file system access.
-Attempts to use multi-attached volumes without cluster-capable file systems carry a high risk of data corruption, therefore this feature is not enabled on the OpenStack Platform.
+We do not support multi-attached volumes on our instances as cluster-capable file systems are required for multi-attach volumes to handle concurrent file system access.
+Attempts to use multi-attached volumes without cluster-capable file systems carry a high risk of data corruption; therefore, this feature is not enabled on the OpenStack Platform.
 
 ## Why am I unable to create a snapshot of a running instance?
 
@@ -173,7 +172,7 @@ systemctl enable qemu-guest-agent
 
 Once the qemu-guest-agent is running, the snapshot can be created.
 
-Additionally, when [uploading your own images](https://docs.wiit-cloud.io/openstack/specs/images/#uploading-your-own-images), we recommend that you include `--property hw_qemu_guest_agent=True` to install this upon creation of the new image.
+Additionally, when [uploading your own images](/openstack/specs/images/#uploading-your-own-images), we recommend that you include `--property hw_qemu_guest_agent=True` to install this upon creation of the new image.
 
 The second option is to stop the running instance, create the snapshot, then start the instance again. This can be done via the Horizon Dashboard or on the CLI as follows:
 
@@ -185,12 +184,12 @@ openstack server start ExampleInstance
 
 ## How are hypervisor outages handled and how can I influence the behavior?
 
-In case of a hypervisor outage our platform automatically triggers the rescheduling of the affected instances to different hypervisors.
+In case of a hypervisor outage, our platform automatically triggers the rescheduling of the affected instances to different hypervisors.
 
 Instances that were previously active are started on the new hypervisor and subsequently have the status "ACTIVE". Instances that were stopped, paused, or suspended subsequently have the status "SHUTOFF".
 
 Sometimes an external orchestrator like Kubernetes is in use and handles the outage by deleting and recreating the instance.
-For such cases, the rescheduling of the instance can be disbled by setting the following property:
+For such cases, the rescheduling of the instance can be disabled by setting the following property:
 
 ```bash
 openstack server set ExampleInstance --property HA_Enabled=False

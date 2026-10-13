@@ -10,7 +10,7 @@ parent: Quickstart
 
 ## Dedicated OpenStack Domain & Identity Self-Service
 
-As a Customer you have a dedicated OpenStack domain, including one or more domain manager accounts, enabling autonomous management of projects, users, groups and role assignments via the OpenStack CLI.
+As a customer, you have a dedicated OpenStack domain, including one or more domain manager accounts, enabling autonomous management of projects, users, groups and role assignments via the OpenStack CLI.
 Domain manager users only have the permissions for the identity self-service and should not be assigned to projects within a domain.
 The domains are isolated in OpenStack with a dedicated namespace for projects, groups and users.
 User 2FA (Two-Factor Authentication) setup and enforcement can also be configured by the domain manager.
@@ -19,8 +19,8 @@ The following Keystone security compliance settings are applied:
   - **Password change on first login:** Can be bypassed with `--ignore-change-password-upon-first-use` at user creation
   - **Password policy:** Minimum 18 characters, must include uppercase, lowercase, number, and special character
 
-Default quotas are applied to newly created projects, quota adjustments of individual projects can be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
-Domains and domain manager users are managed by WIIT AG, changes can also be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
+Default quotas are applied to newly created projects; quota adjustments of individual projects can be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
+Domains and domain manager users are managed by WIIT AG; changes can also be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
 
 {: .warning }
 The dashboard is not available to Manager users. While they can log in, all operations are available exclusively via CLI or API, as described below.
@@ -40,9 +40,9 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-**Important:** If you prefer to use an RC file or a clouds.yaml then you will find some examples in the [Templates](#templates) section below.
+**Important:** If you prefer to use an RC file or a clouds.yaml, you will find some examples in the [Templates](#templates) section below.
 
-As a domain manager you are able to manage users, projects, groups and role assignments with the following commands combined with the CLI objections above: 
+As a domain manager, you are able to manage users, projects, groups and role assignments with the following commands combined with the CLI options above:
 
 ### Obtaining the Domain ID
 ```bash
@@ -79,7 +79,7 @@ user set \
   --multi-factor-auth-rule application_credential \
   $USER
 
-# Create TOTP secret for a user (do this as user before the multi-factor-auth-rule is applied from the manager)
+# Create TOTP secret for a user (do this as the user before the multi-factor-auth-rule is applied by the manager)
 openstack credential create --type totp $USER_ID $BASE_32_2FA_SECRET
 ```
 
@@ -95,7 +95,7 @@ project list
 project delete $PROJECT
 ```
 
-**Important:** Cleanup all resources within the project befor you deleted it, otherwise resources are accounted for until our automated cleanup jobs are executed
+**Important:** Clean up all resources within the project before you delete it; otherwise, resources are accounted for until our automated cleanup jobs are executed.
 
 ### Group Management
 ```bash
@@ -115,9 +115,9 @@ group add user $GROUP $USER
 group remove user $GROUP $USER
 ```
 
-### Role Assignmments
+### Role Assignments
 
-**Important:** Only assign the "member" Role - the "reader" role is available in the system but the effective permissions are not read-only when using the "reader" role.
+**Important:** Only assign the "member" role - the "reader" role is available in the system but the effective permissions are not read-only when using the "reader" role.
 
 ```bash
 # Assign role to a user in a project
@@ -173,7 +173,7 @@ export OS_PASSWORD=$OS_PASSWORD_INPUT
 ```
 
 ### OpenStack clouds.yaml
-```bash
+```yaml
 clouds:
   de-west-01-manager:
     auth:

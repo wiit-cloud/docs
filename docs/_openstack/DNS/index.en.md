@@ -1,5 +1,5 @@
 ---
-title: Designate DNSaaS 
+title: Designate DNSaaS
 lang: "en"
 permalink: /openstack/DNS/
 nav_order: 8999
@@ -10,13 +10,13 @@ nav_order: 8999
 ## Start
 
 The OpenStack Platform includes a technology called DNS-as-a-Service (DNSaaS), also known as Designate.
-DNSaaS includes a REST API for domain and records management, is multi-tenant and integrates the OpenStack Identity Service (Keystone) for authentication.
+DNSaaS includes a REST API for domain and records management, is multi-tenant, and integrates with the OpenStack Identity service (Keystone) for authentication.
 
-In this step, we will create a fictitious zone (domain) with MX and A records and store the appropriate IP/CNAME.
+In this guide, we will create a fictitious zone (domain) with MX and A records and store the appropriate IP/CNAME.
 
 -----
 
-The first step is to ensure that the `python-designateclient` is installed (pip install python-openstackclient python-designateclient)
+The first step is to ensure that the `python-designateclient` is installed (`pip install python-openstackclient python-designateclient`).
 The next step is to create a zone for our project:
 
 ```bash
@@ -44,7 +44,7 @@ $ openstack zone create --email webmaster@foobar.cloud foobar.cloud.
 +----------------+--------------------------------------+
 ```
 
-Note the trailing "." is required for the zone/domain to be created.
+Note that the trailing "." is required for the zone/domain to be created.
 The result so far:
 
 ```bash
@@ -82,7 +82,7 @@ $ openstack zone show foobar.cloud.
 The domain "foobar.cloud" is now registered and ready to use (status: ACTIVE) for our project.
 In the next step, we want to create MX records (records for mail servers in this zone) for this domain.
 
-But first let's see the content (recordsets) that already exist in your new zone.
+But first, let's see the content (recordsets) that already exists in your new zone.
 
 ```bash
 $ openstack recordset list foobar.cloud.
@@ -95,7 +95,7 @@ $ openstack recordset list foobar.cloud.
 +--------------------------------------+---------------+------+--------------------------------------------------------------------------------+--------+--------+
 ```
 
-Here you see an "empty shell" of a domain with automatically generated NS and SOA records which are ready to be queried.
+Here you see an "empty shell" of a domain with automatically generated NS and SOA records that are ready to be queried.
 
 ```bash
 $ dig +short @ns1.openstack.de-west-01.wiit-cloud.io foobar.cloud NS
@@ -107,8 +107,8 @@ ns2.openstack.de-west-01.wiit-cloud.io. webmaster.foobar.cloud. 1534315524 3507 
 ```
 
 Creating an MX record:
-You can now add, modify, or delete records within this zone (openstack recordset --help).
-For MX records we also set up the typical mail server priorities (10,20), where the lower value is always selected first
+You can now add, modify, or delete records within this zone (`openstack recordset --help`).
+For MX records, we also set up the typical mail server priorities (10,20), where the lower value is always selected first
 and the second entry serves as a "backup".
 
 ```bash
@@ -184,7 +184,7 @@ $ openstack recordset list foobar.cloud.
 +--------------------------------------+-------------------+------+--------------------------------------------------------------------------------+--------+--------+
 ```
 
-Once the recordsets are active you can use the designated DNS servers:
+Once the recordsets are active, you can use the designated DNS servers:
 
 * ns1.openstack.de-west-01.wiit-cloud.io
 * ns2.openstack.de-west-01.wiit-cloud.io
@@ -213,7 +213,7 @@ For this construct to be used worldwide, each domain managed by Designate must h
 > * ns1.openstack.de-west-01.wiit-cloud.io: '85.14.241.161' / '2001:4ba0:133d::53'
 > * ns2.openstack.de-west-01.wiit-cloud.io: '85.14.241.162' / '2001:4ba0:133d::5353'
 
-In order to complete the mail records, it is still advisable to store corresponding A-records for the mail servers
+In order to complete the mail records, it is still advisable to store corresponding A records for the mail servers:
 
 ```bash
 $ openstack recordset create --type A --record 2.3.4.5 foobar.cloud. mx1
@@ -275,9 +275,9 @@ $ openstack recordset list foobar.cloud.
 +--------------------------------------+-------------------+------+--------------------------------------------------------------------------------+--------+--------+
 ```
 
-## Reverse DNS 
+## Reverse DNS
 
-Reverse DNS for ipv4 Floating IPs can be configured once a Floating IP is assigned to your project.
-To set reverse DNS records for ipv6 Addresses the reverse zone for your ipv6 subnet needs to be created from WIIT AG and shared into your project.
-Please contact our support and provide your ipv6 prefix and your project id.
-After we created the zone you will recieve instructions to accept a zone transfer, afterwards you can manage ipv6 reverse records within that zone.
+Reverse DNS for IPv4 floating IPs can be configured once a floating IP is assigned to your project.
+To set reverse DNS records for IPv6 addresses, the reverse zone for your IPv6 subnet needs to be created by WIIT AG and shared into your project.
+Please contact our support and provide your IPv6 prefix and your project ID.
+After we have created the zone, you will receive instructions to accept a zone transfer; afterwards, you can manage IPv6 reverse records within that zone.

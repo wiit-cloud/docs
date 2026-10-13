@@ -35,17 +35,17 @@ The current list of images is as follows:
 - Rocky Linux 9 (Blue Onyx)
 - Flatcar Linux
 
-These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest`-suffix. All previous versions of an image are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventually deleted if they are no longer in use at all.
+These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest` suffix. All previous versions of an image are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventually deleted if they are no longer in use at all.
 
 OpenStack and many deployment tools support using these images either by name or by their UUID. By using a name, for example `Ubuntu 24.04 Noble Numbat - Latest`, you can easily stay up to date by redeploying or rebuilding your instances, even if we replace the image in the interim. You can avoid this behaviour by using the UUID instead. This may be useful for cluster deployments, where you want to ensure that all nodes are running the same version of the image.
 
 ## Linux Images
 
-All of our provided linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable. These images are provided for convenience purposes only, on an 'as-is' basis. Please note that we cannot provide any technical support, maintenance, or troubleshooting for them. Please upload your own custom images if you have specific requirements.
+All of our provided Linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable. These images are provided for convenience purposes only, on an 'as-is' basis. Please note that we cannot provide any technical support, maintenance, or troubleshooting for them. Please upload your own custom images if you have specific requirements.
 
 ## Uploading your own images
 
-Instead of using the images we provide, you can upload your own images. Easiest way of doing so is to use the OpenStack CLI.
+Instead of using the images we provide, you can upload your own images. The easiest way of doing so is to use the OpenStack CLI.
 
 ```bash
 openstack image create \
@@ -82,7 +82,7 @@ We recommend using the RAW format; this enables copy-on-write functionality when
 We also recommend using the commands mentioned above; while an image could be created in a single call, doing so would not utilize the more modern Interoperable Image API.
 This API offers the ability to convert images directly upon creation and distribute them across all Availability Zones (AZs).
 
-Additionally, to enable the creation of Snapshots on running Instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image. See our [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
+Additionally, to enable the creation of snapshots on running instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image. See our [FAQ](/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
 
 You can also use the dashboard to upload images. Make sure to use the same properties there.
 

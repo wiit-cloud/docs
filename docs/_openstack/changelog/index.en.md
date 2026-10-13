@@ -7,7 +7,7 @@ nav_order: 10002
 
 # Changelog OpenStack
 
-Notable Changes on the OpenStack Platform are documented here.
+Notable changes on the OpenStack platform are documented here.
 
 ---
 
@@ -21,7 +21,7 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ### 2026-06-30
 
-- [Network QoS Enforcement](https://docs.wiit-cloud.io/openstack/networking/qos/)
+- [Network QoS Enforcement](/openstack/networking/qos/)
 
 ### 2026-06-01
 
@@ -33,7 +33,7 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ### 2025-11-01
 
-- End of beta phase for Octavia OVN-based loadbalancers
+- End of beta phase for Octavia OVN-based load balancers
 
 ### 2025-10-15
 
@@ -45,8 +45,8 @@ Notable Changes on the OpenStack Platform are documented here.
 
 ### 2025-08-01
 
-- End of Beta phase - Go-Live for all available Services (except Octavia OVN based Loadbalancers - Beta)
+- End of beta phase - go-live for all available services (except Octavia OVN-based load balancers - beta)
 
 ### 2025-07-15
 
-- Start of Beta phase
+- Start of beta phase

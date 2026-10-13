@@ -24,7 +24,7 @@ swift post example-webpage
 
 ### Den Container öffentlich lesbar machen
 
-Als nächstes müssen wir sicherstellen, dass der Container öffentlich lesbar ist. Weitere Informationen zum Sichern von Containern und zum Festlegen von Bucket-Richtlinien finden Sie [hier](/openstack/storage/s3_documentation/security/):
+Als Nächstes müssen wir sicherstellen, dass der Container öffentlich lesbar ist. Weitere Informationen zum Sichern von Containern und zum Festlegen von Bucket-Richtlinien finden Sie [hier](/openstack/s3_storage/security/):
 
 ```bash
 swift post -r '.r:*' example-webpage
@@ -32,7 +32,7 @@ swift post -r '.r:*' example-webpage
 
 ### Indexdatei der Seite setzen
 
-Setzen Sie die Indexdatei. In diesem Fall wird index.html die Standarddatei sein, die angezeigt wird, wenn die Seite erscheint:
+Setzen Sie die Indexdatei. In diesem Fall wird `index.html` die Standarddatei sein, die angezeigt wird, wenn die Seite erscheint:
 
 ```bash
 swift post -m 'web-index:index.html' example-webpage
@@ -75,7 +75,7 @@ swift post -m 'web-listings-css:style.css' example-webpage
 swift post -m 'web-error:404error.html' example-webpage
 ```
 
-Wenn die obigen Schritte abgeschlossen sind, können wir damit beginnen, unsere statische Webseite anzupassen. Das Folgende demonstriert eine schnelle Einrichtung unter Verwendung unseres Containers `example-webpage`
+Wenn die obigen Schritte abgeschlossen sind, können wir damit beginnen, unsere statische Webseite anzupassen. Das Folgende demonstriert eine schnelle Einrichtung unter Verwendung unseres Containers `example-webpage`.
 
 ### Anpassen der Seiten index.html, page.html und 404error.html
 
@@ -123,7 +123,7 @@ swift upload beispiel-webseite 404error.html
 
 ### Betrachten der Website
 
-Wenn alle oben genannten Schritte abgeschlossen sind, können wir nun unsere neu erstellte Website betrachten. Den Link zur Website finden Sie im openstack Dashboard > Object Store > Containers über den abgebildeten Link.
+Wenn alle oben genannten Schritte abgeschlossen sind, können wir nun unsere neu erstellte Website betrachten. Den Link zur Website finden Sie im OpenStack Dashboard > Object Store > Containers über den abgebildeten Link.
 
 Wenn Sie auf den Link klicken, wird unsere neu erstellte Website angezeigt:
 

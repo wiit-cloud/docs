@@ -10,23 +10,23 @@ parent: Netzwerk
 
 ## Netzwerk teilen
 
-### Zugriff auf beide Projekte ist vorhanden:
+### Zugriff auf beide Projekte ist vorhanden
 
-Damit das Netzwerk geteilt werden kann, brauchen wir zum einen den [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/), sowie die Projekt-ID in welches das Netzwerk geteilt werden soll und die Netzwerk-ID des zu teilenden Netzwerks.
+Damit das Netzwerk geteilt werden kann, brauchen wir zum einen den [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/) sowie die Projekt-ID des Projekts, in welches das Netzwerk geteilt werden soll und die Netzwerk-ID des zu teilenden Netzwerks.
 
-Die Projekt-ID findet sich in der Ausgabe unter "id" wenn wir folgenden Befehl benutzen:
+Die Projekt-ID findet sich in der Ausgabe unter "id", wenn wir folgenden Befehl benutzen:
 
 ```bash
 openstack project show <Name des Projekts> -f value -c id
 ```
 
-Als nächstes benötigen wir noch die Netzwerk-ID des zu teilenden Netzwerks, diese finden wir in der Ausgabe unter "id" wenn folgender Befehl genutzt wird:
+Als Nächstes benötigen wir noch die Netzwerk-ID des zu teilenden Netzwerks. Diese finden wir in der Ausgabe unter "id", wenn folgender Befehl genutzt wird:
 
 ```bash
 openstack network show <Name des Netzwerks> -f value -c id
 ```
 
-Mit den erhaltenen IDs kann nun das Netzwerk in das entsprechende Projekt geteilt werden, dafür benutzen wir die rollenbasierte Zugriffskontrolle (RBAC):
+Mit den erhaltenen IDs kann nun das Netzwerk in das entsprechende Projekt geteilt werden. Dafür benutzen wir die rollenbasierte Zugriffskontrolle (RBAC):
 
 ```bash
 openstack network rbac create --type network --action access_as_shared --target-project <ID des Projekts> <ID des zu teilenden Netzwerks>
@@ -35,15 +35,15 @@ openstack network rbac create --type network --action access_as_shared --target-
 ## Wichtige Informationen zum geteilten Netzwerk
 
 Wenn man auf ein geteiltes Netzwerk zugreift, gibt es Einschränkungen, die beachtet werden müssen.
-Eine Einschränkung ist, dass keine Remote Security-Groups benutzt werden können.
-Auch gibt es keinen Einblick in Ports und IP Adressen vom anderen Projekt gibt.
-Daher kann man auch keine konkrete IP Adressen für neue Ports in einem Subnetz (im geteilten Netzwerk) angeben, da es so möglich wäre, IPs zu finden die bereits genutzt werden.
+Eine Einschränkung ist, dass keine Remote-Security-Groups benutzt werden können.
+Auch gibt es keinen Einblick in Ports und IP-Adressen des anderen Projekts.
+Daher kann man auch keine konkreten IP-Adressen für neue Ports in einem Subnetz (im geteilten Netzwerk) angeben, da es so möglich wäre, IPs zu finden, die bereits genutzt werden.
 
-Damit man das geteilte Netzwerk sinnvoll nutzen kann, gibt es die Möglichkeit einen neuen Port zu erstellen.
+Damit man das geteilte Netzwerk sinnvoll nutzen kann, gibt es die Möglichkeit, einen neuen Port zu erstellen.
 Dieser erhält dann eine beliebige IP-Adresse und kann weiter genutzt werden, um zum Beispiel einen Router über diesen Port hinzuzufügen.
 Im Dashboard (Horizon) ist dies nicht möglich und der OpenStackClient wird benötigt.
 
-Bitte achten Sie darauf bei den Bezeichnungen keine Leer- und/oder Sonderzeichen zu nutzen, da die Nutzung selbiger zu Problem führen kann.
+Bitte achten Sie darauf, bei den Bezeichnungen keine Leer- und/oder Sonderzeichen zu nutzen, da die Nutzung selbiger zu Problemen führen kann.
 Zuerst erstellen wir den Port und geben dort das geteilte Netzwerk an:
 
 ```bash
@@ -60,19 +60,19 @@ $ openstack router create <Name des Routers>
 $ openstack router add port <Name des Routers> <Name des Ports>
 ```
 
-## Netzwerk Topology Projekt 1
+## Netzwerktopologie Projekt 1
 
 ![](attachments/SharedNetwork1.png)
 
-Das Netzwerk "shared" aus dem Projekt 1 wird mit Projekt 2 geteilt. In diesem Netzwerk steht der Service "Example" zur Verfügung der dort auf einer Instanz läuft.
+Das Netzwerk "shared" aus dem Projekt 1 wird mit Projekt 2 geteilt. In diesem Netzwerk steht der Service "Example" zur Verfügung, der dort auf einer Instanz läuft.
 
-## Netzwerk Topology Projekt 2
+## Netzwerktopologie Projekt 2
 
 ![](attachments/SharedNetwork2.png)
 
-Das Netzwerk "shared" ist auch in Projekt 2 sichtbar und wurde dort an den Router "router2" angehangen.
+Das Netzwerk "shared" ist auch in Projekt 2 sichtbar und wurde dort an den Router "router2" angehängt.
 Zusätzlich existiert dort das Netzwerk "network", aus dem auf die Services in dem Netzwerk "shared" zugegriffen wird.
 
-Dabei muss berücksichtigt werden, das im Subnet des "shared" Networks in Projekt 1 die entsprechende Route unter dem Eintrag "Host Routes" gesetzt wird, um einen korrekten Rücktransport der Pakete zu ermöglichen.
+Dabei muss berücksichtigt werden, dass im Subnetz des "shared"-Netzwerks in Projekt 1 die entsprechende Route unter dem Eintrag "Host Routes" gesetzt wird, um einen korrekten Rücktransport der Pakete zu ermöglichen.
 
-Im unserem Beispiel ist die folgende Route notwendig: `10.0.1.0/24,10.0.0.1`
+In unserem Beispiel ist die folgende Route notwendig: `10.0.1.0/24,10.0.0.1`

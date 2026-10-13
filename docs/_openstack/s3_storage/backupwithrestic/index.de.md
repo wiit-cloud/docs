@@ -6,7 +6,7 @@ nav_order: 3170
 parent: Objekt Storage
 ---
 
-Restic ist eine sehr einfache und leistungsstarke file-basierte Backup-Lösung, die schnell an Popularität gewinnt. Es kann in Kombination mit S3 verwendet werden, was es zu einem großartigen Werkzeug für openstack macht.
+Restic ist eine sehr einfache und leistungsstarke dateibasierte Backup-Lösung, die schnell an Popularität gewinnt. Es kann in Kombination mit S3 verwendet werden, was es zu einem großartigen Werkzeug für OpenStack macht.
 
 ## Problemstellung
 
@@ -18,12 +18,12 @@ Die Lösung kann so einfach sein, wie die Zugriffsebene der Backup-Software auf 
 
 ## Hintergrund
 
-[S3-Zugriffskontrolllisten (ACLs)](/openstack/storage/s3_documentation/security) ermöglichen Ihnen die Verwaltung des Zugriffs auf Buckets und Objekte, sind jedoch sehr eingeschränkt. Sie unterscheiden im Wesentlichen READ- und WRITE-Berechtigungen:
+[S3-Zugriffskontrolllisten (ACLs)](/openstack/s3_storage/security/) ermöglichen Ihnen die Verwaltung des Zugriffs auf Buckets und Objekte, sind jedoch sehr eingeschränkt. Sie unterscheiden im Wesentlichen READ- und WRITE-Berechtigungen:
 
 * READ – Ermöglicht dem Benutzer, die Objekte im Bucket aufzulisten
 * WRITE - Ermöglicht dem Benutzer, jedes Objekt im Bucket zu erstellen, zu überschreiben und zu löschen
 
-Die Einschränkungen von ACLs wurden durch die Zugriffsrichtlinienberechtigungen (ACP) behoben. Wir könnten dem Bucket eine No-Delete-Richtlinie anhängen, z.B.
+Die Einschränkungen von ACLs wurden durch die Zugriffsrichtlinienberechtigungen (ACP) behoben. Wir könnten dem Bucket eine No-Delete-Richtlinie anhängen, z. B.:
 
 ```json
 {
@@ -67,7 +67,7 @@ upload: 'testfile' -> 's3://appendonly-bucket/testfile' [1 of 1]
 
 Da ein Angreifer auf einem kompromittierten System immer Zugriff auf die S3-Anmeldeinformationen und jeden auf dem System laufenden Dienst hat – einschließlich Restic selbst, Proxys usw. – benötigen wir eine zweite, abgesicherte VM, die Löschvorgänge einschränken kann. Restic lässt sich perfekt in rclone integrieren, daher verwenden wir es in diesem Beispiel.
 
-### Our environment
+### Unsere Umgebung
 
 * `appsrv`: das zu sichernde System, mit Zugriff auf die Sicherungen
 * `rclonesrv`: das System, auf dem der rclone-Proxy ausgeführt wird (und nichts anderes, um die Angriffsfläche zu minimieren)
@@ -80,14 +80,14 @@ Da ein Angreifer auf einem kompromittierten System immer Zugriff auf die S3-Anme
     sudo apt install rclone
     ```
 
-1. User für rclone anlegen
+1. Benutzer für rclone anlegen:
 
     ```bash
     sudo useradd -m rcloneproxy
     sudo su - rcloneproxy
     ```
 
-1. Die Backend-Konfiguration für rclone backend erstellen
+1. Die Backend-Konfiguration für rclone erstellen:
 
     ```bash
     mkdir -p .config/rclone
@@ -131,17 +131,17 @@ Da ein Angreifer auf einem kompromittierten System immer Zugriff auf die S3-Anme
     export RESTIC_REPOSITORY=rclone:s3-resticrepo:databucket
     ```
 
-### Den SSH-Schlüssel auf restic-only Befehle beschränken
+### Den SSH-Schlüssel auf restic-only-Befehle beschränken
 
-Der letzte Schritt ist nun die SSH-Datei `authorized_keys` auf dem `rclonesrv` zu bearbeiten, um den neu generierten SSH-Schlüssel auf einen einzigen Befehl zu beschränken. Auf diese Weise kann ein Angreifer das SSH-Schlüsselpaar nicht verwenden, um beliebige Befehle auf dem rclone-Proxy auszuführen und die Backups zu kompromittieren.
+Der letzte Schritt ist nun, die SSH-Datei `authorized_keys` auf dem `rclonesrv` zu bearbeiten, um den neu generierten SSH-Schlüssel auf einen einzigen Befehl zu beschränken. Auf diese Weise kann ein Angreifer das SSH-Schlüsselpaar nicht verwenden, um beliebige Befehle auf dem rclone-Proxy auszuführen und die Backups zu kompromittieren.
 
 ```bash
 vi ~/.ssh/authorized_keys
-# Fügen Sie inen Eintrag mit dem öffentlichen Schlüssel des restic-Benutzers hinzu, der in dem obigen Schritt generiert wurde:
+# Fügen Sie einen Eintrag mit dem öffentlichen Schlüssel des restic-Benutzers hinzu, der in dem obigen Schritt generiert wurde:
 command="rclone serve restic --stdio --append-only s3-resticrepo:databucket" ssh-ed25519 AAAAC3fdsC1lZddsDNTE5ADsaDgfTwNtWmwiocdT9q4hxcss6tGDfgGTdiNN0z7zN appsrv-18-11-2021
 ```
 
-## restic mit dem rclone Proxy verwenden
+## restic mit dem rclone-Proxy verwenden
 
 Wenn die Umgebungsvariablen gesetzt sind, sollte restic jetzt von dem `appsrv` aus funktionieren.
 
@@ -169,9 +169,9 @@ Ah, das geht nicht. Das war ja unser Ziel!
 
 ## Zusammenfassung
 
-Auf dieser Art und Weise,
+Auf diese Art und Weise:
 
-* der rclone-Proxy auf dem `rclonerv` läuft nicht einmal als Dienst. Es wird nur bei Bedarf für die Dauer der Restic-Operation gestartet. Die Kommunikation erfolgt über HTTP2 über stdin/stdout in einem verschlüsselten SSH-Tunnel.
+* Der rclone-Proxy auf dem `rclonesrv` läuft nicht einmal als Dienst. Er wird nur bei Bedarf für die Dauer der Restic-Operation gestartet. Die Kommunikation erfolgt über HTTP2 über stdin/stdout in einem verschlüsselten SSH-Tunnel.
 * Da rclone mit `--append-only` läuft, ist es nicht möglich, Snapshots im S3-Bucket zu löschen (oder zu überschreiben).
 * Alle Daten (außer Zugangsdaten) werden lokal verschlüsselt/entschlüsselt und dann über `rclonesrv` an/von S3 gesendet/empfangen.
 * Alle Zugangsdaten werden **nur** auf `rclonesrv` gespeichert, um mit S3 zu kommunizieren.
@@ -180,9 +180,9 @@ Da der Befehl in der SSH-Konfiguration für den SSH-Schlüssel des Benutzers fes
 
 ## Noch ein paar Gedanken
 
-Die Vorteile der Lösung sind wahrscheinlich schon klar. Im Weiteren,
+Die Vorteile der Lösung sind wahrscheinlich schon klar. Außerdem:
 
-* die Verwaltung von Snapshots (sowohl manuell als auch mit einer Aufbewahrungsrichtlinie) ist nur noch auf dem rclone-Proxy möglich.
+* Die Verwaltung von Snapshots (sowohl manuell als auch mit einer Aufbewahrungsrichtlinie) ist nur noch auf dem rclone-Proxy möglich.
 * Eine einzelne rclone-Proxy-VM (oder sogar ein Docker-Container auf einer isolierten VM) kann mehrere Backup-Clients bedienen.
-* Es ist sehr empfohlen, für jeden Server, der Daten sichert, einen eigenen Schlüssel zu verwenden.
+* Es wird dringend empfohlen, für jeden Server, der Daten sichert, einen eigenen Schlüssel zu verwenden.
 * Wenn Sie mehr als ein Repository aus einem Node verwenden möchten, benötigen Sie dafür neue SSH-Schlüssel. Sie können dann mit `-i ~/.ssh/id_ed25519_another_repo` in den `rclone.program`-Argumenten genau wie bei SSH angeben, welcher Schlüssel verwendet werden soll.

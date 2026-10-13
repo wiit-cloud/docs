@@ -9,7 +9,7 @@ last_modified_date: 2025-07-21
 
 # Volume Specifications
 
-In OpenStack, “volumes” are persistent storage that you can attach to your running OpenStack Compute instances to. In openstack we have set up three classes of service for volumes. These have different limits, which are detailed below.
+In OpenStack, “volumes” are persistent storage that you can attach to your running OpenStack Compute instances. In OpenStack, we have set up three classes of service for volumes. These have different limits, which are detailed below.
 
 ## Volume Types
 
@@ -29,7 +29,7 @@ An overview of the two volume types below:
 
 ## Choosing a Volume Type
 
-You can select one of the two volume types upon creation of a volume with the following command (Unless otherwise specified, the type "default" is always used):
+You can select one of the two volume types upon creation of a volume with the following command (unless otherwise specified, the type "default" is always used):
 `$ openstack volume create <volume-name> --size 10 --type high-iops`
 
 ## Changing the Volume Type

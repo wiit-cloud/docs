@@ -8,16 +8,16 @@ nav_order: 9500
 
 # Images
 
-Es gibt 4 Arten von Images in OpenStack:
+Es gibt vier Arten von Images in OpenStack:
 
 - **Public Images:** Diese Images werden von uns gepflegt, sind für alle Benutzer verfügbar, werden regelmäßig aktualisiert und zur Verwendung empfohlen.
 - **Community Images:** Ehemals öffentliche Images, die durch neuere Versionen ersetzt wurden. Wir behalten diese Images, bis sie nicht mehr verwendet werden, um Ihre Deployments nicht zu gefährden.
 - **Private Images:** Von Ihnen hochgeladene Images, die nur für Ihr Projekt verfügbar sind.
-- **Shared Images:** Private Images, die entweder durch Sie oder oder mit Ihnen in mehreren Projekten gemeinsam genutzt werden.
+- **Shared Images:** Private Images, die entweder durch Sie oder mit Ihnen in mehreren Projekten gemeinsam genutzt werden.
 
 Nur die ersten beiden Typen werden von uns verwaltet.
 
-## Public und community images
+## Public und Community Images
 
 Um Ihren Aufwand so gering wie möglich zu halten, stellen wir Ihnen eine Reihe ausgewählter Images zur Verfügung.
 
@@ -35,9 +35,9 @@ Aktuell enthält diese Liste:
 - Rocky Linux 9 (Blue Onyx)
 - Flatcar Linux
 
-Diese Images werden täglich auf neue Versionen überprüft. Die neueste verfügbare Version ist immer ein "public image" und endet auf `Latest`. Alle vorherigen Versionen eines Images werden durch unseren Automatismus in "community images" umgewandelt, umbenannt (`latest` wird durch das Datum des ersten Uploads ersetzt), und bei ausbleibender Verwendung (keinerlei Nutzung) schlussendlich gelöscht.
+Diese Images werden täglich auf neue Versionen überprüft. Die neueste verfügbare Version ist immer ein "public image" und endet auf `Latest`. Alle vorherigen Versionen eines Images werden durch unseren Automatismus in "community images" umgewandelt, umbenannt (`latest` wird durch das Datum des ersten Uploads ersetzt) und bei ausbleibender Verwendung (keinerlei Nutzung) schlussendlich gelöscht.
 
-OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images entweder über den Namen oder über ihre UUID. Durch die Verwendung eines Namens, z.B. `Ubuntu 24.04 Noble Numbat- Latest`, Erhalten sie jeweils die aktuellste Version des jeweiligen Images, indem Sie Ihre Instanzen neu bereitstellen oder neu aufbauen, selbst wenn wir das Image zwischendurch ersetzen. Sie können dieses Verhalten vermeiden, indem Sie stattdessen die UUID verwenden. Dies kann für Cluster-Einsätze nützlich sein, bei denen Sie sicherstellen wollen, dass auf allen Instanzen die gleiche Version des Images läuft.
+OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images entweder über den Namen oder über ihre UUID. Durch die Verwendung eines Namens, z. B. `Ubuntu 24.04 Noble Numbat- Latest`, erhalten Sie jeweils die aktuellste Version des jeweiligen Images, indem Sie Ihre Instanzen neu bereitstellen oder neu aufbauen, selbst wenn wir das Image zwischendurch ersetzen. Sie können dieses Verhalten vermeiden, indem Sie stattdessen die UUID verwenden. Dies kann für Cluster-Einsätze nützlich sein, bei denen Sie sicherstellen wollen, dass auf allen Instanzen die gleiche Version des Images läuft.
 
 ## Linux Images
 
@@ -45,7 +45,7 @@ Alle von uns bereitgestellten Linux-Images sind unverändert und stammen direkt 
 
 ## Upload von eigenen Images
 
-Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereit gestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
+Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereitgestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
 
 ```bash
 openstack image create \
@@ -73,19 +73,19 @@ openstack image import \
 
 Dabei müssen mindestens folgende Parameter spezifiziert werden:
 
-- `--disk-format`: Das Format Ihres Quell-Images, z.B. `raw`
+- `--disk-format`: Das Format Ihres Quell-Images, z. B. `raw`
 - `--file`: Das Quell-Image auf Ihrem System
-- Name des Abbilds: `my-image` als Beispiel.
+- Name des Images: `my-image` als Beispiel.
 
-Wir empfehlen die Nutzung des RAW Formats, hierdurch wird Copy-on-Write bei der Erstellung von Instanzen und Volumes möglich, was diesen Prozess deutlich beschleunigt.
+Wir empfehlen die Nutzung des RAW-Formats, hierdurch wird Copy-on-Write bei der Erstellung von Instanzen und Volumes möglich, was diesen Prozess deutlich beschleunigt.
 
-Weiterhin empfehlen wir die Nutzung der oben genannten Befehle, zwar ließe sich ein Image auch in einem einzigen Aufruf erstellen, hierbei würde dann aber nicht die modernere Interoperable Image API genutzt.
-Diese bietet die Möglichkeit Images direkt bei Erstellung zu konvertieren und auf alle AZs zu verteilen.
+Weiterhin empfehlen wir die Nutzung der oben genannten Befehle. Zwar ließe sich ein Image auch in einem einzigen Aufruf erstellen, hierbei würde dann aber nicht die modernere Interoperable Image API genutzt.
+Diese bietet die Möglichkeit, Images direkt bei Erstellung zu konvertieren und auf alle AZs zu verteilen.
 
-Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen ist es notwendig, dass Sie das Property `--property hw_qemu_guest_agent=True` an den von Ihnen genutzten Images setzen und `qemu-guest-agent` auf dem System installieren.
+Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen, ist es notwendig, dass Sie das Property `--property hw_qemu_guest_agent=True` an den von Ihnen genutzten Images setzen und `qemu-guest-agent` auf dem System installieren.
 
 Weitere Details finden Sie in unseren [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
 
-Das gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
+Das Gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
 
-Die maximale Größe eines Images beträgt 2 TB in der de-west-01 Region, in der ch-north-01 Region beträgt die maximale Größe 100 GB.
+Die maximale Größe eines Images beträgt 2 TB in der Region de-west-01, in der Region ch-north-01 beträgt die maximale Größe 100 GB.

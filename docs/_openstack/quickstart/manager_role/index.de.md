@@ -10,12 +10,13 @@ parent: Quickstart
 
 ## Dedizierte OpenStack-Domain & Identity Self-Service
 
-Als Kunde verfügen Sie über eine dedizierte OpenStack-Domain inklusive einem oder mehreren Domain-Manager-Accounts, mit denen Sie eigenständig Projekte, Benutzer, Gruppen und Rollenzuweisungen über die OpenStack CLI verwalten können.  
+Als Kunde verfügen Sie über eine dedizierte OpenStack-Domain inklusive eines oder mehrerer Domain-Manager-Accounts, mit denen Sie eigenständig Projekte, Benutzer, Gruppen und Rollenzuweisungen über die OpenStack-CLI verwalten können.  
 Domain-Manager-Benutzer besitzen ausschließlich Berechtigungen zur Identitätsverwaltung und sollten nicht einzelnen Projekten innerhalb der Domain zugewiesen werden.  
 Die Domains sind in OpenStack isoliert und verfügen über einen eigenen Namensraum für Projekte, Gruppen und Benutzer.  
 Auch die Einrichtung von 2FA (Zwei-Faktor-Authentifizierung) für die Nutzer kann durch den Domain-Manager konfiguriert werden.
 
 Folgende Keystone-Compliance-Richtlinien gelten:
+
 - **Passwortänderung beim ersten Login:** Kann mit `--ignore-change-password-upon-first-use` bei der Benutzererstellung umgangen werden  
 - **Passwort-Richtlinie:** Mindestens 18 Zeichen, mindestens ein Großbuchstabe, Kleinbuchstabe, Zahl und Sonderzeichen
 
@@ -27,7 +28,7 @@ Manager-Benutzern steht das Dashboard nicht zur Verfügung. Eine Anmeldung ist z
 Für Benutzer ohne Projektzuordnung (wie der vordefinierte Manager-User) können keine Application Credentials erzeugt werden.
 Application Credentials können nur für Operationen innerhalb der Projekte genutzt werden, nicht für Operationen auf Domain-Ebene, wie bspw. die Anlage von Projekten.
 
-## Domain Manager CLI-Konfiguration
+## Domain-Manager-CLI-Konfiguration
 
 Zur Authentifizierung als Domain-Manager verwenden Sie folgende CLI-Parameter:
 
@@ -41,19 +42,19 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-**Wichtig:** Wenn Sie die Verwendung einer RC Datei oder einer clouds.yaml bevorzugen, dann finden Sie weiter unten im [Templates](#templates) Bereich passende Beispiele.
+**Wichtig:** Wenn Sie die Verwendung einer RC-Datei oder einer clouds.yaml bevorzugen, dann finden Sie weiter unten im Bereich [Templates](#templates) passende Beispiele.
 
 Als Domain-Manager können Sie Benutzer, Projekte, Gruppen und Rollen mit den folgenden Befehlen verwalten, nutzen Sie dazu die Befehle in Kombination mit den obenstehenden Parametern:
 
-### Abfragen der Domain ID 
+### Abfragen der Domain-ID
 ```bash
 # Abfragen der Domain ID
 domain show $DOMAIN_NAME
 ```
 
 {: .warning }
-Verwenden Sie für die folgenden Befehle die Domain ID und nicht den Domain Namen. 
-Sollte der Domain Name aus Zahlen bestehen kann dieser von der OpenStack CLI fälschlicherweise als Domain ID interpretiert werden und die Anfrage schlägt fehl.
+Verwenden Sie für die folgenden Befehle die Domain-ID und nicht den Domain-Namen.
+Sollte der Domain-Name aus Zahlen bestehen, kann dieser von der OpenStack-CLI fälschlicherweise als Domain-ID interpretiert werden und die Anfrage schlägt fehl.
 
 ### Benutzerverwaltung
 
@@ -120,7 +121,7 @@ group remove user $GROUP $USER
 
 ### Rollenzuweisungen
 
-**Wichtig:** Vergeben sie ausschließlich die Rolle "member" - die Rolle "reader" steht im System zur Verfügung, die effektiven Berechtigungen sind jedoch nicht read-only. 
+**Wichtig:** Vergeben Sie ausschließlich die Rolle "member" – die Rolle "reader" steht im System zur Verfügung, die effektiven Berechtigungen sind jedoch nicht read-only.
 
 ```bash
 # Rolle einem Benutzer in einem Projekt zuweisen
@@ -148,7 +149,7 @@ role assignment list --names --group $GROUP
 ## Templates
 
 {: .warning }
-Die RC Datei und die clouds.yaml welche man von Horizon herunterladen kann, funktionieren leider nicht mit einem Manager Nutzer.
+Die RC-Datei und die clouds.yaml, welche man von Horizon herunterladen kann, funktionieren leider nicht mit einem Manager-Nutzer.
 Stattdessen können die untenstehenden Templates verwendet werden, in denen $MANAGER_USERNAME und $DOMAIN_NAME entsprechend angepasst werden müssen.
 
 ### OpenStack RC File
@@ -176,7 +177,7 @@ export OS_PASSWORD=$OS_PASSWORD_INPUT
 ```
 
 ### OpenStack clouds.yaml
-```bash
+```yaml
 clouds:
   de-west-01-manager:
     auth:

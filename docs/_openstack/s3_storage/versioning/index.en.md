@@ -1,12 +1,12 @@
 ---
-title: Enable and Disable Versioning, and Delete a versioned object
+title: Enable and Disable Versioning, and Delete a Versioned Object
 lang: "en"
 permalink: /openstack/s3_storage/versioning/
 nav_order: 3140
 parent: Object Storage
 ---
 
-# Enable and Disable Versioning, and Delete a versioned object
+# Enable and Disable Versioning, and Delete a Versioned Object
 
 ## Contents:
 
@@ -16,19 +16,19 @@ parent: Object Storage
 - [Boto3](#boto3)
 
 Versioning makes it possible to store multiple versions of an object in a bucket.
-For example, files named innovo.txt (version 1) and innovo.txt (version 2) can be stored in a single bucket.
+For example, files named `innovo.txt` (version 1) and `innovo.txt` (version 2) can be stored in a single bucket.
 Versioning can protect you from the consequences of accidental overwrites or deletion.
 
 ## S3cmd
 
-With S3cmd it is not possible to enable versioning or to delete versioned files.
+With S3cmd, it is not possible to enable versioning or to delete versioned files.
 
 ## S3Browser
 
 ### Enable versioning
 
-To enable versioning, select a Bucket(1).
-Right click on the bucket and then click on "Edit Versioning Settings"(2).
+To enable versioning, select a bucket(1).
+Right-click on the bucket and then click on "Edit Versioning Settings"(2).
 
 ![](attachments/Versioning1.png)
 
@@ -38,12 +38,12 @@ In the newly opened window, click the checkbox for "Enable versioning for bucket
 
 ### Disable versioning
 
-To disable versioning, select a Bucket(1).
+To disable versioning, select a bucket(1).
 Right-click on the bucket and select "Edit Versioning Settings"(2).
 
 ![](attachments/Versioning3.png)
 
-In the newly opened window, remove the checkbox at "Enable versioning for bucket"(1) and confirm this with "OK"(2).
+In the newly opened window, uncheck the checkbox "Enable versioning for bucket"(1) and confirm this with "OK"(2).
 
 ![](attachments/Versioning4.png)
 
@@ -54,18 +54,18 @@ This is not possible in the free version of S3Browser.
 ## Cyberduck
 
 To see the different versions of a file, hidden files must be displayed.
-This option can be found at View(1) → Show hidden files(2)
+This option can be found at View(1) → Show hidden files(2).
 
 ![](attachments/Versioning5.png)
 
 ### Enable versioning
 
-After opening Cyberduck, we select the file on which we wish to activate versioning(1) for.
+After opening Cyberduck, we select the file for which we wish to activate versioning(1).
 Then click Action(2) and Info(3).
 
 ![](attachments/Versioning6.png)
 
-Then the following window opens, here we check the box "Bucket Versioning"(1):
+The following window opens, where we check the box "Bucket Versioning"(1):
 
 ![](attachments/Versioning7.png)
 
@@ -87,14 +87,14 @@ Simply select the file to be deleted(1) and click Action(2) → Delete(3) to rem
 
 ## Boto3
 
-In Boto3 we first need S3 credentials so that a script can be used. For details see: [Create and use S3 credentials #Boto3](/openstack/storage/s3_documentation/createanduses3credentials/#boto3).
+In Boto3, we first need S3 credentials so that a script can be used. For details, see: [Create and use S3 credentials #Boto3](/openstack/s3_storage/createanduses3credentials/#boto3).
 
 ### Enable versioning
 
-To enable the versioning, we will enter the bucket first and then activate the versioning.
+To enable versioning, we first specify the bucket and then activate versioning.
 One option looks like this:
 
-```bash
+```python
 ## Specifies the bucket in which versioning is to be activated.
 bucket = s3.Bucket('iNNOVO-Test')
 
@@ -102,7 +102,7 @@ bucket = s3.Bucket('iNNOVO-Test')
 bucket.configure_versioning(True)
 ```
 
-A complete script for boto 3, including authentication, could look like this:
+A complete script for Boto3, including authentication, could look like this:
 
 ```python
 #!/usr/bin/env/python
@@ -130,7 +130,7 @@ bucket.configure_versioning(True)
 As with the activation of versioning, the bucket is needed to deactivate versioning.
 One option looks like this:
 
-```bash
+```python
 ## Specifies the bucket in which versioning is to be activated.
 bucket = s3.Bucket('iNNOVO-Test')
 
@@ -138,7 +138,7 @@ bucket = s3.Bucket('iNNOVO-Test')
 bucket.configure_versioning(False)
 ```
 
-A complete script for boto 3 including authentication could look like this:
+A complete script for Boto3 including authentication could look like this:
 
 ```python
 #!/usr/bin/env/python
@@ -166,7 +166,7 @@ bucket.configure_versioning(False)
 
 To delete a versioned object completely, the following command is helpful:
 
-```bash
+```python
 ## Specifies the bucket in which versioning is to be activated.
 bucket = s3.Bucket('iNNOVO-Test')
 

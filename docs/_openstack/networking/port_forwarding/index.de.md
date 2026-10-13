@@ -9,19 +9,19 @@ nav_order: 2100
 Port Forwarding auf Floating IPs
 ==================================
 
-Floating IP Port Forwarding erlaubt die Weiterleitung eines beliebigen TCP/UDP/anderen Protokoll-Ports einer Floating IP-Adresse an einen TCP/UDP/anderen Protokoll-Port, der mit einer festen IP-Adresse eines Neutron-Ports verbunden ist.
+Floating IP Port Forwarding erlaubt die Weiterleitung eines beliebigen TCP/UDP/anderen Protokoll-Ports einer Floating-IP-Adresse an einen TCP/UDP/anderen Protokoll-Port, der mit einer festen IP-Adresse eines Neutron-Ports verbunden ist.
 
 Port Forwarding auf einer Floating IP erstellen
 ---------------
 
-Um ein Port forwarding auf eine Floating IP anzuwenden, sind die folgenden Informationen erforderlich:
+Um ein Port Forwarding auf eine Floating IP anzuwenden, sind die folgenden Informationen erforderlich:
 
 * Die zu verwendende interne IP-Adresse
 * Die UUID des Ports, der mit der Floating IP assoziiert werden soll
 * Die Portnummer des Netzwerkports der festen IPv4-Adresse
-* Die externe Portnummer der Floating IP-Adresse
+* Die externe Portnummer der Floating-IP-Adresse
 * Das spezifische Protokoll, das bei der Port-Weiterleitung zu verwenden ist (in diesem Beispiel TCP)
-* Die Floating IP, auf der dieser Port freigeschalten werden soll. (in diesem Beispiel 185.116.244.141)
+* Die Floating IP, auf der dieser Port freigeschaltet werden soll (in diesem Beispiel 185.116.244.141)
 
 Das folgende Beispiel zeigt die Erstellung eines Port Forwarding auf einer Floating IP unter Verwendung der erforderlichen Optionen:
 
@@ -41,9 +41,9 @@ Innerhalb eines Projekts kann eine Liste der Port Forwarding-Regeln, die für ei
 
 `$ openstack floating ip port forwarding list 185.116.244.141`
 
-Der obige Befehl kann weiter gefiltert werden, indem vor der Floating IP die Flags `--sort-column`, `--port`, `--external-protcol-port` und/oder `--protocol` verwendet werden.
+Der obige Befehl kann weiter gefiltert werden, indem vor der Floating IP die Flags `--sort-column`, `--port`, `--external-protocol-port` und/oder `--protocol` verwendet werden.
 
-Anzeigen der Details einer port forwarding-Regel
+Anzeigen der Details einer Port-Forwarding-Regel
 ---------------
 
 Um Details zu einer bestimmten Port Forwarding-Regel anzuzeigen, kann der folgende Befehl verwendet werden:
@@ -58,8 +58,8 @@ Wenn eine Port Forwarding-Konfiguration auf einer Floating IP bereits mit `$ ope
 Die folgenden Parameter eines Port Forwardings können geändert werden:
 
 * `--port`: Die UUID des Ports
-* `--internal-ip-address`: Die zum Zielport der Forwarding-Regel gehoerende feste interne IPv4-Adresse
-* `--internal-protocol-port`: Die interne TCP/UDP/etc. Portnummer auf die die Floating IPs Port Forwarding-Regel weiterleitet
+* `--internal-ip-address`: Die zum Zielport der Forwarding-Regel gehörende feste interne IPv4-Adresse
+* `--internal-protocol-port`: Die interne TCP/UDP/etc. Portnummer, auf die die Port-Forwarding-Regel der Floating IP weiterleitet
 * `--external-protocol-port`: Die TCP/UDP/etc. Portnummer der Floating-IP-Adresse des Port Forwardings
 * `--protocol`: Das IP-Protokoll, das in der Floating IP Port Forwarding-Regel verwendet wird (TCP/UDP/andere)
 * `--description`: Text zur Beschreibung der Verwendung der Port Forwarding-Konfiguration
@@ -71,10 +71,10 @@ $ openstack floating ip port forwarding set \
     --port <port> \
     --internal-ip-address <internal-ip-address> \
     --internal-protocol-port <port-number> \
-    --extern-protocol-port <port-number> \
+    --external-protocol-port <port-number> \
     --protocol <protocol> \
     --description <description> \
-    <Floating-ip> <port-forwarding-id>
+    <floating-ip> <port-forwarding-id>
 ```
 
 Löschen der Port Forwarding-Konfiguration zu einer Floating IP
@@ -82,9 +82,9 @@ Löschen der Port Forwarding-Konfiguration zu einer Floating IP
 
 Um eine Port Forwarding-Regel von einer Floating IP zu entfernen, benötigen wir die folgenden Informationen:
 
-* Die Floating IP dessen Port Forwarding-Regel entfernt werden soll
-* Die Port Forwarding ID (Diese ID wird bei der Erstellung erzeugt und kann mit dem Befehl `$ openstack Floating ip port forwarding list ...` angezeigt werden)
+* Die Floating IP, deren Port-Forwarding-Regel entfernt werden soll
+* Die Port-Forwarding-ID (diese ID wird bei der Erstellung erzeugt und kann mit dem Befehl `$ openstack floating ip port forwarding list ...` angezeigt werden)
 
 Mit dem folgenden Befehl lässt sich die Konfiguration für ein Floating IP Port Forwarding löschen:
 
-`$ openstack floating ip port forwarding delete <Floating-ip> <port-forwarding-id>`
+`$ openstack floating ip port forwarding delete <floating-ip> <port-forwarding-id>`
