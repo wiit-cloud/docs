@@ -117,11 +117,22 @@ group remove user $GROUP $USER
 
 ### Role Assignments
 
-**Important:** Only assign the "member" role - the "reader" role is available in the system but the effective permissions are not read-only when using the "reader" role.
+The following roles can be assigned to users and groups within a project:
+
+| Role | Permissions |
+|---|---|
+| `member` | Full access to the project's resources (create, modify, delete) |
+| `reader` | Read-only access to the project's resources |
+
+{: .note }
+SSH key pairs are owned by the user, not by the project. Users with the "reader" role can therefore still manage their own key pairs.
 
 ```bash
 # Assign role to a user in a project
 role add --user $USER --project $PROJECT member
+
+# Assign read-only role to a user in a project
+role add --user $USER --project $PROJECT reader
 
 # Assign role to a group in a project
 role add --group $GROUP --project $PROJECT member
