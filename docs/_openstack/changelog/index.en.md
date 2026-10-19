@@ -19,6 +19,10 @@ Notable changes on the OpenStack platform are documented here.
 
 ## Completed
 
+### 2026-10-19
+
+- [Read-only reader role](/openstack/quickstart/manager_role/#role-assignments) available for project role assignments
+
 ### 2026-06-30
 
 - [Network QoS Enforcement](/openstack/networking/qos/)
