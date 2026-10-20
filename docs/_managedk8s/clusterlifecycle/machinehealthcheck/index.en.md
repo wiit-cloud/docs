@@ -88,6 +88,31 @@ The `checks` block defines when a machine is considered unhealthy:
 
 Each condition consists of a `type`, a `status` (`True`, `False`, or `Unknown`), and a `timeoutSeconds`. A machine is considered unhealthy as soon as **any** of the conditions has been in the given status for at least its timeout. Each condition has its own timeout, so you can, for example, react faster to `Ready=Unknown` than to `DiskPressure=True`.
 
+### Available Node Conditions
+
+These conditions are reported by the kubelet on each node. You can see them with `kubectl describe node <node-name>`.
+
+| Type | Healthy status | Unhealthy status | Meaning |
+|---|---|---|---|
+| `Ready` | `True` | `False`, `Unknown` | The node is healthy and ready to accept pods. `Unknown` means the node stopped reporting its status, for example because the kubelet is down or the node lost its network connection. |
+| `MemoryPressure` | `False` | `True` | The node is running low on memory. |
+| `DiskPressure` | `False` | `True` | The node is running low on disk space. |
+| `PIDPressure` | `False` | `True` | Too many processes are running on the node. |
+| `NetworkUnavailable` | `False` | `True` | The network of the node is not configured correctly. |
+
+### Available Machine Conditions
+
+These conditions are reported by the platform for each machine. They are not visible from inside your cluster.
+
+| Type | Healthy status | Unhealthy status | Meaning |
+|---|---|---|---|
+| `InfrastructureReady` | `True` | `False` | The OpenStack instance of the machine was created successfully and is running. `False` means, for example, that the instance went into an error state. This condition can detect problems before the node joins the cluster. |
+| `BootstrapConfigReady` | `True` | `False` | The configuration used to set up the machine as a Kubernetes node was generated successfully. |
+| `NodeReady` | `True` | `False`, `Unknown` | The node of the machine is ready. This mirrors the node's `Ready` condition. |
+| `NodeHealthy` | `True` | `False`, `Unknown` | The node of the machine is ready and reports no `MemoryPressure`, `DiskPressure`, or `PIDPressure`. |
+
+Other machine conditions, such as `Ready`, `Available`, or `UpToDate`, describe the lifecycle of a machine rather than its health. For example, `UpToDate` is `False` during every [Node Rotation](/managedk8s/clusterlifecycle/machinedeployments/#node-rotation). Do not use them for health checks, as this can cause healthy machines to be replaced.
+
 Independent of the configured checks, a machine whose node has been deleted from the cluster is always considered unhealthy and is replaced immediately.
 
 Example: Replace nodes that are not ready for 5 minutes, or that report disk pressure for 30 minutes:
@@ -129,22 +154,46 @@ How the limits are evaluated:
 - **Percentage:** With `unhealthyLessThanOrEqualTo: 40%` and 25 machines, up to 10 unhealthy machines are replaced; with 6 machines, up to 2. Non-whole results are rounded down. In machine deployments with only a few replicas, a single unhealthy machine already represents a large percentage.
 - **Range:** With `unhealthyInRange: "[3-5]"`, machines are only replaced if 3, 4, or 5 machines are unhealthy. With 2 or fewer, or 6 or more unhealthy machines, none are replaced.
 
-Example: Replace at most one machine at a time, and stop replacing machines if more than 40% of the machine deployment is unhealthy:
+Example: Keep the default checks, replace at most one machine at a time, and stop replacing machines if more than 40% of the machine deployment is unhealthy:
 
 ```yaml
 workers:
 - name: <machine-deployment-name>
   healthCheck:
     enabled: true
+    checks:
+      # Maximum time a new machine may take to join the cluster
+      nodeStartupTimeoutSeconds: 600
+      # Node conditions, combined with a logical OR
+      unhealthyNodeConditions:
+      - type: Ready
+        status: "False"
+        timeoutSeconds: 600
+      - type: Ready
+        status: Unknown
+        timeoutSeconds: 600
+      # Machine conditions, combined with a logical OR
+      unhealthyMachineConditions:
+      - type: NodeHealthy
+        status: "False"
+        timeoutSeconds: 600
+      - type: InfrastructureReady
+        status: "False"
+        timeoutSeconds: 600
     remediation:
+      # Replace at most one machine at a time
       maxInFlight: 1
       triggerIf:
+        # Only replace machines if at most 40% of the machine deployment is unhealthy
         unhealthyLessThanOrEqualTo: 40%
+        # Alternatively, only replace machines if 1 to 3 machines are unhealthy.
+        # Takes precedence over unhealthyLessThanOrEqualTo if both are set.
+        # unhealthyInRange: "[1-3]"
 ```
 
 ## Combining Custom Settings with the Defaults
 
-Custom settings are not merged with the defaults. If you specify `checks` or `remediation`, even partially, that block of the default configuration is replaced completely. For example, the remediation example above keeps the default checks, but if it did not set `maxInFlight: 1`, any number of machines could be replaced at the same time. If you only want to change a single value, please specify the complete block, including the defaults you want to keep.
+Custom settings are not merged with the defaults. If you specify `checks` or `remediation`, even partially, that block of the default configuration is replaced completely. For example, if the remediation example above did not set `maxInFlight: 1`, any number of machines could be replaced at the same time. If you only want to change a single value, please specify the complete block, including the defaults you want to keep.
 
 # Checking Node Health
 
