@@ -121,11 +121,22 @@ group remove user $GROUP $USER
 
 ### Rollenzuweisungen
 
-**Wichtig:** Vergeben Sie ausschließlich die Rolle "member" – die Rolle "reader" steht im System zur Verfügung, die effektiven Berechtigungen sind jedoch nicht read-only.
+Folgende Rollen können Benutzern und Gruppen innerhalb eines Projekts zugewiesen werden:
+
+| Rolle | Berechtigungen |
+|---|---|
+| `member` | Vollzugriff auf die Ressourcen des Projekts (anlegen, ändern, löschen) |
+| `reader` | Lesezugriff auf die Ressourcen des Projekts |
+
+{: .note }
+SSH-Schlüsselpaare gehören dem Benutzer und nicht dem Projekt. Benutzer mit der Rolle "reader" können ihre eigenen Schlüsselpaare daher weiterhin verwalten.
 
 ```bash
 # Rolle einem Benutzer in einem Projekt zuweisen
 role add --user $USER --project $PROJECT member
+
+# Lesende Rolle einem Benutzer in einem Projekt zuweisen
+role add --user $USER --project $PROJECT reader
 
 # Rolle einer Gruppe in einem Projekt zuweisen
 role add --group $GROUP --project $PROJECT member
