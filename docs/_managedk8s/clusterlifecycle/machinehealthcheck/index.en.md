@@ -83,8 +83,8 @@ The `checks` block defines when a machine is considered unhealthy:
 | Option | Controls |
 |---|---|
 | `nodeStartupTimeoutSeconds` | Maximum time in seconds a new machine may take to join the cluster as a node. Defaults to 10 minutes. Set it to `0` to disable this check. |
-| `unhealthyNodeConditions` | List of conditions on the Kubernetes node, for example `Ready`, `MemoryPressure`, `DiskPressure`, or `PIDPressure`. Up to 20 entries. |
-| `unhealthyMachineConditions` | List of conditions on the machine, for example `NodeHealthy` or `InfrastructureReady`. Up to 20 entries. |
+| `unhealthyNodeConditions` | List of conditions on the Kubernetes node, for example `Ready`, `MemoryPressure`, `DiskPressure`, or `PIDPressure`. |
+| `unhealthyMachineConditions` | List of conditions on the machine, for example `NodeHealthy` or `InfrastructureReady`. |
 
 Each condition consists of a `type`, a `status` (`True`, `False`, or `Unknown`), and a `timeoutSeconds`. A machine is considered unhealthy as soon as **any** of the conditions has been in the given status for at least its timeout. Each condition has its own timeout, so you can, for example, react faster to `Ready=Unknown` than to `DiskPressure=True`.
 
