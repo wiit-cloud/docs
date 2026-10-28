@@ -26,22 +26,22 @@ Das folgende Diagramm zeigt ein typisches Dual-Stack-Setup mit zwei Router-VMs, 
 ```mermaid
 flowchart TB
     subgraph PUB["Öffentliches Netz"]
-        VIP4P["VIP-Port IPv4<br/>192.0.2.100"]
-        VIP6P["VIP-Port IPv6<br/>2001:db8:1::100"]
-        PPA["Port öffentlich A<br/>IP: 192.0.2.11 / 2001:db8:1::11<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:aa:00:01)"]
-        PPB["Port öffentlich B<br/>IP: 192.0.2.12 / 2001:db8:1::12<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:bb:00:01)"]
+        VIP4P["VIP-Port IPv4<br/>192.0.2.100<br/>Port Security: aktiviert"]
+        VIP6P["VIP-Port IPv6<br/>2001:db8:1::100<br/>Port Security: aktiviert"]
+        PPA["Port öffentlich A<br/>IP: 192.0.2.11 / 2001:db8:1::11<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:aa:00:01)<br/>Port Security: aktiviert"]
+        PPB["Port öffentlich B<br/>IP: 192.0.2.12 / 2001:db8:1::12<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:bb:00:01)<br/>Port Security: aktiviert"]
     end
     RA["Router-VM A"]
     RB["Router-VM B"]
     subgraph HAN["HA-Netz (Heartbeat)"]
-        PHA["Port HA A<br/>IP: 10.99.0.11 / 2001:db8:3::11"]
-        PHB["Port HA B<br/>IP: 10.99.0.12 / 2001:db8:3::12"]
+        PHA["Port HA A<br/>IP: 10.99.0.11 / 2001:db8:3::11<br/>Port Security: aktiviert"]
+        PHB["Port HA B<br/>IP: 10.99.0.12 / 2001:db8:3::12<br/>Port Security: aktiviert"]
     end
     subgraph INT["Privates Netz"]
         PIA["Port intern A<br/>IP: 10.0.0.11 / 2001:db8:2::11<br/>AAP: 10.0.0.100 / 2001:db8:2::100<br/>(MAC: fa:16:3e:aa:00:02)<br/>Port Security: deaktiviert"]
         PIB["Port intern B<br/>IP: 10.0.0.12 / 2001:db8:2::12<br/>AAP: 10.0.0.100 / 2001:db8:2::100<br/>(MAC: fa:16:3e:bb:00:02)<br/>Port Security: deaktiviert"]
-        VIP4I["VIP-Port IPv4<br/>10.0.0.100"]
-        VIP6I["VIP-Port IPv6<br/>2001:db8:2::100"]
+        VIP4I["VIP-Port IPv4<br/>10.0.0.100<br/>Port Security: deaktiviert"]
+        VIP6I["VIP-Port IPv6<br/>2001:db8:2::100<br/>Port Security: deaktiviert"]
     end
     VIP4P --- PPA
     VIP4P --- PPB
