@@ -26,22 +26,22 @@ The following diagram shows a typical dual-stack setup with two router VMs, each
 ```mermaid
 flowchart TB
     subgraph PUB["Public network"]
-        VIP4P["VIP port IPv4<br/>192.0.2.100"]
-        VIP6P["VIP port IPv6<br/>2001:db8:1::100"]
-        PPA["Public port A<br/>IP: 192.0.2.11 / 2001:db8:1::11<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:aa:00:01)"]
-        PPB["Public port B<br/>IP: 192.0.2.12 / 2001:db8:1::12<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:bb:00:01)"]
+        VIP4P["VIP port IPv4<br/>192.0.2.100<br/>Port security: enabled"]
+        VIP6P["VIP port IPv6<br/>2001:db8:1::100<br/>Port security: enabled"]
+        PPA["Public port A<br/>IP: 192.0.2.11 / 2001:db8:1::11<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:aa:00:01)<br/>Port security: enabled"]
+        PPB["Public port B<br/>IP: 192.0.2.12 / 2001:db8:1::12<br/>AAP: 192.0.2.100 / 2001:db8:1::100<br/>(MAC: fa:16:3e:bb:00:01)<br/>Port security: enabled"]
     end
     RA["Router VM A"]
     RB["Router VM B"]
     subgraph HAN["HA network (heartbeat)"]
-        PHA["HA port A<br/>IP: 10.99.0.11 / 2001:db8:3::11"]
-        PHB["HA port B<br/>IP: 10.99.0.12 / 2001:db8:3::12"]
+        PHA["HA port A<br/>IP: 10.99.0.11 / 2001:db8:3::11<br/>Port security: enabled"]
+        PHB["HA port B<br/>IP: 10.99.0.12 / 2001:db8:3::12<br/>Port security: enabled"]
     end
     subgraph INT["Private network"]
         PIA["Internal port A<br/>IP: 10.0.0.11 / 2001:db8:2::11<br/>AAP: 10.0.0.100 / 2001:db8:2::100<br/>(MAC: fa:16:3e:aa:00:02)<br/>Port security: disabled"]
         PIB["Internal port B<br/>IP: 10.0.0.12 / 2001:db8:2::12<br/>AAP: 10.0.0.100 / 2001:db8:2::100<br/>(MAC: fa:16:3e:bb:00:02)<br/>Port security: disabled"]
-        VIP4I["VIP port IPv4<br/>10.0.0.100"]
-        VIP6I["VIP port IPv6<br/>2001:db8:2::100"]
+        VIP4I["VIP port IPv4<br/>10.0.0.100<br/>Port security: disabled"]
+        VIP6I["VIP port IPv6<br/>2001:db8:2::100<br/>Port security: disabled"]
     end
     VIP4P --- PPA
     VIP4P --- PPB
