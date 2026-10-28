@@ -26,52 +26,7 @@ pip install python-<PROJECT>client -U
 
 ## How can I use [VRRP](https://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol)?
 
-To use VRRP, it must first be enabled in a security group, which is then assigned to an actual VM. You can only add this with the
-OpenStack client. For example:
-
-```bash
-openstack security group rule create --remote-ip 10.0.0.0/24 --protocol vrrp --ethertype IPv4 --ingress  default
-```
-
-To reserve the VIP in Neutron, a virtual port is created for the VIP:
-
-```bash
-openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-address=<VIP_IP_CIDR> VIP_PORT
-```
-
-If multiple VIPs are to be used (for example in a network with IPv4 and IPv6 subnets), a separate virtual port must be created for each VIP.
-
-In addition to the virtual port, you need to configure the VIP as an allowed address on your instance ports:
-
-```bash
-openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
-```
-
-Instances on the OpenStack platform can be moved between individual hypervisors at any time due to maintenance, load balancing, or hardware failures.
-
-If a VIP is assigned a FIP and only the FIP is being used, the FIP may become unreachable under certain circumstances.
-
-This can be caused, for example, by numerous memory accesses during migration.
-
-We therefore recommend sending GARP messages regularly in such setups:
-
-Example for keepalived:
-
-```conf
-# /etc/keepalived/keepalived.conf
-
-# minimum time interval for refreshing gratuitous ARPs while MASTER
-vrrp_garp_master_refresh 10 # secs, default 0 (no refreshing)
-
-# number of gratuitous ARP messages to send at a time while MASTER
-vrrp_garp_master_refresh_repeat 2 # default 1
-```
-
-Example for Corosync / Pacemaker:
-
-```bash
-sudo pcs resource update res_ip arp_count_refresh=1 arp_bg=true
-```
+The configuration of VRRP and the operation of HA clusters with a shared virtual IP (VIP) are described on the [HA Clusters](/openstack/networking/ha_cluster/) page.
 
 ## Why am I charged for Floating IPs I am not using?
 
