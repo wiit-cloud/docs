@@ -1,18 +1,48 @@
 ---
-title: Port Forwarding auf Floating IPs
+title: Floating IPs
 lang: "de"
-permalink: /openstack/networking/port_forwarding/
+permalink: /openstack/networking/floating_ips/
 parent: Netzwerk
 nav_order: 2100
 ---
 
+Floating IPs
+============
+
+Floating IPs sind öffentliche IP-Adressen, die aus einem externen Netzwerk alloziert werden. Sie können mit einer festen IP-Adresse (Fixed IP) eines Neutron-Ports assoziiert werden, um diese von außerhalb der Cloud erreichbar zu machen.
+
+Floating IPs verwalten
+----------------------
+
+Eine Floating IP wird aus einem externen Netzwerk alloziert:
+
+```bash
+$ openstack floating ip create <EXTERNES_NETZWERK>
+```
+
+Anschließend wird sie einem Port zugeordnet:
+
+```bash
+$ openstack floating ip set --port <PORT> <FLOATING_IP>
+```
+
+Die Zuordnung kann wieder aufgehoben werden:
+
+```bash
+$ openstack floating ip unset --port <FLOATING_IP>
+```
+
+{: .warning }
+> Pro Port kann immer nur eine Floating IP assoziiert werden. Neutron erlaubt es zwar, einem Port mehrere Fixed IPs zuzuweisen und mit jeder Fixed IP eine eigene Floating IP zu assoziieren — erreichbar ist dann jedoch nur die erste Kombination aus Floating IP und Fixed IP, die weiteren Assoziationen bleiben ohne Wirkung.
+>
+> Sollen mehrere IP-Adressen über Floating IPs erreichbar sein, müssen dafür separate Ports verwendet werden. Alternativ lassen sich mehrere Dienste über Port Forwarding (siehe unten) auf einer einzigen Floating IP freischalten.
+
 Port Forwarding auf Floating IPs
-==================================
+--------------------------------
 
 Floating IP Port Forwarding erlaubt die Weiterleitung eines beliebigen TCP/UDP/anderen Protokoll-Ports einer Floating-IP-Adresse an einen TCP/UDP/anderen Protokoll-Port, der mit einer festen IP-Adresse eines Neutron-Ports verbunden ist.
 
-Port Forwarding auf einer Floating IP erstellen
----------------
+### Port Forwarding auf einer Floating IP erstellen
 
 Um ein Port Forwarding auf eine Floating IP anzuwenden, sind die folgenden Informationen erforderlich:
 
@@ -34,8 +64,7 @@ $ openstack floating ip port forwarding create \
     --protocol tcp 185.116.244.141
 ```
 
-Anzeigen der Port Forwarding Einstellungen bestimmter Floating IPs
----------------
+### Anzeigen der Port Forwarding Einstellungen bestimmter Floating IPs
 
 Innerhalb eines Projekts kann eine Liste der Port Forwarding-Regeln, die für eine bestimmte Floating IP gelten, mit dem folgenden Befehl abgerufen werden:
 
@@ -43,15 +72,13 @@ Innerhalb eines Projekts kann eine Liste der Port Forwarding-Regeln, die für ei
 
 Der obige Befehl kann weiter gefiltert werden, indem vor der Floating IP die Flags `--sort-column`, `--port`, `--external-protocol-port` und/oder `--protocol` verwendet werden.
 
-Anzeigen der Details einer Port-Forwarding-Regel
----------------
+### Anzeigen der Details einer Port-Forwarding-Regel
 
 Um Details zu einer bestimmten Port Forwarding-Regel anzuzeigen, kann der folgende Befehl verwendet werden:
 
 `$ openstack floating ip port forwarding show <floating-ip> <port-forwarding-id>`
 
-Ändern von Floating IP Port Forwarding-Eigenschaften
----------------
+### Ändern von Floating IP Port Forwarding-Eigenschaften
 
 Wenn eine Port Forwarding-Konfiguration auf einer Floating IP bereits mit `$ openstack floating ip port forwarding create` erstellt wurde, können Änderungen an der bestehenden Konfiguration mit `$ openstack floating ip port forwarding set ...` vorgenommen werden.
 
@@ -77,8 +104,7 @@ $ openstack floating ip port forwarding set \
     <floating-ip> <port-forwarding-id>
 ```
 
-Löschen der Port Forwarding-Konfiguration zu einer Floating IP
----------------
+### Löschen der Port Forwarding-Konfiguration zu einer Floating IP
 
 Um eine Port Forwarding-Regel von einer Floating IP zu entfernen, benötigen wir die folgenden Informationen:
 
