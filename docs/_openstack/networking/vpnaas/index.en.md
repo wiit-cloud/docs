@@ -236,6 +236,9 @@ $ openstack vpn service create vpnaas-left-vpn --router vpnaas-left-router
 +----------------+--------------------------------------+
 ```
 
+{: .warning }
+When using endpoint groups, the corresponding fields must not be set on the VPN service or the site connection at the same time: omit `--subnet` on `openstack vpn service create` and `--peer-cidrs` on `openstack vpn ipsec site connection create`. The endpoint groups take over the role of both fields.
+
 ### Create the endpoint groups
 
 {: .warning }

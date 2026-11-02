@@ -26,52 +26,7 @@ pip install python-<PROJECT>client -U
 
 ## Wie kann ich [VRRP](https://de.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol) nutzen?
 
-Um VRRP nutzen zu können, muss dies in einer Security-Group aktiviert und dann den jeweiligen Instanzen zugeordnet werden. Aktuell ist dies
-nur mit dem OpenStack-Client möglich, zum Beispiel:
-
-```bash
-openstack security group rule create --remote-ip 10.0.0.0/24 --protocol vrrp --ethertype IPv4 --ingress  default
-```
-
-Um die VIP in Neutron zu reservieren, wird ein virtueller Port für die VIP erzeugt:
-
-```bash
-openstack port create --network <NETWORK_ID> --fixed-ip subnet=<SUBNET_ID>,ip-address=<VIP_IP_CIDR> VIP_PORT
-```
-
-Wenn mehrere VIPs (zum Beispiel in einem Netzwerk mit IPv4- und IPv6-Subnetzen) genutzt werden sollen, ist für jede VIP ein eigener virtueller Port anzulegen.
-
-Zusätzlich zum virtuellen Port ist es notwendig, die VIP als Allowed Address für den Port der jeweiligen Instanzen zu konfigurieren:
-
-```bash
-openstack port set PORT_UUID --allowed-address ip-address=<VIP_IP_CIDR>,mac_address=<MAC_ADDRESS>
-```
-
-Instanzen können auf der OpenStack-Plattform jederzeit aufgrund von Wartungsarbeiten, Lastverteilung oder Hardware-Ausfällen zwischen einzelnen Hypervisoren verschoben werden.
-
-Wenn einer VIP eine FIP zugewiesen ist und nur die FIP genutzt wird, kann es unter gewissen Umständen zur Nichterreichbarkeit der FIP kommen.
-
-Ursachen hierfür können bspw. viele Arbeitsspeicherzugriffe während der Migration sein.
-
-Wir raten daher, in solchen Setups regelmäßig GARP zu senden:
-
-Beispiel für keepalived:
-
-```conf
-# /etc/keepalived/keepalived.conf
-
-# minimum time interval for refreshing gratuitous ARPs while MASTER
-vrrp_garp_master_refresh 10  # secs, default 0 (no refreshing)
-
-# number of gratuitous ARP messages to send at a time while MASTER
-vrrp_garp_master_refresh_repeat 2 # default 1 
-```
-
-Beispiel für Corosync / Pacemaker:
-
-```bash
-sudo pcs resource update res_ip arp_count_refresh=1 arp_bg=true
-```
+Die Konfiguration von VRRP sowie der Betrieb von HA-Clustern mit einer gemeinsamen virtuellen IP (VIP) werden auf der Seite [HA-Cluster](/openstack/networking/ha_cluster/) beschrieben.
 
 ## Warum werden mir Floating IPs berechnet, die ich gar nicht benutze?
 

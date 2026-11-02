@@ -13,7 +13,7 @@ parent: Cluster Lifecycle
 - Each machine deployment will be configured to meet specific needs such as compute capacity, storage, and availability zone.
 - Please provide the name of the machine deployment(s). If the machine deployment name is not provided, the name will default to the format `clusterName-az-md` (e.g., cluster-test-az2-md).
 - We can enable the autoscaler for you; see [Cluster Autoscaler](/managedk8s/clusterlifecycle/autoscaling/).
-- We can enable a Machine Health Check so that unhealthy nodes are replaced automatically; see [Machine Health Check](/managedk8s/clusterlifecycle/machinehealthcheck/).
+- A Machine Health Check replaces nodes that fail to join the cluster; we can add custom checks so that nodes that become unhealthy later are replaced as well. See [Machine Health Check](/managedk8s/clusterlifecycle/machinehealthcheck/).
 - We can enable pre-cordoning (cluster-wide) so that all nodes are cordoned before rotation. For details, see [Node Rotation](#node-rotation).
 - The default machine deployment configuration is the following:
 

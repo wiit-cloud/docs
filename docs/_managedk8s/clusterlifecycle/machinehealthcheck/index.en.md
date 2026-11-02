@@ -13,17 +13,15 @@ Machine Health Checks are configured per machine deployment and only apply to wo
 
 # How a Machine Health Check Works
 
+A Machine Health Check is active for every machine deployment. It does not need to be enabled.
+
 **Detection:**
-With the default configuration, a machine is considered unhealthy if one of the following conditions persists for **10 minutes**:
+Without further configuration, a machine is considered unhealthy if:
 
-- The node reports the `Ready` condition as `False` or `Unknown`, for example because the kubelet stopped responding or the node lost its network connection.
-- The machine's `NodeHealthy` condition is `False`. This summarizes the node's readiness and resource pressure.
-- The machine's `InfrastructureReady` condition is `False`, for example because the OpenStack instance went into an error state.
-- A newly created machine does not join the cluster as a node within 10 minutes.
+- A newly created machine does not join the cluster as a node within **10 minutes**, for example because the OpenStack instance cannot be created or the node fails to register with the cluster. The 10-minute timeout prevents nodes that are slower than usual during startup from being replaced unnecessarily.
+- The node of the machine has been deleted from the cluster.
 
-In addition, a machine whose node has been deleted from the cluster is always considered unhealthy.
-
-The 10-minute timeout prevents nodes that are slower than usual, for example during startup, from being replaced unnecessarily.
+Both checks are always active and cannot be changed or disabled. To also replace nodes that become unhealthy later during operation, for example when a node reports `Ready=Unknown`, you can add your own checks (see [Custom Configuration](#custom-configuration)).
 
 **Remediation:**
 When a machine is marked as unhealthy, it is deleted and the machine deployment creates a replacement machine. The new node joins the cluster and becomes available for scheduling. Pods that were running on the unhealthy node are rescheduled by Kubernetes onto the remaining healthy nodes.
@@ -31,58 +29,36 @@ When a machine is marked as unhealthy, it is deleted and the machine deployment 
 **Safeguard:**
 By default, only **one machine at a time** is replaced per machine deployment. If many nodes become unhealthy at once, for example during a short network disruption, this prevents all machines from being recreated at the same time.
 
-# Enabling the Machine Health Check
-
-The Machine Health Check is not enabled by default. To enable it, or to change its settings, please contact us using the instructions provided [here](/managedk8s/about/support/).
-
-When reaching out, include the following information:
-
-- [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name)
-- The name(s) of the machine deployment(s) the Machine Health Check should apply to
-- Whether the default configuration should be used, or which custom checks and remediation settings you need
-
-It is possible to enable or disable the Machine Health Check at any time for one or more machine deployments.
-
 # Default Configuration
 
-If you enable the Machine Health Check without further settings, the following configuration is applied:
+Without further settings, the following remediation configuration is applied to every machine deployment. No additional checks are configured:
 
 ```yaml
 workers:
 - name: <machine-deployment-name>
   healthCheck:
-    enabled: true
-    checks:
-      nodeStartupTimeoutSeconds: 600
-      unhealthyNodeConditions:
-      - type: Ready
-        status: "False"
-        timeoutSeconds: 600
-      - type: Ready
-        status: Unknown
-        timeoutSeconds: 600
-      unhealthyMachineConditions:
-      - type: NodeHealthy
-        status: "False"
-        timeoutSeconds: 600
-      - type: InfrastructureReady
-        status: "False"
-        timeoutSeconds: 600
     remediation:
       maxInFlight: 1
 ```
 
 # Custom Configuration
 
-You can replace the default checks and remediation settings with your own. Choose the timeouts with care: values that are too short can cause nodes to be replaced during short, self-recovering disruptions, while values that are too long leave broken nodes in the cluster for longer.
+You can add your own checks and change the remediation settings. Your checks are added to the checks described in [How a Machine Health Check Works](#how-a-machine-health-check-works); they never replace or disable them. Your remediation settings replace the default `maxInFlight: 1` (see [Combining Custom Settings with the Defaults](#combining-custom-settings-with-the-defaults)). To do so, please contact us using the instructions provided [here](/managedk8s/about/support/).
+
+When reaching out, include the following information:
+
+- [WIIT Resource Name](/managedk8s/about/support/#wiit-resource-name)
+- The name(s) of the machine deployment(s) the settings should apply to
+- The checks and remediation settings you need
+
+Choose the timeouts with care: values that are too short can cause nodes to be replaced during short, self-recovering disruptions, while values that are too long leave broken nodes in the cluster for longer.
 
 ## Checks
 
-The `checks` block defines when a machine is considered unhealthy:
+The `checks` block defines additional conditions under which a machine is considered unhealthy. Only the conditions you list are checked; no other conditions are added. The checks described in [How a Machine Health Check Works](#how-a-machine-health-check-works) stay active in any case:
 
 | Option | Controls |
 |---|---|
-| `nodeStartupTimeoutSeconds` | Maximum time in seconds a new machine may take to join the cluster as a node. Defaults to 10 minutes. Set it to `0` to disable this check. |
 | `unhealthyNodeConditions` | List of conditions on the Kubernetes node, for example `Ready`, `MemoryPressure`, `DiskPressure`, or `PIDPressure`. |
 | `unhealthyMachineConditions` | List of conditions on the machine, for example `NodeHealthy` or `InfrastructureReady`. |
 
@@ -113,17 +89,13 @@ These conditions are reported by the platform for each machine. They are not vis
 
 Other machine conditions, such as `Ready`, `Available`, or `UpToDate`, describe the lifecycle of a machine rather than its health. For example, `UpToDate` is `False` during every [Node Rotation](/managedk8s/clusterlifecycle/machinedeployments/#node-rotation). Do not use them for health checks, as this can cause healthy machines to be replaced.
 
-Independent of the configured checks, a machine whose node has been deleted from the cluster is always considered unhealthy and is replaced immediately.
-
 Example: Replace nodes that are not ready for 5 minutes, or that report disk pressure for 30 minutes:
 
 ```yaml
 workers:
 - name: <machine-deployment-name>
   healthCheck:
-    enabled: true
     checks:
-      nodeStartupTimeoutSeconds: 600
       unhealthyNodeConditions:
       - type: Ready
         status: "False"
@@ -154,16 +126,13 @@ How the limits are evaluated:
 - **Percentage:** With `unhealthyLessThanOrEqualTo: 40%` and 25 machines, up to 10 unhealthy machines are replaced; with 6 machines, up to 2. Non-whole results are rounded down. In machine deployments with only a few replicas, a single unhealthy machine already represents a large percentage.
 - **Range:** With `unhealthyInRange: "[3-5]"`, machines are only replaced if 3, 4, or 5 machines are unhealthy. With 2 or fewer, or 6 or more unhealthy machines, none are replaced.
 
-Example: Keep the default checks, replace at most one machine at a time, and stop replacing machines if more than 40% of the machine deployment is unhealthy:
+Example: Replace nodes that are not ready for 10 minutes, replace at most one machine at a time, and stop replacing machines if more than 40% of the machine deployment is unhealthy:
 
 ```yaml
 workers:
 - name: <machine-deployment-name>
   healthCheck:
-    enabled: true
     checks:
-      # Maximum time a new machine may take to join the cluster
-      nodeStartupTimeoutSeconds: 600
       # Node conditions, combined with a logical OR
       unhealthyNodeConditions:
       - type: Ready
@@ -175,9 +144,6 @@ workers:
       # Machine conditions, combined with a logical OR
       unhealthyMachineConditions:
       - type: NodeHealthy
-        status: "False"
-        timeoutSeconds: 600
-      - type: InfrastructureReady
         status: "False"
         timeoutSeconds: 600
     remediation:
@@ -193,7 +159,7 @@ workers:
 
 ## Combining Custom Settings with the Defaults
 
-Custom settings are not merged with the defaults. If you specify `checks` or `remediation`, even partially, that block of the default configuration is replaced completely. For example, if the remediation example above did not set `maxInFlight: 1`, any number of machines could be replaced at the same time. If you only want to change a single value, please specify the complete block, including the defaults you want to keep.
+Custom remediation settings are not merged with the default. If you specify `remediation`, even partially, the default `maxInFlight: 1` is replaced completely. For example, if the remediation example above did not set `maxInFlight: 1`, any number of machines could be replaced at the same time. If you only want to add a `triggerIf` limit, please also specify `maxInFlight`.
 
 # Checking Node Health
 
