@@ -40,6 +40,9 @@ We support the following changes to a running CKS cluster:
 - Enable or disable the cluster-autoscaler for a specific machine deployment.
 - Adjust the minimum and maximum number of worker nodes for autoscaling.
 
+**Load Balancer Options**
+- Enable or change cluster-wide [load balancer options](/managedk8s/clusterlifecycle/loadbalancer/#load-balancer-options), such as the balancing algorithm or health monitors.
+
 **Component Extra Args**
 - Pass extra command-line flags to control plane components, the control plane kubelet, or the cluster-autoscaler. See [Component Extra Args](/managedk8s/clusterlifecycle/extraargs/).
 
