@@ -116,8 +116,6 @@ PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
 PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
 ```
 
-This method avoids storing the password in unencrypted metadata.
-
 ### Recommended approach for automation tools
 
 When creating Windows instances with automation tools (e.g. Terraform or Ansible), we recommend not setting `admin_pass`. In this case, cloudbase-init generates a random password for the Administrator account during the first boot. The password is encrypted with the public key of the key pair assigned to the instance (`--key-name`) and stored in the metadata service. Only the holder of the matching private key can decrypt it.
