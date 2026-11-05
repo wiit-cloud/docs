@@ -60,6 +60,10 @@ Wir stellen folgende Windows-Images zur Verfügung:
 
 > Die Initialisierung unserer Windows-Images durch cloudbase-init funktioniert derzeit nicht bei Instanzen, die nur eine **IPv6**-Adresse haben. Stellen Sie sicher, dass die Instanz auch eine IPv4-Adresse hat.
 
+{: .warning }
+
+> Windows-Instanzen laufen auf dedizierten Compute-Nodes mit entsprechender Windows-Lizenzierung. Diese Nodes sind derzeit nur in der Verfügbarkeitszone [SZ1](https://docs.wiit-cloud.io/de/openstack/intro/#stretched-zone-sz1) verfügbar. Erstellen Sie Windows-Instanzen in SZ1: Geben Sie entweder keine Verfügbarkeitszone an (SZ1 ist die Standardzone) oder verwenden Sie `--availability-zone sz1`.
+
 Windows-Images unterstützen das Setzen des initialen Administrator-Passworts über Instanz-Metadaten:
 
 - Fügen Sie beim Erstellen der Instanz den Metadaten-Schlüssel `admin_pass` mit dem gewünschten Passwort hinzu.

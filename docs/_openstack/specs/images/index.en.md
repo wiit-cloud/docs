@@ -62,6 +62,10 @@ We provide the following Windows images:
 
 > The initialization of our Windows images by cloudbase-init currently does not work for instances that only have an **IPv6** address. Make sure the instance also has an IPv4 address.
 
+{: .warning }
+
+> Windows instances run on dedicated compute nodes with proper Windows licensing. These nodes are currently only available in the availability zone [SZ1](/openstack/intro/#stretched-zone-sz1). Create Windows instances in SZ1: either don't specify an availability zone (SZ1 is the default) or use `--availability-zone sz1`.
+
 Windows images support setting the initial Administrator password using instance metadata:
 
 - Add the metadata key `admin_pass` with the desired password when creating the instance.
