@@ -43,6 +43,141 @@ OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images 
 
 Alle von uns bereitgestellten Linux-Images sind unverändert und stammen direkt von den offiziellen Entwicklern. Wir testen sie während des Upload-Prozesses, um ihre Einsatzfähigkeit sicherzustellen. Diese Images werden ausschließlich zu Ihrer Bequemlichkeit und ohne Gewährleistung bereitgestellt. Bitte beachten Sie, dass wir keinen technischen Support, keine Wartung und keine Fehlerbehebung anbieten können. Laden Sie bitte Ihre eigenen, benutzerdefinierten Images hoch, falls Sie spezielle Anforderungen haben.
 
+## Windows-Images
+
+Wir stellen folgende Windows-Images zur Verfügung:
+
+- Windows Server 2022 GUI
+- Windows Server 2025 GUI
+
+### Verwendung von Windows-Images:
+
+{: .warning }
+
+> Unsere Windows-Images funktionieren nur mit **RSA**-SSH-Key-Pairs (`ssh-rsa`). Wenn Sie eine Instanz mit einem anderen Schlüsseltyp wie ed25519 erstellen, schlägt die Initialisierung der Instanz durch cloudbase-init fehl.
+
+{: .warning }
+
+> Die Initialisierung unserer Windows-Images durch cloudbase-init funktioniert derzeit nicht bei Instanzen, die nur eine **IPv6**-Adresse haben. Stellen Sie sicher, dass die Instanz auch eine IPv4-Adresse hat.
+
+Windows-Images unterstützen das Setzen des initialen Administrator-Passworts über Instanz-Metadaten:
+
+- Fügen Sie beim Erstellen der Instanz den Metadaten-Schlüssel `admin_pass` mit dem gewünschten Passwort hinzu.
+- Das Passwort wird einmalig beim ersten Start der Instanz gesetzt. Ein späteres Hinzufügen oder Ändern von `admin_pass` hat keine Auswirkung.
+
+Beispiel:
+
+```
+openstack server create \
+  --image IMAGE_NAME \
+  --flavor FLAVOR_NAME \
+  --network NETWORK_NAME \
+  --key-name KEY_NAME \
+  --property admin_pass='MeinSicheresPasswort123' \
+  INSTANCE_NAME
+```
+
+{: .warning }
+
+Die Metadaten sind **nicht verschlüsselt** und bleiben auch nach dem ersten Start lesbar. Entfernen Sie sie, sobald die Instanz läuft:
+
+```
+openstack server unset --property admin_pass INSTANCE_NAME
+```
+
+Da das über `admin_pass` gesetzte Passwort im Klartext in den Metadaten übertragen wird, verlangt Windows bei der ersten Anmeldung über die GUI-Konsole (z. B. die Konsole im OpenStack Dashboard), dass Sie es ändern. Eine Verbindung per RDP ist erst möglich, nachdem das initiale Passwort geändert wurde.
+
+Wenn Sie die GUI-Konsole nicht verwenden möchten, können Sie sich alternativ über SSH und die Floating IP mit dem öffentlichen Schlüssel des der Instanz zugewiesenen Key Pairs (`--key-name`) verbinden und das initiale Passwort direkt innerhalb der Instanz ändern:
+
+```
+ssh $FLOATING_IP -l Administrator
+```
+
+{: .note }
+
+> Wenn Sie beim Verbindungsaufbau per SSH zur Eingabe eines Passworts aufgefordert werden, warten Sie bitte noch einen Moment. Zu diesem Zeitpunkt sind die Hintergrundprozesse der Instanz möglicherweise noch nicht vollständig abgeschlossen.
+>
+> Das zu setzende Passwort muss den Standard-Komplexitätsregeln von Windows Server entsprechen. Es muss Zeichen aus mindestens drei der folgenden vier Kategorien enthalten:
+>
+> - Großbuchstaben (A–Z)
+> - Kleinbuchstaben (a–z)
+> - Ziffern (0–9)
+> - Sonderzeichen (z. B. !, $, #, %)
+>
+> Weitere Informationen finden Sie in der [Microsoft-Dokumentation](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh994562(v=ws.11))
+
+```
+administrator@win-server C:\Users\Administrator> powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Administrator> $Password = Read-Host -AsSecureString
+**********
+PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
+```
+
+### Empfohlenes Vorgehen für Automatisierungstools
+
+Wenn Sie Windows-Instanzen mit Automatisierungstools (z. B. Terraform oder Ansible) erstellen, empfehlen wir, `admin_pass` nicht zu setzen. In diesem Fall generiert cloudbase-init beim ersten Start ein zufälliges Passwort für das Administrator-Konto. Das Passwort wird mit dem öffentlichen Schlüssel des der Instanz zugewiesenen Key Pairs (`--key-name`) verschlüsselt und im Metadaten-Service gespeichert. Nur wer den passenden privaten Schlüssel besitzt, kann es entschlüsseln.
+
+```
+openstack server create \
+  --image IMAGE_NAME \
+  --flavor FLAVOR_NAME \
+  --network NETWORK_NAME \
+  --key-name KEY_NAME \
+  INSTANCE_NAME
+```
+
+Da das generierte Passwort nie im Klartext sichtbar ist, ist keine Passwortänderung erforderlich: Sie können sich mit dem abgerufenen Passwort direkt per RDP verbinden.
+
+Das verschlüsselte Passwort ist einige Minuten nach dem ersten Start verfügbar, sobald cloudbase-init abgeschlossen ist. Sie können es mit der veralteten nova-CLI (Teil von `python-novaclient`, benötigt `openssl` und einen privaten Schlüssel im PEM-Format) abrufen und entschlüsseln:
+
+```
+nova get-password INSTANCE_NAME ~/.ssh/id_rsa
+```
+
+Alternativ können Sie das Tool [nova-password](https://github.com/sapcc/nova-password) verwenden, das auch private Schlüssel im OpenSSH- und PuTTY-Format unterstützt:
+
+```
+nova-password --private-key-path ~/.ssh/id_rsa INSTANCE_NAME
+```
+
+Beide Tools verwenden die OpenStack-Zugangsdaten aus Ihrer Umgebung (z. B. aus einer geladenen `openrc`-Datei).
+
+#### Passwort manuell entschlüsseln
+
+Die Compute-API liefert das Passwort Base64-kodiert und mit RSA (PKCS #1 v1.5) verschlüsselt. Ersetzen Sie `COMPUTE_URL` durch den öffentlichen Compute-Endpunkt, den `openstack catalog show compute` anzeigt:
+
+```
+TOKEN=$(openstack token issue -f value -c id)
+SERVER_ID=$(openstack server show INSTANCE_NAME -f value -c id)
+
+curl -s -H "X-Auth-Token: $TOKEN" "COMPUTE_URL/servers/$SERVER_ID/os-server-password" \
+  | jq -r .password \
+  | base64 -d \
+  | openssl pkeyutl -decrypt -inkey ~/.ssh/id_rsa
+```
+
+OpenSSL benötigt den privaten Schlüssel im PEM-Format. Liegt Ihr Schlüssel im OpenSSH-Format vor (`-----BEGIN OPENSSH PRIVATE KEY-----`), konvertieren Sie zuerst eine Kopie davon:
+
+```
+cp ~/.ssh/id_rsa ~/.ssh/id_rsa.pem
+ssh-keygen -p -m PEM -f ~/.ssh/id_rsa.pem
+```
+
+#### Automatisierung
+
+Für eine saubere Automatisierung empfehlen wir ein eigenes Skript, das direkt mit der Compute-API arbeitet:
+
+1. Das verschlüsselte Passwort mit `GET /servers/{server_id}/os-server-password` abrufen.
+2. Es mit dem privaten Schlüssel des Key Pairs entschlüsseln.
+3. Es in einem Secrets-Management-Tool wie HashiCorp Vault ablegen.
+
+Anschließend können Sie das verschlüsselte Passwort mit `DELETE /servers/{server_id}/os-server-password` (oder `nova clear-password INSTANCE_NAME`) aus dem Metadaten-Service löschen. Dadurch wird nur die gespeicherte Kopie entfernt; das Administrator-Passwort der Instanz bleibt unverändert.
+
 ## Upload von eigenen Images
 
 Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereitgestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
