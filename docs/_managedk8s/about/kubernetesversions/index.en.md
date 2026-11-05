@@ -10,17 +10,20 @@ parent: About Managed Kubernetes
 
 As part of our Managed Kubernetes service, we ensure that your clusters are always running on supported and stable Kubernetes versions.
 
-To provide clarity on our version support policy, here is an overview of our supported Kubernetes versions, deprecation, and end-of-life (EOL).
+To provide clarity on our version support policy, here is an overview of our supported Kubernetes versions and their deprecation and end-of-life (EOL) dates.
 
 | Version | Deprecation | End-of-Life |
 |---------|-------------|-------------|
-| v1.33   |             |             |
-| v1.32   |             |             |
-| v1.31   |             |             |
-| v1.30   | 2025.09.01  | 2025.12.01  |
+| v1.36   | TBD         | TBD         |
+| v1.35   | TBD         | TBD         |
+| v1.34   | TBD         | TBD         |
+| v1.33   | 2026-07-29  | 2026-11-02  |
+| v1.32   | 2026-02-25  | 2026-05-31  |
+| v1.31   | 2025-11-18  | 2026-02-01  |
+| v1.30   | 2025-09-01  | 2025-12-01  |
 
 ## Force Upgrade Policy
 
-If a customer cluster is not updated by its owner until the announced End-of-Life date, it will be automatically upgraded to the next supported version.
+If a customer cluster is not updated by its owner by the announced End-of-Life date, it will be automatically upgraded to the next supported version.
 
-You can read more about the deprecation and force upgrade policy [here](../../clusterlifecycle/deprecationpolicy).
+You can read more about the deprecation and force upgrade policy [here](/managedk8s/clusterlifecycle/deprecationpolicy/).

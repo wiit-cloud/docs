@@ -18,11 +18,11 @@ Users can delegate a subset of their role assignments on a project to applicatio
 
 ### Name / Secrets
 
-Application credentials can be generated for your project via the command-line or via the dashboard. These will be associated with the project in which they are created.
+Application credentials can be generated for your project via the command line or via the dashboard. These will be associated with the project in which they are created.
 
-The only required parameter to create the credentials is a name, however a specific secret can be set by using the `—-secret` parameter. If the secret parameter is left blank, a secret will instead be auto-generated in the output.
+The only required parameter to create the credentials is a name; however, a specific secret can be set by using the `--secret` parameter. If the secret parameter is left blank, a secret will instead be auto-generated in the output.
 
-It is important to make note of the secret in either case as the secret is hashed before it is stored and will not be retrievable after it has been set. If the secret is lost, a new application credential should be created.
+It is important to make note of the secret in either case, as the secret is hashed before it is stored and will not be retrievable after it has been set. If the secret is lost, a new application credential should be created.
 
 ### Roles
 
@@ -34,16 +34,16 @@ Below are the available roles which can be assigned to a set of application cred
 
 ### Expiration
 
-By default, created Application Credentials will not expire, however,  fixed expiration dates/times can be set for credentials upon creation, using the `--expires` parameter in the command (for example: `--expires '2021-07-15T21:00:00'`).
+By default, created Application Credentials will not expire; however, fixed expiration dates/times can be set for credentials upon creation, using the `--expires` parameter in the command (for example: `--expires '2021-07-15T21:00:00'`).
 
 ## Creating Application Credentials via the CLI
 
-A set of Application Credentials can be created in the desired project via the CLI, the example below demonstrates how to create a set of credentials with the following parameters:
+A set of Application Credentials can be created in the desired project via the CLI. The example below demonstrates how to create a set of credentials with the following parameters:
 
 - Name: test-credentials
 - Secret: ZYQZm2k6pk
 - Roles: member
-- Expiration Date/Time: 2025-07-12 at 21:00:00
+- Expiration Date/Time: 2025-07-15 at 21:00:00
 
 The new credentials should appear as follows:
 
@@ -69,7 +69,7 @@ Note: The secret (whether set by the user or auto-generated) will be displayed u
 
 ## Viewing Application Credentials via the CLI
 
-The list of application credentials belonging to a project can be listed with the following command.
+The application credentials belonging to a project can be listed with the following command.
 
 ```bash
 $ openstack application credential list
@@ -90,14 +90,14 @@ Application credentials can be deleted via the CLI with the following command wi
 openstack application credential delete test-credentials
 ```
 
-## Testing Application credentials
+## Testing Application Credentials
 
 Once we have created a set of Application Credentials either via the CLI or dashboard, we can test them by using the following curl command to verify that they are working.
 
-We need to use our `<name>` and `<secret>` in the curl command:
+We need to use our `<id>` and `<secret>` in the curl command:
 
 ```bash
-curl -i -H "Content-Type: application/json" -d ' { "auth": { "identity": { "methods": ["application_credential"],  "application_credential": {  "id": “<id>", "secret": “<secret>"}}}}' https://identity.openstack.de-west-01.wiit-cloud.io/v3/auth/tokens
+curl -i -H "Content-Type: application/json" -d ' { "auth": { "identity": { "methods": ["application_credential"],  "application_credential": {  "id": "<id>", "secret": "<secret>"}}}}' https://identity.openstack.de-west-01.wiit-cloud.io/v3/auth/tokens
 ```
 
-A successful curl attempt will output an `x-subject-token`, unsuccessful attempts where the credentials are incorrect will result in a 401 error.
+A successful curl attempt will output an `x-subject-token`; unsuccessful attempts where the credentials are incorrect will result in a 401 error.

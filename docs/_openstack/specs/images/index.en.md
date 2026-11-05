@@ -23,25 +23,27 @@ For your convenience, we're providing you with a number of selected images.
 
 The current list of images is as follows:
 
+- Ubuntu 26.04 LTS (Resolute Raccoon)
+- Ubuntu Minimal 26.04 LTS (Resolute Raccoon)
 - Ubuntu 24.04 LTS (Noble Numbat)
 - Ubuntu Minimal 24.04 LTS (Noble Numbat)
 - Ubuntu 22.04 LTS (Jammy Jellyfish)
 - Ubuntu Minimal 22.04 LTS (Jammy Jellyfish)
+- Debian 13 (Trixie)
 - Debian 12 (Bookworm)
-- Debian 11 (Bullseye)
-- CoreOS (stable)
-- Rocky Linux 9
+- Rocky Linux 10 (Red Quartz)
+- Rocky Linux 9 (Blue Onyx)
 - Flatcar Linux
 - Windows Server 2022 GUI
 - Windows Server 2025 GUI
 
-These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest`-suffix. All previous versions of an imags are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventially deleted if they are no longer in use at all.
+These images are checked for new releases daily. The latest available version is always a public image, and contains the `Latest` suffix. All previous versions of an image are automatically converted to "community images", renamed (`Latest` is replaced by the date of the first upload), and eventually deleted if they are no longer in use at all.
 
 OpenStack and many deployment tools support using these images either by name or by their UUID. By using a name, for example `Ubuntu 24.04 Noble Numbat - Latest`, you can easily stay up to date by redeploying or rebuilding your instances, even if we replace the image in the interim. You can avoid this behaviour by using the UUID instead. This may be useful for cluster deployments, where you want to ensure that all nodes are running the same version of the image.
 
 ## Linux Images
 
-All of our provided linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable.
+All of our provided Linux images are unmodified and come directly from their official maintainers. We test them during the upload process to ensure they are deployable. These images are provided for convenience purposes only, on an 'as-is' basis. Please note that we cannot provide any technical support, maintenance, or troubleshooting for them. Please upload your own custom images if you have specific requirements.
 
 ## Windows Images
 
@@ -107,40 +109,47 @@ PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
 
 This method avoids storing the password in unencrypted metadata.
 
-## Uploading Your Own Images to OpenStack
+## Uploading your own images
 
-You can upload your own custom images instead of using the ones provided. The easiest method is via the OpenStack CLI.
+Instead of using the images we provide, you can upload your own images. The easiest way of doing so is to use the OpenStack CLI.
 
 ```bash
 openstack image create \
-  --property hw_disk_bus=scsi \        # Disk bus type
-  --property hw_qemu_guest_agent=True \ # Enables snapshotting of running VMs
-  --property hw_scsi_model=virtio-scsi \ # SCSI model
-  --property os_require_quiesce=True \   # Requires quiesce for snapshots
-  --private \                            # Keep image private
-  --disk-format qcow2 \                  # Image format
-  --container-format bare \              # Container format
-  --file ~/my-image.qcow2 \              # Source image file
-  my-image                               # Name of the image
+  --property hw_disk_bus=scsi \
+  --property hw_qemu_guest_agent=True \
+  --property hw_scsi_model=virtio-scsi \
+  --property os_require_quiesce=True \
+  --property hw_firmware_type=uefi \
+  --property hw_machine_type=q35 \
+  --private \
+  --disk-format raw \
+  --container-format bare \
+  my-image
+
+openstack image stage \
+  --file ~/my-image.img \
+  --progress \
+  my-image
+
+openstack image import \
+  --method glance-direct \
+  --all-stores \
+  my-image
 ```
 
-**Minimum required fields for `openstack image create`:**
+The command to upload images requires these fields at a minimum:
 
-- `--disk-format`: e.g., qcow2; depends on your image format.
-- `--file`: Path to the source image file on your machine.
-- Image name: e.g., `my-image`.
+- `--disk-format`: `raw`, in this case. This depends on the image format.
+- `--file`: The source file on your machine
+- Name of the Image: `my-image` for example.
 
-To enable snapshot creation on running instances, we recommend setting `--property hw_qemu_guest_agent=True` when creating the image, and installing the `qemu-guest-agent` inside the image. See our [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
+We recommend using the RAW format; this enables copy-on-write functionality when creating instances and volumes, significantly speeding up the process.
 
-### UEFI Images
+We also recommend using the commands mentioned above; while an image could be created in a single call, doing so would not utilize the more modern Interoperable Image API.
+This API offers the ability to convert images directly upon creation and distribute them across all Availability Zones (AZs).
 
-If your image requires UEFI boot (for example, modern Windows or some Linux distributions), you must set the following properties when creating the image:
+Additionally, to enable the creation of snapshots on running instances, we recommend that you set `--property hw_qemu_guest_agent=True` on the images you create, and to install the `qemu-guest-agent` upon creation of the new image. See our [FAQ](/openstack/faq/#why-am-i-unable-to-create-a-snapshot-of-a-running-instance) for more details.
 
-```
---property hw_machine_type='q35' \
---property hw_firmware_type='uefi'
-```
+You can also use the dashboard to upload images. Make sure to use the same properties there.
 
-These settings ensure the VM uses a Q35 machine type and UEFI firmware instead of the legacy BIOS.
-
-You can also upload images via the OpenStack Dashboard. Ensure that you apply the same properties as you would in the CLI.
+The maximum size of an image is 2 TB in the de-west-01 region. In the ch-north-01 region, the maximum size is 100 GB.

@@ -2,7 +2,7 @@
 title: Root Disks
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/rootdisk/
-nav_order: 3350
+nav_order: 3355
 parent: Cluster Lifecycle
 ---
 # Root Disks
@@ -10,7 +10,7 @@ parent: Cluster Lifecycle
 You can define disk size and disk type for the control plane and the worker groups. Please provide this information in the following format:
 
 ```
-# Controle plane
+# Control plane
 disk_size_cp: <INT>
 volume_type_cp: <vType>
 
@@ -20,17 +20,17 @@ disk_size: <INT>
 volume_type: <vType>
 ```
 
-`<INT>` replace this with in positive integer. This is the size of the root disk in Gigabyte. 
+Replace `<INT>` with a positive integer. This is the size of the root disk in Gigabyte.
 
-`<vType>` is dependent on the used platform. Please consult the platform documentation for this information.
-- [openstack](openstack/specs/volume_specification/)
+`<vType>` depends on the platform used. Please consult the platform documentation for this information.
+- [OpenStack](/openstack/specs/volume_specification/)
 
-The default value schould be `default` and only be changed if you know that you have different requirements.
+The default value is `default` and should only be changed if you know that you have different requirements.
 
-# Considerations
-* While choosing a disksize, make sure you take into account that the pulled docker images are living on this disk. So if you have a lot of big docker images, adjust your disk size accordingly. 
-* If you use a lot of [ephemeral-volumes](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) or store / process, large amounts of data adjust your disk size accordingly. 
-* if you know you have a lot of k8s API `changes` consider a higher iops controle plane root disk.
-* If you specify a root disk, it will create the corresponding disks in your tenant.
+## Considerations
+* When choosing a disk size, keep in mind that pulled container images are stored on this disk. If you have a lot of large images, adjust your disk size accordingly.
+* If you use a lot of [ephemeral volumes](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) or store or process large amounts of data, adjust your disk size accordingly.
+* If you expect a high rate of Kubernetes API changes, consider a higher-IOPS root disk for the control plane.
+* If you specify a root disk, the corresponding volumes are created in your tenant.
 
-**Hint:** The default volume is if nothing is specified type: default and size: 20GB
+**Hint:** If nothing is specified, the default volume type is `default` and the size is 20GB.

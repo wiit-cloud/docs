@@ -6,22 +6,22 @@ nav_order: 3170
 parent: Object Storage
 ---
 
-Restic is a very simple and powerful file-level backup solution, which is rapidly gaining popularity. It can be used in combination with S3 which makes it a great tool to use with openstack.
+Restic is a very simple and powerful file-level backup solution, which is rapidly gaining popularity. It can be used in combination with S3, which makes it a great tool to use with OpenStack.
 
 ## Problem statement
 
 When performing file-level backups of a node into S3, the backup software needs write permissions for the S3 bucket.
 
-But if an attacker gains access to the machine, he can also destroy the backups in the bucket, since the S3 credentials are present on the compromised system.
+But if an attacker gains access to the machine, they can also destroy the backups in the bucket, since the S3 credentials are present on the compromised system.
 
 The solution can be as simple as limiting the level of access of the backup software to the bucket. Unfortunately, this isn't trivial with S3.
 
 ## Background
 
-[S3 access control lists (ACLs)](/openstack/storage/s3_documentation/security) enable you to manage access to buckets and objects, but they have limitations. They essentially differentiate READ and WRITE permissions:
+[S3 access control lists (ACLs)](/openstack/s3_storage/security) enable you to manage access to buckets and objects, but they have limitations. They essentially differentiate between READ and WRITE permissions:
 
-* READ - Allows grantee to list the objects in the bucket
-* WRITE - Allows grantee to create, overwrite, and delete any object in the bucket
+* READ - Allows the grantee to list the objects in the bucket
+* WRITE - Allows the grantee to create, overwrite, and delete any object in the bucket
 
 The limitations of ACLs were addressed by the access policy permissions (ACP). We can attach a no-delete policy to the bucket, e.g.
 
@@ -47,9 +47,9 @@ The limitations of ACLs were addressed by the access policy permissions (ACP). W
 }
 ```
 
-Unfortunately, the S3 protocol itself wasn't designed with the concept of WORM (write once read many) backups in mind. Access policy permissions do not differentiate between changing an existing object (which would effectively allow deleting it) and creating a new object.
+Unfortunately, the S3 protocol itself wasn't designed with the concept of WORM (write once, read many) backups in mind. Access policy permissions do not differentiate between changing an existing object (which would effectively allow deleting it) and creating a new object.
 
-Attaching the above policy on a bucket does not prevent the objects in it from being overwritten.
+Attaching the above policy to a bucket does not prevent the objects in it from being overwritten.
 
 ```bash
 $ s3cmd put testfile s3://appendonly-bucket/testfile
@@ -65,11 +65,11 @@ upload: 'testfile' -> 's3://appendonly-bucket/testfile' [1 of 1]
 
 ## Proposed solution
 
-Since an attacker on a compromised system will always have access to the S3 credentials and every service running on the system - including restic itself, proxies, etc. - we need a second, locked-down VM which can restrict delete operations. Restic can be integrated perfectly with rclone, so we'll use it in this example.
+Since an attacker on a compromised system will always have access to the S3 credentials and every service running on the system - including restic itself, proxies, etc. - we need a second, locked-down VM that can restrict delete operations. Restic can be integrated perfectly with rclone, so we'll use it in this example.
 
 ### Our environment
 
-* `appsrv`: the system which has access to the files we would like to backup
+* `appsrv`: the system which has access to the files we would like to back up
 * `rclonesrv`: the system running the rclone proxy (and nothing else, to minimise the attack surface)
 
 ### Set up the rclone proxy
@@ -80,14 +80,14 @@ Since an attacker on a compromised system will always have access to the S3 cred
     sudo apt install rclone
     ```
 
-1. Create user for rclone
+1. Create a user for rclone
 
     ```bash
     sudo useradd -m rcloneproxy
     sudo su - rcloneproxy
     ```
 
-1. Create rclone backend configuration
+1. Create the rclone backend configuration
 
     ```bash
     mkdir -p .config/rclone
@@ -116,9 +116,9 @@ Since an attacker on a compromised system will always have access to the S3 cred
             0 2021-11-21 20:02:10        -1 snapshots
     ```
 
-### Configure the appserver
+### Configure the app server
 
-1. Generate an SSH-Keypair on `appsrv` with the user you're performing the backup with:
+1. Generate an SSH key pair on `appsrv` with the user you're performing the backup with:
 
     ```bash
     ssh-keygen -o -a 256 -t ed25519 -C "$(hostname)-$(date +'%d-%m-%Y')"
@@ -133,7 +133,7 @@ Since an attacker on a compromised system will always have access to the S3 cred
 
 ### Restrict the SSH key to restic-only commands
 
-The last step is to go back to the `rclonesrv` and edit the SSH `authorized_keys` file to restrict the newly generated SSH key to a single command. This way, an attacker is not able to use the ssh keypair to run arbitrary commands on the rclone proxy and compromise the backups.
+The last step is to go back to the `rclonesrv` and edit the SSH `authorized_keys` file to restrict the newly generated SSH key to a single command. This way, an attacker is not able to use the SSH key pair to run arbitrary commands on the rclone proxy and compromise the backups.
 
 ```bash
 vi ~/.ssh/authorized_keys
@@ -143,9 +143,9 @@ command="rclone serve restic --stdio --append-only s3-resticrepo:databucket" ssh
 
 ## Using restic with the rclone proxy
 
-With the environment variables set, restic should work now from `appsrv`.
+With the environment variables set, restic should now work from `appsrv`.
 
-Example backing up `/srv/myapp`:
+Example: backing up `/srv/myapp`:
 
 ```bash
 restic -o rclone.program="ssh rcloneproxy@rclonesrv.mydomain.com" backup /srv/myapp
@@ -171,18 +171,18 @@ Oh, right, that doesn't work. That was our goal!
 
 This way,
 
-* The rclone proxy doesn't even run on the `rclonesrv` as a service. It will just be spawned on demand, for the duration of the restic operation. Communication happens over HTTP2 over stdin/stdout, in an encrypted SSH tunnel.
+* The rclone proxy doesn't even run on the `rclonesrv` as a service. It will just be spawned on demand, for the duration of the restic operation. Communication happens over HTTP/2 over stdin/stdout, in an encrypted SSH tunnel.
 * Since rclone is running with `--append-only`, it is not possible to delete (or overwrite) snapshots in the S3 bucket.
 * All data (except credentials) is encrypted/decrypted locally, then sent/received via `rclonesrv` to/from S3.
 * All the credentials are **only** stored on `rclonesrv` to communicate with S3.
 
-Since the command is hard-coded into the SSH configuration for the user's SSH key, there is no way to use the the keys to get access to the rclone proxy.
+Since the command is hard-coded into the SSH configuration for the user's SSH key, there is no way to use the keys to get access to the rclone proxy.
 
 ## Some more thoughts
 
-The advantages of this construct are probably clear already by now. Furthermore,
+The advantages of this construct are probably clear by now. Furthermore,
 
 * Managing snapshots (both manually and with a retention policy) is only possible on the rclone proxy.
-* A single rclone proxy VM (or even a docker container on an isolated VM) can serve multiple backup clients.
-* It is highly recommended to use one key for every server which backs up data.
+* A single rclone proxy VM (or even a Docker container on an isolated VM) can serve multiple backup clients.
+* It is highly recommended to use one key for every server that backs up data.
 * If you'd like to use more than one repository out of a node, you'll need new SSH keys for them. You can then specify which key to use with `-i ~/.ssh/id_ed25519_another_repo` in the `rclone.program` arguments just like you would with SSH.

@@ -28,7 +28,7 @@ Einige der Hauptelemente, mit denen eine ACL für einen Container festgelegt wer
 | `.r: *.`           | Jeder Benutzer hat Zugriff auf Objekte. In der Anforderung ist kein Token erforderlich. |
 | `.r: <Referrer>`   | Der Referrer erhält Zugriff auf Objekte. Der Referrer wird durch den Referer-Anforderungsheader in der Anforderung identifiziert. Es ist kein Token erforderlich. |
 | `.r: - <Referrer>` | Diese Syntax (mit "-" vor dem Referrer) wird unterstützt. Der Zugriff wird jedoch nicht verweigert, wenn ein anderes Element (z. B. `.r:*`) den Zugriff gewährt. |
-| `.rlistings`       | Jeder Benutzer kann HEAD- oder GET-Operationen für den Container ausführen, wenn der Benutzer auch Lesezugriff auf Objekte hat (z. B. auch `.r: *` oder `.r: <Referrer>`. Es ist kein Token erforderlich. |
+| `.rlistings`       | Jeder Benutzer kann HEAD- oder GET-Operationen für den Container ausführen, wenn der Benutzer auch Lesezugriff auf Objekte hat (z. B. auch `.r: *` oder `.r: <Referrer>`). Es ist kein Token erforderlich. |
 
 Als Beispiel setzen wir die Policy `.r:*.` für einen Container mit dem Namen `"<example-container>"`. Diese Policy ermöglicht jedem externen Benutzer den Zugriff auf die Objekte im Container.
 
@@ -36,7 +36,7 @@ Als Beispiel setzen wir die Policy `.r:*.` für einen Container mit dem Namen `"
 swift post example-container --read-acl ".r:*"
 ```
 
-Umgekehrt können wir Benutzern auch erlauben, die Liste der Objekte in einem Container aufzulisten, aber nicht darauf zuzugreifen, indem wir die Policy ".rlistings" für unseren "example-container" festlegen:
+Umgekehrt können wir Benutzern auch erlauben, die Objekte in einem Container aufzulisten, aber nicht darauf zuzugreifen, indem wir die Policy ".rlistings" für unseren "example-container" festlegen:
 
 ```bash
 swift post example-container --read-acl ".rlistings"
@@ -56,9 +56,9 @@ swift stat example-container
 
 Dies gibt einen Überblick über die Statistiken für den Container und zeigt die aktuelle ACL-Regel für einen Container an.
 
-### Verhindern Sie das Auflisten auf Containern, wenn Sie die Policy `.r: * .` verwenden:
+### Verhindern Sie das Auflisten von Containern, wenn Sie die Policy `.r: * .` verwenden
 
-In der aktuellen Version von OpenStack empfehlen wir, ein leeres index.html-Objekt im Container zu erstellen, um zu verhindern, dass der Inhalt aufgelistet wird, während die Policy `.r: * .` für einen Container verwendet wird. Auf diese Weise können Benutzer Objekte herunterladen, ohne den Inhalt der Buckets aufzulisten zu koennen. Dies kann mit den folgenden Schritten erreicht werden:
+In der aktuellen Version von OpenStack empfehlen wir, ein leeres index.html-Objekt im Container zu erstellen, um zu verhindern, dass der Inhalt aufgelistet wird, während die Policy `.r: * .` für einen Container verwendet wird. Auf diese Weise können Benutzer Objekte herunterladen, ohne den Inhalt der Buckets auflisten zu können. Dies kann mit den folgenden Schritten erreicht werden:
 
 Fügen Sie zunächst die leere Datei `index.html` zu unserem `example-container` hinzu:
 
@@ -66,7 +66,7 @@ Fügen Sie zunächst die leere Datei `index.html` zu unserem `example-container`
 swift post -m 'Webindex: index.html' example-container
 ```
 
-Erstellen Sie dann die Datei index.html als Objekt im Container:
+Erstellen Sie dann die Datei `index.html` als Objekt im Container:
 
 ```bash
 touch index.html && openstack object create example-container index.html
@@ -98,9 +98,9 @@ cat > examplepolicy
 
 Aufschlüsselung jedes Elements innerhalb des obigen Policy-Beispiels:
 
-* `Version`: Gibt die Sprachsyntaxregeln an, die zum Verarbeiten der Policy verwendet werden sollen. Es wird empfohlen, immer Folgendes zu verwenden: "2012-10-17", da dies die aktuelle Version der Policy-Sprache ist.
+* `Version`: Gibt die Sprachsyntaxregeln an, die zum Verarbeiten der Policy verwendet werden sollen. Es wird empfohlen, immer "2012-10-17" zu verwenden, da dies die aktuelle Version der Policy-Sprache ist.
 * `Statement`: Das Hauptelement der Policy, die anderen Elemente befinden sich in dieser Anweisung.
-* `SID`: Die Statement-ID. Dies ist eine optionale Kennung, mit der die Richtlinienanweisung beschrieben werden kann. Empfohlen, damit der Zweck jeder Policy klar ist.
+* `Sid`: Die Statement-ID. Dies ist eine optionale Kennung, mit der die Richtlinienanweisung beschrieben werden kann. Sie wird empfohlen, damit der Zweck jeder Policy klar ist.
 * `Effect`: Stellen Sie entweder "Allow" oder "Deny" ein.
 * `Principal`: Gibt den Principal an, dem der Zugriff auf eine Ressource gestattet oder verweigert wird. Hier wird der Platzhalter "*" verwendet, um die Regel auf alle anzuwenden.
 * `Action`: Beschreibt die spezifischen Aktionen, die zugelassen oder abgelehnt werden.
@@ -119,9 +119,9 @@ Anschließend können Sie den folgenden Befehl ausführen, um sicherzustellen, d
 s3cmd info s3://example-bucket
 ```
 
-Sobald die Policy angewendet wurde, können Sie im Dashboard erneut festlegen: `Public Access: Disabled`.
+Sobald die Policy angewendet wurde, können Sie im Dashboard erneut `Public Access: Disabled` festlegen.
 
 Sobald die oben genannten Schritte ausgeführt wurden, erhalten wir die folgenden Ergebnisse:
 
-* Der Container ist privat und Dateien werden nicht über XML aufgelistet oder angezeigt.
+* Der Container ist privat, und Dateien werden nicht über XML aufgelistet oder angezeigt.
 * Die Policy ermöglicht jetzt den Zugriff auf bestimmte Dateien mit einem direkten Link.

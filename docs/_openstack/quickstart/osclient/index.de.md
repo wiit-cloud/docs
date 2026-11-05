@@ -10,28 +10,28 @@ parent: Quickstart
 
 ## Installation
 
-Um den OpenStackClient installieren zu können, wird mindestens [Python
-2.7](https://www.python.org/downloads/release/python-2713/) sowie die [Python
-Setuptools](https://pypi.python.org/pypi/setuptools) benötigt (diese
+Um den OpenStackClient installieren zu können, wird mindestens [Python
+2.7](https://www.python.org/downloads/release/python-2713/) sowie die [Python
+Setuptools](https://pypi.python.org/pypi/setuptools) benötigt (diese
 sind bei macOS bereits vorinstalliert).
 
-Es gibt verschiedene Optionen die Installation durchzuführen, `pip` hat
+Es gibt verschiedene Optionen, die Installation durchzuführen, `pip` hat
 sich hierbei als eine gute Lösung herausgestellt und wird als Grundlage
 in der Dokumentation verwendet.
 
-Selbiges ist einfach zu bedienen, stellt sicher das die aktuellste
+Selbiges ist einfach zu bedienen, stellt sicher, dass die aktuellste
 Version der Pakete genutzt wird und kann im Nachhinein Updates
 einspielen.
 
-Man kann den Client ohne weiteres in root/admin installieren, das kann
-aber zu weiteren Problem führen, daher nutzen wir eine virtuelle
-Umgebung für den Clienten.
+Man kann den Client ohne Weiteres in root/admin installieren, das kann
+aber zu weiteren Problemen führen, daher nutzen wir eine virtuelle
+Umgebung für den Client.
 
 ### macOS
 
-Um den [OpenStack Client](https://docs.openstack.org/python-openstackclient/latest/) zu installieren wird zunächst `pip` benötigt.
+Um den [OpenStack Client](https://docs.openstack.org/python-openstackclient/latest/) zu installieren, wird zunächst `pip` benötigt.
 
-Sobald die Installation von `pip` abgeschlossen ist, wird nun `virtualenv` installert ein virtual environment angelegt:
+Sobald die Installation von `pip` abgeschlossen ist, wird nun `virtualenv` installiert und eine virtuelle Umgebung angelegt:
 
 ```bash
 $ pip install virtualenv
@@ -59,14 +59,14 @@ $ source ~/.virtualenvs/openstack/bin/activate
 ```
 
 Nachdem dieser Wechsel funktioniert hat, können wir in der geschaffenen
-Umgebung auch direkt den OpenStackClient installieren:
+Umgebung auch direkt den OpenStackClient installieren:
 
 ```bash
 (openstack) $ pip install python-openstackclient
 ```
 
 Da wir im Verlauf der Dokumentation auch andere Services benutzen, installieren wir
-die entsprechenden Clienten gleich mit:
+die entsprechenden Clients gleich mit:
 
 ```bash
 (openstack) $ pip install python-designateclient python-octaviaclient
@@ -78,14 +78,14 @@ Nun verlassen wir die Umgebung auch direkt wieder:
 (openstack) $ deactivate
 ```
 
-Damit wir den OpenStackClient auch nutzen können, ist es nun notwendig
-dies in die Path Variablen aufzunehmen.
+Damit wir den OpenStackClient auch nutzen können, ist es nun notwendig,
+diesen in die `PATH`-Variable aufzunehmen.
 
 ```bash
 export PATH="$HOME/.virtualenvs/openstack/bin/:$PATH"
 ```
 
-Um zu sehen ob alles korrekt funktioniert hat, testen wir die Ausgabe:
+Um zu sehen, ob alles korrekt funktioniert hat, testen wir die Ausgabe:
 
 ```bash
 $ type -a openstack
@@ -94,11 +94,11 @@ openstack is /home/iNNOVO/.virtualenvs/openstack/bin/openstack
 
 ### Windows
 
-Um pip zu nutzen, ist zuerst der Wechsel in den Ordner der Python
-Installation notwendig (Speicherort der Standart Installation:
+Um pip zu nutzen, ist zuerst der Wechsel in den Ordner der
+Python-Installation notwendig (Speicherort der Standardinstallation:
 `C:\Python27\Scripts`).
 
-`pip` wird dann mit dem Befehl `easy_install pip` installiert:
+`pip` wird dann mit dem Befehl `easy_install pip` installiert:
 
 ```text
 C:\Python27\Scripts>easy_install pip
@@ -107,7 +107,7 @@ Best match: pip 9.0.1
 Adding pip 9.0.1 to easy-install.pth file
 Installing pip-script.py script to c:\python27\scripts
 Installing pip.exe script to c:\python27\scripts
-Installing pip.exe.manifest cript to c:\python27\scripts
+Installing pip.exe.manifest script to c:\python27\scripts
 Installing pip3.5-script.py script to c:\python27\scripts
 Installing pip3.5.exe script to c:\python27\scripts
 Installing pip3.5.exe.manifest script to c:\python27\scripts
@@ -121,8 +121,8 @@ Processing dependencies for pip
 Finished processing dependencies for pip
 ```
 
-Nach der erfolgreichen Installation von `pip`, kann direkt mit pip
-install `python-openstackclient` der OpenStackClient auch installiert
+Nach der erfolgreichen Installation von `pip` kann direkt mit
+`pip install python-openstackclient` der OpenStackClient auch installiert
 werden:
 
 ```text
@@ -144,7 +144,7 @@ Reading state information... Done
 ```
 
 Sobald die Installation von `pip` abgeschlossen ist, wird nun die
-Virtuelle Umgebung angelegt:
+virtuelle Umgebung angelegt:
 
 ```bash
 $ sudo apt-get install python3-virtualenv
@@ -170,7 +170,7 @@ $ source ~/.virtualenvs/openstack/bin/activate
 ```
 
 Nachdem dieser Wechsel funktioniert hat, können wir in der geschaffenen
-Umgebung auch direkt den OpenStackClient installieren:
+Umgebung auch direkt den OpenStackClient installieren:
 
 ```bash
 (openstack) $ pip install python-openstackclient
@@ -182,14 +182,14 @@ Nun verlassen wir die Umgebung auch direkt wieder:
 (openstack) $ deactivate
 ```
 
-Damit wir den OpenStackClient auch nutzen können, ist es nun notwendig
-dies in die Path Variablen aufzunehmen.
+Damit wir den OpenStackClient auch nutzen können, ist es nun notwendig,
+diesen in die `PATH`-Variable aufzunehmen.
 
 ```bash
 export PATH="$HOME/.virtualenvs/openstack/bin/:$PATH"
 ```
 
-Um zu sehen ob alles korrekt funktioniert hat, testen wir die Ausgabe:
+Um zu sehen, ob alles korrekt funktioniert hat, testen wir die Ausgabe:
 
 ```bash
 $ type -a openstack
@@ -199,18 +199,18 @@ openstack is /home/iNNOVO/.virtualenvs/openstack/bin/openstack
 ## Zugangsdaten
 
 Nachdem der OpenStackClient nun installiert ist, werden noch die
-Zugangsdaten für Openstack  benötigt.
+Zugangsdaten für OpenStack benötigt.
 
-Diese können direkt im [Horizon
+Diese können direkt im [Horizon
 Dashboard](https://openstack.wiit-cloud.io/identity/) heruntergeladen
-werden.  Dafür loggen wir uns ein und klicken dann rechts oben in der Ecke auf
+werden. Dafür loggen wir uns ein und klicken dann rechts oben in der Ecke auf
 die E-Mail-Adresse und dann auf *Download OpenStack RC File v3*.
 Die heruntergeladene Datei trägt den Projektnamen (Projektname.sh),
-in unserem Beispiel nennen wir sie Beispiel.sh
+in unserem Beispiel nennen wir sie Beispiel.sh.
 
 ### macOS | Linux
 
-Um die Zugangsdaten in den OpenStackClienten einzulesen, führen wir
+Um die Zugangsdaten in den OpenStackClient einzulesen, führen wir
 nun folgenden Befehl aus:
 
 ```bash
@@ -219,10 +219,10 @@ source Beispiel.sh
 
 ### Windows
 
-Um unter Windows die Zugangsdaten einzulesen, ist es notwendig entweder
+Um unter Windows die Zugangsdaten einzulesen, ist es notwendig, entweder
 *PowerShell*, *Git for Windows* oder [*Linux on Windows*](https://docs.microsoft.com/en-us/windows/wsl/install-win10) zu nutzen.
 
-Bei *Linux on Windows* und *Git for Windows* via *Git Bash*, wird der gleiche Befehl wie im Beispiel für
+Bei *Linux on Windows* und *Git for Windows* via *Git Bash* wird der gleiche Befehl wie im Beispiel für
 macOS | Linux genutzt:
 
 ```bash
@@ -234,10 +234,10 @@ Alle notwendigen Variablen befinden sich in der Datei Beispiel.sh und diese kann
 mit einem Editor geöffnet werden.
 Um die Variablen zu setzen, kann folgender Befehl genutzt werden:
 
-```bash
+```powershell
 set-item env:OS_AUTH_URL -value "https://identity.openstack.de-west-01.wiit-cloud.io/v3"
 set-item env:OS_PROJECT_ID -value "Projekt ID eintragen"
-set-item env:OS_PROJECT_NAME -value "Namen eintrage"
+set-item env:OS_PROJECT_NAME -value "Namen eintragen"
 set-item env:OS_USER_DOMAIN_NAME -value "Default"
 set-item env:OS_USERNAME -value "Usernamen eintragen"
 set-item env:OS_PASSWORD -value "Passwort eingeben"
@@ -249,10 +249,10 @@ set-item env:OS_IDENTITY_API_VERSION -value "3"
 
 ## Ziel
 
-Die Installation des OpenStackClienten ist abgeschlossen und die ersten
+Die Installation des OpenStackClients ist abgeschlossen und die ersten
 Befehle können damit getestet werden.
 
-Eine Übersicht über alle Befehle, kann mit folgendem Kommando abgerufen
+Eine Übersicht über alle Befehle kann mit folgendem Kommando abgerufen
 werden:
 
 ```bash

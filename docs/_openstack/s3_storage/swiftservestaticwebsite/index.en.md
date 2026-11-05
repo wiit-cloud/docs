@@ -10,7 +10,7 @@ parent: Object Storage
 
 ## Introduction
 
-Using the Swift command line, it is possible to serve the data in containers as a static website. The following guide will outline the main steps to get started, as well as including an example of a website.
+Using the Swift command line, it is possible to serve the data in containers as a static website. The following guide will outline the main steps to get started, and include an example of a website.
 
 ## First Steps
 
@@ -22,9 +22,9 @@ We will first create a container named `example-webpage` which we will use as th
 swift post example-webpage
 ```
 
-### Make the container publically readable
+### Make the container publicly readable
 
-Next, we must ensure that the container is publically readable. You can learn more about securing containers and setting bucket policies [here](/openstack/storage/s3_documentation/security/):
+Next, we must ensure that the container is publicly readable. You can learn more about securing containers and setting bucket policies [here](/openstack/s3_storage/security/):
 
 ```bash
 swift post -r '.r:*' example-webpage
@@ -32,7 +32,7 @@ swift post -r '.r:*' example-webpage
 
 ### Set site index file
 
-Set the index file. In this case, index.html will be the default file displayed when the site appears:
+Set the index file. In this case, `index.html` will be the default file displayed when the site appears:
 
 ```bash
 swift post -m 'web-index:index.html' example-webpage
@@ -75,7 +75,7 @@ swift post -m 'web-listings-css:style.css' example-webpage
 swift post -m 'web-error:404error.html' example-webpage
 ```
 
-Once the steps above have been completed, we can now begin to customise our static webpage. The following demonstrates a quick setup using our container `example-webpage`
+Once the steps above have been completed, we can now begin to customise our static webpage. The following demonstrates a quick setup using our container `example-webpage`:
 
 ### Customising index.html, page.html, and 404error.html pages
 
@@ -99,7 +99,7 @@ The next page (page.html) will display an image called `sample.png`:
 </html>
 ```
 
-We can also add custom error pages. Note that currently only 401 (Unauthorized) and 404 (Not Found) errors are supported. The following example demonstrates the creation of a 404 Error page:
+We can also add custom error pages. Note that currently only 401 (Unauthorized) and 404 (Not Found) errors are supported. The following example demonstrates the creation of a 404 error page:
 
 ```html
 <!-- 404error.html -->
@@ -123,7 +123,7 @@ swift upload example-webpage 404error.html
 
 ### Viewing the website
 
-Once all of the above steps have been completed, we can now view our newly created website. The link to the website can be found on the openstack Dashboard > Object Store > Containers using the link shown.
+Once all of the above steps have been completed, we can now view our newly created website. The link to the website can be found in the OpenStack dashboard (Horizon) under Object Store > Containers.
 
 Clicking on the link displays our newly created website:
 
@@ -133,6 +133,6 @@ Click on "here" to navigate to the page where we uploaded our sample image:
 
 ![](attachments/Webpage02.png)
 
-In the event that we try to navigate to a page which does not exist, our custom 404 page will be displayed:
+In the event that we try to navigate to a page that does not exist, our custom 404 page will be displayed:
 
 ![](attachments/Webpage03.png)

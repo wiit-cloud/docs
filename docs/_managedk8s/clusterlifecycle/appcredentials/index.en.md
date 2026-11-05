@@ -1,15 +1,18 @@
 ---
-title: Openstack Application Credentials
+title: OpenStack Application Credentials
 lang: "en"
 permalink: /managedk8s/clusterlifecycle/appcredentials/
 nav_order: 3300
 parent: Cluster Lifecycle
 ---
 
-To set up a managed Kubernetes cluster on OpenStack, we require a pair of OpenStack application credentials to ensure proper access within the OpenStack project. Follow the guidelines [Openstack Documentation](openstack/quickstart/application_credentials/) to create and manage these credentials securely.
+To set up a managed Kubernetes cluster on OpenStack, we require a pair of OpenStack application credentials to ensure proper access within the OpenStack project. Follow the guidelines in the [OpenStack documentation](/openstack/quickstart/application_credentials/) to create and manage these credentials securely.
 
+Unrestricted application credentials are not required. Restricted application credentials are sufficient.
 
-Please be aware :
- - Do not send the credentials through unsecured channels, use only the tools and methods agreed upon during onboarding.
+WIIT does not provide etcd backups for managed Kubernetes clusters. Plan your own backups for the workloads and data in your cluster. WIIT runs a daily etcd defragmentation on every cluster.
+
+Please be aware:
+ - Do not send the credentials through unsecured channels; use only the tools and methods agreed upon during onboarding.
  - Application credentials should be associated with a dedicated service account, not a personalized user account. This is to avoid issues related to credentials being revoked when a user is offboarded.
  - If needed, we can rotate the application credentials within the cluster.

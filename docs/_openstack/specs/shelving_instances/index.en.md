@@ -3,7 +3,7 @@ title: Shelving Instances
 lang: "en"
 permalink: /openstack/specs/shelving_instances/
 parent: Specifications
-nav_order: 9500
+nav_order: 9600
 last_modified_date: 2025-07-21
 ---
 
@@ -12,7 +12,7 @@ last_modified_date: 2025-07-21
 ## Introduction
 
 On the OpenStack Platform, you have the ability to shelve an instance. Shelving instances allows you to stop an instance without having it consume resources.
-A shelved instance, as well as its assigned resources (such as IP address etc), will be retained as a bootable instance.
+A shelved instance, as well as its assigned resources (such as IP addresses, etc.), will be retained as a bootable instance.
 
 This feature may be used as part of an instance life cycle process or to conserve resources.
 
@@ -42,13 +42,13 @@ $ openstack server event list <server-id>
 
 ## Why Use Shelving?
 
-This feature is useful for archiving instances you are not currently using but do not want to delete. Shelving an instance allows you to you retain the instance data and resource allocations, but frees up the instance memory.
+This feature is useful for archiving instances you are not currently using but do not want to delete. Shelving an instance allows you to retain the instance data and resource allocations, but frees up the instance memory.
 
 When you shelve an instance, the Compute service generates a snapshot image that captures the state of the instance, and uploads it to the Glance image library. If the instance is unshelved, it will be rebuilt using the snapshot.
 The snapshot image will be deleted if the instance is later unshelved or deleted.
 
 ## Billing for Shelved Instances
 
-From a billing perspective, only the root disk of the shelved instance continues to be billed. Once the instance is shelved, CPU and memory resources from the flavor of the instance cease to be billed, however, billing will automatically resume again after unshelving.
+From a billing perspective, only the root disk of the shelved instance continues to be billed. Once the instance is shelved, CPU and memory resources from the flavor of the instance cease to be billed; however, billing will automatically resume again after unshelving.
 
 Shelving has no effect on the utilization of quotas in the project. Shelved resources do not release their quota to ensure sufficient resources for unshelving the instance in the project at all times.

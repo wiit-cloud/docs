@@ -16,22 +16,22 @@ Setuptools](https://pypi.python.org/pypi/setuptools) (which are included in
 macOS).
 
 There are several ways to install the OpenStackClient. In our example, we
-use [pip](https://de.wikipedia.org/wiki/Pip_(Python)),
+use [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)),
 and we recommend that you do the same.
 
-"[pip](https://de.wikipedia.org/wiki/Pip_(Python))" is
+"[pip](https://en.wikipedia.org/wiki/Pip_(package_manager))" is
 easy to use and you can also use it as an update manager
-for [pip](https://de.wikipedia.org/wiki/Pip_(Python)).
+for [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)).
 
 You can install the client as root (the administrative user),
-but that may cause problems. Therefore, you can install it in a
+but that may cause problems. Therefore, we recommend installing it in a
 virtual environment.
 
 ### macOS
 
 To install the OpenStackClient, you need to install
-[pip](https://de.wikipedia.org/wiki/Pip_(Python)). Start the console (*Launchpad*
-→ *Console*) and type the following command:
+[pip](https://en.wikipedia.org/wiki/Pip_(package_manager)). Start the console (*Launchpad*
+→ *Terminal*) and type the following command:
 
 ```bash
 $ easy_install pip
@@ -106,8 +106,8 @@ openstack is /home/iNNOVO/.virtualenvs/openstack/bin/openstack
 
 ### Windows
 
-If Python is already installed, you need to navigate to installation folder
-(standard installation folder C:\Python27\Scripts).
+If Python is already installed, you need to navigate to the installation folder
+(default installation folder `C:\Python27\Scripts`).
 
 To install *pip*, use the command `easy_install pip`:
 
@@ -185,7 +185,7 @@ For the OpenStack client to work, you need to supply it with the credentials.
 
 You can download the credentials directly from
 the [Horizon](https://openstack.wiit-cloud.io/identity/)
-dashboard. After the login, click on your mail address in the right corner. Then click
+dashboard. After the login, click on your email address in the top right corner. Then click
  *Download OpenStack RC File v3*.
 
 ### macOS | Linux
@@ -211,16 +211,16 @@ source EXAMPLE.sh
 ```
 
 If you use *PowerShell*, you need to set each variable individually.
-All required variables are in the previously downloaded *Beispiel.sh*.
+All required variables are in the previously downloaded *EXAMPLE.sh*.
 To set the variables, use the following command:
 
-```bash
+```powershell
 set-item env:OS_AUTH_URL -value "https://identity.openstack.de-west-01.wiit-cloud.io/v3"
-set-item env:OS_PROJECT_ID -value "Projekt ID eintragen"
-set-item env:OS_PROJECT_NAME -value "Namen eintrage"
+set-item env:OS_PROJECT_ID -value "Enter project ID"
+set-item env:OS_PROJECT_NAME -value "Enter project name"
 set-item env:OS_USER_DOMAIN_NAME -value "Default"
-set-item env:OS_USERNAME -value "Usernamen eintragen"
-set-item env:OS_PASSWORD -value "Passwort eingeben"
+set-item env:OS_USERNAME -value "Enter username"
+set-item env:OS_PASSWORD -value "Enter password"
 set-item env:OS_USER_DOMAIN_NAME -value "Default"
 set-item env:OS_REGION_NAME -value "fra"
 set-item env:OS_INTERFACE -value "public"
@@ -229,7 +229,7 @@ set-item env:OS_IDENTITY_API_VERSION -value "3"
 
 ## Conclusion
 
-You now have an OpenStack client with working credentials, and can test the commands.
+You now have an OpenStack client with working credentials and can test the commands.
 
 To get an overview of all OpenStack commands, run the following command:
 

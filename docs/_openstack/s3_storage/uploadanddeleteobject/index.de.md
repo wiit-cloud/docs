@@ -8,14 +8,14 @@ parent: Objekt Storage
 
 # Ein Objekt hochladen und löschen
 
-## Inhalt:
+## Inhalt
 
 - [S3cmd](#s3cmd)
 - [S3Browser](#s3browser)
 - [Cyberduck](#cyberduck)
 - [Boto3](#boto3)
 
-Zum Hochladen Ihrer Daten wie zum Beispiel (Dokumente, Fotos, Videos, usw.) ist es zunächst notwendig einen [Bucket zu erstellen](/openstack/storage/s3_documentation/createanddeletebucket/).
+Zum Hochladen Ihrer Daten (wie zum Beispiel Dokumente, Fotos, Videos usw.) ist es zunächst notwendig, einen [Bucket zu erstellen](/openstack/s3_storage/createanddeletebucket/).
 Eine Datei kann dabei nur in einem Bucket gespeichert werden.
 
 ## S3cmd
@@ -55,7 +55,7 @@ delete: 's3://innovo-test/innovo.txt'
 
 ### Objekt hochladen
 
-Nach dem öffnen von S3Browser, klicken wir auf den gewünschten "Bucket"(1), wähle dann "Upload"(2) und zu letzt "Upload file(s)"(3)
+Nach dem Öffnen von S3Browser klicken wir auf den gewünschten "Bucket"(1), wählen dann "Upload"(2) und zuletzt "Upload file(s)"(3).
 
 ![](attachments/UploadAndDeleteObject1.png)
 
@@ -65,17 +65,17 @@ Hier wählen wir nun die entsprechende Datei(1) aus und klicken auf Öffnen(2).
 
 ### Objekt löschen
 
-Um eine Datei zu löschen, wird dieser mit einem linken Mausklick markiert(1). Danach wird auf "Delete"(2) geklickt.
+Um eine Datei zu löschen, wird diese mit einem linken Mausklick markiert(1). Danach wird auf "Delete"(2) geklickt.
 
 ![](attachments/UploadAndDeleteObject3.png)
 
-Die darauf folgende Abfrage wird mit "Ja" bestätigt.
+Die darauffolgende Abfrage wird mit "Ja" bestätigt.
 
 ## Cyberduck
 
 ### Objekt hochladen
 
-Nach dem Öffnen von Cyberduck, klicken wir auf den gewünschten Bucket(1), klicken dann auf Aktion(2) und dort auf Upload(3).
+Nach dem Öffnen von Cyberduck klicken wir auf den gewünschten Bucket(1), klicken dann auf Aktion(2) und dort auf Upload(3).
 
 ![](attachments/UploadAndDeleteObject4.png)
 
@@ -83,22 +83,22 @@ Hier wählen wir nun unsere Wunsch-Datei und klicken auf Upload.
 
 ### Objekt löschen
 
-Um eine Datei zu löschen, wird dieser mit einem linken Mausklick markiert(1). Gelöscht wird sie dann über "Aktion"(2) und "Löschen"(3).
+Um eine Datei zu löschen, wird diese mit einem linken Mausklick markiert(1). Gelöscht wird sie dann über "Aktion"(2) und "Löschen"(3).
 
 ![](attachments/UploadAndDeleteObject5.png)
 
-Die Bestätigung erfolgt dann über das erneute klicken auf "Löschen".
+Die Bestätigung erfolgt dann über das erneute Klicken auf "Löschen".
 
 ## Boto3
 
-Bei boto3 brauchen wir zunächst die S3 Kennung, damit ein Script nutzbar ist. Für Details: [S3 Kennung erstellen und einlesen #boto3](/openstack/storage/s3_documentation/createanduses3credentials/#boto3)
+Bei Boto3 brauchen wir zunächst die S3-Kennung, damit ein Script nutzbar ist. Für Details: [S3-Kennung erstellen und einlesen #boto3](/openstack/s3_storage/createanduses3credentials/#boto3).
 
 ### Objekt hochladen
 
-Um nun eine Datei hochzuladen, müssen wir einen Clienten nutzen und den Bucket angeben in welchen die Datei hochgeladen werden soll.
+Um nun eine Datei hochzuladen, müssen wir einen Client nutzen und den Bucket angeben, in welchen die Datei hochgeladen werden soll.
 Eine Option sieht so aus:
 
-```bash
+```python
 ## Erstellung eines S3 Clienten
 s3 = boto3.client('s3')
 
@@ -106,7 +106,7 @@ s3 = boto3.client('s3')
 s3.upload_file(Bucket='iNNOVO-Test', Key='innovo.txt')
 ```
 
-Ein komplettes Script für boto 3 inkl. Authentifizierung kann so aussehen:
+Ein komplettes Script für Boto3 inkl. Authentifizierung kann so aussehen:
 
 ```python
 #!/usr/bin/env/python
@@ -131,11 +131,11 @@ s3.upload_file(Bucket='iNNOVO-Test', Key='innovo.txt')
 
 ### Objekt löschen
 
-Wie beim hochladen einer Datei, wird zunächst ein Client benötigt um dann die Datei zu löschen.
-Dafür geben wir neben der Datei selber, auch noch den Bucket an, in dem die Datei gespeichert ist.
+Wie beim Hochladen einer Datei wird zunächst ein Client benötigt, um dann die Datei zu löschen.
+Dafür geben wir neben der Datei selbst auch noch den Bucket an, in dem die Datei gespeichert ist.
 Eine Option sieht so aus:
 
-```bash
+```python
 ## Erstellung eines S3 Clienten
 s3 = boto3.client('s3')
 
@@ -143,7 +143,7 @@ s3 = boto3.client('s3')
 s3.delete_object(Bucket='iNNOVO-Test', Key='innovo.txt')
 ```
 
-Ein komplettes Script für boto 3 inkl. Authentifizierung kann so aussehen:
+Ein komplettes Script für Boto3 inkl. Authentifizierung kann so aussehen:
 
 ```python
 #!/usr/bin/env/python

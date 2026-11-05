@@ -10,7 +10,7 @@ parent: Quickstart
 
 ## Dedicated OpenStack Domain & Identity Self-Service
 
-As a Customer you have a dedicated OpenStack domain, including one or more domain manager accounts, enabling autonomous management of projects, users, groups and role assignments via the OpenStack CLI.
+As a customer, you have a dedicated OpenStack domain, including one or more domain manager accounts, enabling autonomous management of projects, users, groups and role assignments via the OpenStack CLI.
 Domain manager users only have the permissions for the identity self-service and should not be assigned to projects within a domain.
 The domains are isolated in OpenStack with a dedicated namespace for projects, groups and users.
 User 2FA (Two-Factor Authentication) setup and enforcement can also be configured by the domain manager.
@@ -19,8 +19,8 @@ The following Keystone security compliance settings are applied:
   - **Password change on first login:** Can be bypassed with `--ignore-change-password-upon-first-use` at user creation
   - **Password policy:** Minimum 18 characters, must include uppercase, lowercase, number, and special character
 
-Default quotas are applied to newly created projects, quota adjustments of individual projects can be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
-Domains and domain manager users are managed by WIIT AG, changes can also be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
+Default quotas are applied to newly created projects; quota adjustments of individual projects can be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
+Domains and domain manager users are managed by WIIT AG; changes can also be requested via [WIIT Support](mailto:helpdesk.de@wiit.one).
 
 {: .warning }
 The dashboard is not available to Manager users. While they can log in, all operations are available exclusively via CLI or API, as described below.
@@ -40,7 +40,9 @@ openstack --os-username $MANAGER_USERNAME \
 $COMMAND
 ```
 
-As a domain manager you are able to manage users, projects, groups and role assignments with the following commands combined with the CLI objections above: 
+**Important:** If you prefer to use an RC file or a clouds.yaml, you will find some examples in the [Templates](#templates) section below.
+
+As a domain manager, you are able to manage users, projects, groups and role assignments with the following commands combined with the CLI options above:
 
 ### Obtaining the Domain ID
 ```bash
@@ -77,7 +79,7 @@ user set \
   --multi-factor-auth-rule application_credential \
   $USER
 
-# Create TOTP secret for a user (do this as user before the multi-factor-auth-rule is applied from the manager)
+# Create TOTP secret for a user (do this as the user before the multi-factor-auth-rule is applied by the manager)
 openstack credential create --type totp $USER_ID $BASE_32_2FA_SECRET
 ```
 
@@ -93,7 +95,7 @@ project list
 project delete $PROJECT
 ```
 
-**Important:** Cleanup all resources within the project befor you deleted it, otherwise resources are accounted for until our automated cleanup jobs are executed
+**Important:** Clean up all resources within the project before you delete it; otherwise, resources are accounted for until our automated cleanup jobs are executed.
 
 ### Group Management
 ```bash
@@ -113,13 +115,24 @@ group add user $GROUP $USER
 group remove user $GROUP $USER
 ```
 
-### Role Assignmments
+### Role Assignments
 
-**Important:** Only assign the "member" Role - the "reader" role is available in the system but the effective permissions are not read-only when using the "reader" role.
+The following roles can be assigned to users and groups within a project:
+
+| Role | Permissions |
+|---|---|
+| `member` | Full access to the project's resources (create, modify, delete) |
+| `reader` | Read-only access to the project's resources |
+
+{: .note }
+SSH key pairs are owned by the user, not by the project. Users with the "reader" role can therefore still manage their own key pairs.
 
 ```bash
 # Assign role to a user in a project
 role add --user $USER --project $PROJECT member
+
+# Assign read-only role to a user in a project
+role add --user $USER --project $PROJECT reader
 
 # Assign role to a group in a project
 role add --group $GROUP --project $PROJECT member
@@ -138,4 +151,48 @@ role assignment list --names --project $PROJECT
 
 # List role assignments for a group
 role assignment list --names --group $GROUP
+```
+
+## Templates
+
+{: .warning }
+The RC file and clouds.yaml which can be downloaded from Horizon will not work for the Manager users.
+You can use the templates provided here instead and replace $MANAGER_USERNAME as well as $DOMAIN_NAME accordingly.
+
+### OpenStack RC File
+```bash
+#!/usr/bin/env bash
+export OS_AUTH_URL=https://identity.openstack.de-west-01.wiit-cloud.io/v3
+export OS_USERNAME="$MANAGER_USERNAME"
+export OS_USER_DOMAIN_NAME="$DOMAIN_NAME"
+export OS_DOMAIN_NAME="$DOMAIN_NAME"
+export OS_REGION_NAME="de-west-01"
+export OS_INTERFACE=public
+export OS_IDENTITY_API_VERSION=3
+
+unset OS_TENANT_ID
+unset OS_TENANT_NAME
+
+unset OS_PROJECT_ID
+unset OS_PROJECT_NAME
+unset OS_PROJECT_DOMAIN_ID
+
+# With Keystone you pass the keystone password.
+echo "Please enter your OpenStack Password for domain $OS_DOMAIN_NAME as user $OS_USERNAME: "
+read -sr OS_PASSWORD_INPUT
+export OS_PASSWORD=$OS_PASSWORD_INPUT
+```
+
+### OpenStack clouds.yaml
+```yaml
+clouds:
+  de-west-01-manager:
+    auth:
+      auth_url: https://identity.openstack.de-west-01.wiit-cloud.io/v3
+      username: "$MANAGER_USERNAME"
+      user_domain_name: "$DOMAIN_NAME"
+      domain_name: "$DOMAIN_NAME"
+    region_name: "de-west-01"
+    interface: "public"
+    identity_api_version: 3
 ```

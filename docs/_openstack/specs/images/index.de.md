@@ -8,38 +8,40 @@ nav_order: 9500
 
 # Images
 
-Es gibt 4 Arten von Images in OpenStack:
+Es gibt vier Arten von Images in OpenStack:
 
 - **Public Images:** Diese Images werden von uns gepflegt, sind für alle Benutzer verfügbar, werden regelmäßig aktualisiert und zur Verwendung empfohlen.
 - **Community Images:** Ehemals öffentliche Images, die durch neuere Versionen ersetzt wurden. Wir behalten diese Images, bis sie nicht mehr verwendet werden, um Ihre Deployments nicht zu gefährden.
 - **Private Images:** Von Ihnen hochgeladene Images, die nur für Ihr Projekt verfügbar sind.
-- **Shared Images:** Private Images, die entweder durch Sie oder oder mit Ihnen in mehreren Projekten gemeinsam genutzt werden.
+- **Shared Images:** Private Images, die entweder durch Sie oder mit Ihnen in mehreren Projekten gemeinsam genutzt werden.
 
 Nur die ersten beiden Typen werden von uns verwaltet.
 
-## Public und community images
+## Public und Community Images
 
 Um Ihren Aufwand so gering wie möglich zu halten, stellen wir Ihnen eine Reihe ausgewählter Images zur Verfügung.
 
 Aktuell enthält diese Liste:
 
+- Ubuntu 26.04 LTS (Resolute Raccoon)
+- Ubuntu Minimal 26.04 LTS (Resolute Raccoon)
 - Ubuntu 24.04 LTS (Noble Numbat)
 - Ubuntu Minimal 24.04 LTS (Noble Numbat)
 - Ubuntu 22.04 LTS (Jammy Jellyfish)
 - Ubuntu Minimal 22.04 LTS (Jammy Jellyfish)
+- Debian 13 (Trixie)
 - Debian 12 (Bookworm)
-- Debian 11 (Bullseye)
-- CoreOS (stable)
-- Rocky Linux 9
+- Rocky Linux 10 (Red Quartz)
+- Rocky Linux 9 (Blue Onyx)
 - Flatcar Linux
 
-Diese Images werden täglich auf neue Versionen überprüft. Die neueste verfügbare Version ist immer ein "public image" und endet auf `Latest`. Alle vorherigen Versionen eines Images werden durch unseren Automatismus in "community images" umgewandelt, umbenannt (`latest` wird durch das Datum des ersten Uploads ersetzt), und bei ausbleibender Verwendung (keinerlei Nutzung) schlussendlich gelöscht.
+Diese Images werden täglich auf neue Versionen überprüft. Die neueste verfügbare Version ist immer ein "public image" und endet auf `Latest`. Alle vorherigen Versionen eines Images werden durch unseren Automatismus in "community images" umgewandelt, umbenannt (`latest` wird durch das Datum des ersten Uploads ersetzt) und bei ausbleibender Verwendung (keinerlei Nutzung) schlussendlich gelöscht.
 
-OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images entweder über den Namen oder über ihre UUID. Durch die Verwendung eines Namens, z.B. `Ubuntu 24.04 Noble Numbat- Latest`, Erhalten sie jeweils die aktuellste Version des jeweiligen Images, indem Sie Ihre Instanzen neu bereitstellen oder neu aufbauen, selbst wenn wir das Image zwischendurch ersetzen. Sie können dieses Verhalten vermeiden, indem Sie stattdessen die UUID verwenden. Dies kann für Cluster-Einsätze nützlich sein, bei denen Sie sicherstellen wollen, dass auf allen Instanzen die gleiche Version des Images läuft.
+OpenStack und viele Deployment-Tools unterstützen die Verwendung dieser Images entweder über den Namen oder über ihre UUID. Durch die Verwendung eines Namens, z. B. `Ubuntu 24.04 Noble Numbat- Latest`, erhalten Sie jeweils die aktuellste Version des jeweiligen Images, indem Sie Ihre Instanzen neu bereitstellen oder neu aufbauen, selbst wenn wir das Image zwischendurch ersetzen. Sie können dieses Verhalten vermeiden, indem Sie stattdessen die UUID verwenden. Dies kann für Cluster-Einsätze nützlich sein, bei denen Sie sicherstellen wollen, dass auf allen Instanzen die gleiche Version des Images läuft.
 
 ## Linux Images
 
-Alle von uns zur Verfügung gestellten Linux-Images sind unmodifiziert und kommen direkt von ihren offiziellen Maintainern. Wir testen sie während des Upload-Prozesses auf Kompatibilität.
+Alle von uns bereitgestellten Linux-Images sind unverändert und stammen direkt von den offiziellen Entwicklern. Wir testen sie während des Upload-Prozesses, um ihre Einsatzfähigkeit sicherzustellen. Diese Images werden ausschließlich zu Ihrer Bequemlichkeit und ohne Gewährleistung bereitgestellt. Bitte beachten Sie, dass wir keinen technischen Support, keine Wartung und keine Fehlerbehebung anbieten können. Laden Sie bitte Ihre eigenen, benutzerdefinierten Images hoch, falls Sie spezielle Anforderungen haben.
 
 ## Windows-Images
 
@@ -105,40 +107,49 @@ PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
 
 Diese Methode vermeidet, dass das Passwort in unverschlüsselten Metadaten gespeichert wird.
 
-## Eigene Images in OpenStack hochladen
+## Upload von eigenen Images
 
-Sie können eigene Images hochladen, anstatt die bereitgestellten zu verwenden. Die einfachste Methode ist über die OpenStack CLI.
+Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereitgestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
 
 ```bash
 openstack image create \
-  --property hw_disk_bus=scsi \          # Art des Disk-Busses
-  --property hw_qemu_guest_agent=True \  # Ermöglicht Snapshots laufender VMs
-  --property hw_scsi_model=virtio-scsi \ # SCSI-Modell
-  --property os_require_quiesce=True \   # Erfordert Quiesce für Snapshots
-  --private \                             # Image privat halten
-  --disk-format qcow2 \                   # Image-Format
-  --container-format bare \               # Container-Format
-  --file ~/mein-image.qcow2 \             # Quelle des Images auf dem lokalen Rechner
-  mein-image                              # Name des Images
+  --property hw_disk_bus=scsi \
+  --property hw_qemu_guest_agent=True \
+  --property hw_scsi_model=virtio-scsi \
+  --property os_require_quiesce=True \
+  --property hw_firmware_type=uefi \
+  --property hw_machine_type=q35 \
+  --private \
+  --disk-format raw \
+  --container-format bare \
+  my-image
+
+openstack image stage \
+  --file ~/my-image.img \
+  --progress \
+  my-image
+
+openstack image import \
+  --method glance-direct \
+  --all-stores \
+  my-image
 ```
 
-**Mindestens erforderliche Felder für `openstack image create`:**
+Dabei müssen mindestens folgende Parameter spezifiziert werden:
 
-- `--disk-format`: z.B. qcow2; hängt vom Image-Format ab.
-- `--file`: Pfad zur Quelldatei des Images auf Ihrem Rechner.
-- Name des Images: z.B. `mein-image`.
+- `--disk-format`: Das Format Ihres Quell-Images, z. B. `raw`
+- `--file`: Das Quell-Image auf Ihrem System
+- Name des Images: `my-image` als Beispiel.
 
-Um Snapshots laufender Instanzen zu erstellen, empfehlen wir, beim Erstellen des Images `--property hw_qemu_guest_agent=True` zu setzen und den `qemu-guest-agent` im Image zu installieren. Weitere Details finden Sie in unserer [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
+Wir empfehlen die Nutzung des RAW-Formats, hierdurch wird Copy-on-Write bei der Erstellung von Instanzen und Volumes möglich, was diesen Prozess deutlich beschleunigt.
 
-### UEFI-Images
+Weiterhin empfehlen wir die Nutzung der oben genannten Befehle. Zwar ließe sich ein Image auch in einem einzigen Aufruf erstellen, hierbei würde dann aber nicht die modernere Interoperable Image API genutzt.
+Diese bietet die Möglichkeit, Images direkt bei Erstellung zu konvertieren und auf alle AZs zu verteilen.
 
-Wenn Ihr Image einen UEFI-Boot benötigt (z.B. moderne Windows-Versionen oder einige Linux-Distributionen), müssen beim Erstellen des Images folgende Eigenschaften gesetzt werden:
+Um die Erstellung von Snapshots für laufende Instanzen zu ermöglichen, ist es notwendig, dass Sie das Property `--property hw_qemu_guest_agent=True` an den von Ihnen genutzten Images setzen und `qemu-guest-agent` auf dem System installieren.
 
-```
---property hw_machine_type='q35' \
---property hw_firmware_type='uefi'
-```
+Weitere Details finden Sie in unseren [FAQ](https://docs.wiit-cloud.io/de/openstack/faq/#warum-kann-ich-keinen-snapshot-einer-laufenden-instance-erstellen).
 
-Diese Einstellungen stellen sicher, dass die VM den Maschinentyp Q35 und die UEFI-Firmware anstelle des Legacy-BIOS verwendet.
+Das Gleiche funktioniert auch über das Dashboard. Achten Sie hier darauf, alle der obigen Parameter anzugeben.
 
-Sie können Images auch über das OpenStack Dashboard hochladen. Stellen Sie sicher, dass Sie dort die gleichen Eigenschaften wie in der CLI setzen.
+Die maximale Größe eines Images beträgt 2 TB in der Region de-west-01, in der Region ch-north-01 beträgt die maximale Größe 100 GB.

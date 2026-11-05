@@ -1,23 +1,23 @@
 ---
-title: Designate DNSaaS 
+title: Designate DNSaaS
 lang: "de"
 permalink: /openstack/DNS/
 nav_order: 8999
 ---
 
-# Anlegen eines DNS-Record in Designate
+# Anlegen eines DNS-Records in Designate
 
 ## Vorwort
 
-Die Openstack Plattform bietet DNS-as-a-Service (DNSaaS), in Openstack auch bekannt als Designate.
+Die OpenStack-Plattform bietet DNS-as-a-Service (DNSaaS), in OpenStack auch bekannt als Designate.
 DNSaaS enthält eine REST-API für die Domänen- und Datensatzverwaltung, ist multi-tenant und integriert den OpenStack Identity Service (Keystone) für die Authentifizierung.
 
-Wir werden in diesem Schritt eine fiktive Zone (Domain) mit MX und A-Records erstellen und die entsprechende IP/CNAME hinterlegen.
+Wir werden in diesem Schritt eine fiktive Zone (Domain) mit MX- und A-Records erstellen und die entsprechende IP/CNAME hinterlegen.
 
 -----
 
-Zu Beginn sorgen wir dafür, dass der `python-designateclient` installiert ist (pip install python-openstackclient python-designateclient)
-Anschliessend erstellen wir eine Zone innerhalb des Projekts:
+Zu Beginn sorgen wir dafür, dass der `python-designateclient` installiert ist (`pip install python-openstackclient python-designateclient`).
+Anschließend erstellen wir eine Zone innerhalb des Projekts:
 
 ```bash
 $ openstack zone create --email webmaster@foobar.cloud foobar.cloud.
@@ -44,7 +44,7 @@ $ openstack zone create --email webmaster@foobar.cloud foobar.cloud.
 +----------------+--------------------------------------+
 ```
 
-Man beachte den abschliessenden "." an der zu erstellenden Zone/Domain.
+Man beachte den abschließenden "." an der zu erstellenden Zone/Domain.
 Das Resultat bisher:
 
 ```bash
@@ -95,7 +95,7 @@ $ openstack recordset list foobar.cloud.
 +--------------------------------------+---------------+------+--------------------------------------------------------------------------------+--------+--------+
 ```
 
-Hier sehen wir eine "leere Hülle" einer Domain mit automatisch erstellen NS und SOA-Einträgen, die sofort zur Abfrage bereit stehen.
+Hier sehen wir eine "leere Hülle" einer Domain mit automatisch erstellten NS- und SOA-Einträgen, die sofort zur Abfrage bereitstehen.
 
 ```bash
 $ dig +short @ns1.openstack.de-west-01.wiit-cloud.io foobar.cloud NS
@@ -107,8 +107,8 @@ ns2.openstack.de-west-01.wiit-cloud.io. webmaster.foobar.cloud. 1534315524 3507 
 ```
 
 Anlegen eines MX-Records:
-Nun können wir Datensätze innerhalb dieser Zone hinzufügen, verändern oder löschen (openstack recordset --help).
-Als nächstes fügen wir einen MX und einen A-Record hinzu. Bei den MX-Records richten wir auch gleich die typischen Mailserver-Prioritäten (10,20) mit ein. Wobei immer der niedrigere Wert als erstes angesteuert wird und der zweite Eintrag als "Backup" dient.
+Nun können wir Datensätze innerhalb dieser Zone hinzufügen, verändern oder löschen (`openstack recordset --help`).
+Als Nächstes fügen wir einen MX- und einen A-Record hinzu. Bei den MX-Records richten wir auch gleich die typischen Mailserver-Prioritäten (10, 20) mit ein, wobei immer der niedrigere Wert als Erstes angesteuert wird und der zweite Eintrag als "Backup" dient.
 
 ```bash
 $ openstack recordset create --record '10 mx1.foobar.cloud.' --record '20 mx2.foobar.cloud.' --type MX foobar.cloud. foobar.cloud.
@@ -183,10 +183,11 @@ $ openstack recordset list foobar.cloud.
 +--------------------------------------+-------------------+------+--------------------------------------------------------------------------------+--------+--------+
 ```
 
-Wenn die Recordsets aktiv sind können wir die dafür vorgesehenen DNS-Server
+Wenn die Recordsets aktiv sind, können wir die dafür vorgesehenen DNS-Server
 
 * ns1.openstack.de-west-01.wiit-cloud.io
 * ns2.openstack.de-west-01.wiit-cloud.io
+
 nach diesen Records abfragen.
 
 ```bash
@@ -202,16 +203,16 @@ $ dig +short @ns1.openstack.de-west-01.wiit-cloud.io foobar.cloud www.foobar.clo
 1.2.3.4
 ```
 
-> ACHTUNG! Zu diesem Zeitpunkt ist diese Domaine (foobar.cloud) noch nicht weltweit auflösbar.
+> ACHTUNG! Zu diesem Zeitpunkt ist diese Domain (foobar.cloud) noch nicht weltweit auflösbar.
 
-Damit dieses Konstrukt weltweit benutzt werden kann, muss jede im Designate verwaltete Domain bei dem jeweiligen Registrar die Delegation zu den Nameservern `ns1.openstack.de-west-01.wiit-cloud.io` und `ns2.openstack.de-west-01.wiit-cloud.io` eingerichtet haben.
+Damit dieses Konstrukt weltweit benutzt werden kann, muss jede in Designate verwaltete Domain bei dem jeweiligen Registrar die Delegation zu den Nameservern `ns1.openstack.de-west-01.wiit-cloud.io` und `ns2.openstack.de-west-01.wiit-cloud.io` eingerichtet haben.
 
-> Details zu unseren authoritativen DNS-Server:
+> Details zu unseren autoritativen DNS-Servern:
 >
 > * ns1.openstack.de-west-01.wiit-cloud.io: '85.14.241.161' / '2001:4ba0:133d::53'
 > * ns2.openstack.de-west-01.wiit-cloud.io: '85.14.241.162' / '2001:4ba0:133d::5353'
 
-Um die die Mail-Records abzuschliessen, bietet sich noch an für die Mailserver entsprechende A-Records zu hinterlegen
+Um die Mail-Records abzuschließen, bietet es sich noch an, für die Mailserver entsprechende A-Records zu hinterlegen:
 
 ```bash
 $ openstack recordset create --type A --record 2.3.4.5 foobar.cloud. mx1
@@ -275,6 +276,6 @@ $ openstack recordset list foobar.cloud.
 
 ## Reverse DNS
 
-Revers DNS Einträge für ipv4 Floating IPs können gesetzt werden sobald diese in Ihrem Projekt zugeorndet sind.
-Um Reverse DNS Einträge für ipv6 Adressen zu verwalten muss zunächst eine Zone für Ihren ipv6 Prefix angelegt werden, dies können Sie über den Support der WIIT AG anfragen.
-Bitte nennen Sie dazu dem Support Ihren ipv6 Prefix und Ihre Projekt ID. Nachdem die Zone für Sie erstellt wurde erhalten sie weitere Anweisungen um einen Zonentransfer in Ihr Projekt zu akzeptieren. Im Anschluss können Sie ipv6 reverse DNS Einträge innerhalb Ihrer Zone verwalten. 
+Reverse-DNS-Einträge für IPv4-Floating-IPs können gesetzt werden, sobald diese Ihrem Projekt zugeordnet sind.
+Um Reverse-DNS-Einträge für IPv6-Adressen zu verwalten, muss zunächst eine Zone für Ihr IPv6-Präfix angelegt werden. Dies können Sie über den Support der WIIT AG anfragen.
+Bitte nennen Sie dazu dem Support Ihr IPv6-Präfix und Ihre Projekt-ID. Nachdem die Zone für Sie erstellt wurde, erhalten Sie weitere Anweisungen, um einen Zonentransfer in Ihr Projekt zu akzeptieren. Im Anschluss können Sie IPv6-Reverse-DNS-Einträge innerhalb Ihrer Zone verwalten. 

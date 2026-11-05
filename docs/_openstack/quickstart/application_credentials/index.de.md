@@ -8,11 +8,11 @@ nav_order: 9300
 
 # Einführung
 
-Benutzer können Application Credentials erstellen, damit sich ihre Anwendungen bei der OpenStack-Komponente Keystone authentifizieren können, ohne ihre eigenen Anmeldeinformationen des Benutzers verwenden zu müssen.
+Benutzer können Application Credentials erstellen, damit sich ihre Anwendungen bei der OpenStack-Komponente Keystone authentifizieren können, ohne die eigenen Anmeldeinformationen des Benutzers verwenden zu müssen.
 
-Mit Application Credentials können sich Anwendungen mit der Application Credential-ID und einer geheimen Zeichenfolge authentifizieren, die nicht das Kennwort des Benutzers ist. Auf diese Weise wird das Passwort des Benutzers nicht in die Konfiguration der Anwendung eingebettet.
+Mit Application Credentials können sich Anwendungen mit der Application-Credential-ID und einer geheimen Zeichenfolge authentifizieren, die nicht das Kennwort des Benutzers ist. Auf diese Weise wird das Passwort des Benutzers nicht in die Konfiguration der Anwendung eingebettet.
 
-Benutzer können eine Teilmenge ihrer Rollenzuweisungen für ein Projekt an Application Credentials delegieren und der Anwendung dieselben oder eingeschränkte Berechtigungen innerhalb eines Projekts erteilen.
+Benutzer können eine Teilmenge ihrer Rollenzuweisungen für ein Projekt an Application Credentials delegieren und der Anwendung dieselben oder eingeschränkte Berechtigungen innerhalb eines Projekts erteilen.
 
 ## Anforderungen für Application Credentials
 
@@ -20,9 +20,9 @@ Benutzer können eine Teilmenge ihrer Rollenzuweisungen für ein Projekt an Appl
 
 Application Credentials für Ihr Projekt können über die Befehlszeile oder über das Dashboard generiert werden. Diese werden dem Projekt zugeordnet, in dem sie erstellt werden.
 
-Der einzige erforderliche Parameter zum Erstellen der Anmeldeinformationen ist ein Name, jedoch kann mit dem Parameter `—-secret` ein bestimmtes Secret festgelegt werden. Ohne Parameter wird stattdessen automatisch ein Secret in der Ausgabe generiert.
+Der einzige erforderliche Parameter zum Erstellen der Anmeldeinformationen ist ein Name, jedoch kann mit dem Parameter `--secret` ein bestimmtes Secret festgelegt werden. Ohne Parameter wird stattdessen automatisch ein Secret in der Ausgabe generiert.
 
-Es ist in jedem Fall wichtig das Secret zu notieren, da dieses vor dem Speichern gehasht wird und nach dem Festlegen nicht wiederhergestellt werden kann. Wenn das Secret verloren geht, müssen neue Application Credential für die Anwendung erstellt werden.
+Es ist in jedem Fall wichtig, das Secret zu notieren, da dieses vor dem Speichern gehasht wird und nach dem Festlegen nicht wiederhergestellt werden kann. Wenn das Secret verloren geht, müssen neue Application Credentials für die Anwendung erstellt werden.
 
 ### Roles
 
@@ -34,7 +34,7 @@ Im Folgenden sind die verfügbaren Roles aufgeführt, die einem Satz von Applica
 
 ### Expiration
 
-Standardmäßig laufen erstellte Application Credentials nicht ab, jedoch können feste Ablaufdaten/-zeiten für Application Credentials bei der Erstellung festgelegt werden, indem der Parameter `--expires` im Befehl verwendet wird (zum Beispiel: `--expires '2025-07-15T21: 00:00'`).
+Standardmäßig laufen erstellte Application Credentials nicht ab, jedoch können feste Ablaufdaten/-zeiten für Application Credentials bei der Erstellung festgelegt werden, indem der Parameter `--expires` im Befehl verwendet wird (zum Beispiel: `--expires '2025-07-15T21:00:00'`).
 
 ## Erstellen von Application Credentials über die CLI
 
@@ -43,12 +43,12 @@ Ein Set von Application Credentials kann im gewünschten Projekt über die CLI e
 - Name: test-credentials
 - Secret: ZYQZm2k6pk
 - Roles: member
-- Expiration Date/Time: 2025-07-12 at 21:00:00
+- Expiration Date/Time: 2025-07-15 um 21:00:00
 
 Die neuen Zugangsdaten sollten wie folgt aussehen:
 
 ```bash
-$ openstack application credential create test-credentials --secret ZYQZm2k6pk --role Member --expires '2025-07-15T21:00:00'
+$ openstack application credential create test-credentials --secret ZYQZm2k6pk --role member --expires '2025-07-15T21:00:00'
 +--------------+----------------------------------------------+
 | Field        | Value                                        |
 +--------------+----------------------------------------------+
@@ -69,7 +69,7 @@ Hinweis: Das Secret (ob vom Benutzer festgelegt oder automatisch generiert) wird
 
 ## Anzeigen von Application Credentials über die CLI
 
-Die Liste der zu einem Projekt gehörenden Application-Credentials kann mit dem folgenden Befehl aufgelistet werden.
+Die Liste der zu einem Projekt gehörenden Application Credentials kann mit dem folgenden Befehl aufgelistet werden:
 
 ```bash
 $ openstack application credential list
@@ -94,10 +94,10 @@ openstack application credential delete test-credentials
 
 Sobald wir über die CLI oder das Dashboard einen Satz von Application Credentials erstellt haben, können wir sie mit dem folgenden curl-Befehl testen, um zu überprüfen, ob sie funktionieren.
 
-Wir müssen unsere `<name>` und `<secret>` im curl-Befehl verwenden:
+Wir müssen unsere `<id>` und `<secret>` im curl-Befehl verwenden:
 
 ```bash
-curl -i -H "Content-Type: application/json" -d ' { "auth": { "identity": { "methods": ["application_credential"],  "application_credential": {  "id": “<id>", "secret": “<secret>"}}}}' 	https://identity.openstack.de-west-01.wiit-cloud.io/v3/auth/tokens
+curl -i -H "Content-Type: application/json" -d ' { "auth": { "identity": { "methods": ["application_credential"],  "application_credential": {  "id": "<id>", "secret": "<secret>"}}}}' https://identity.openstack.de-west-01.wiit-cloud.io/v3/auth/tokens
 ```
 
 Ein erfolgreicher curl-Versuch gibt ein `x-subject-token` aus, erfolglose Versuche mit falschen Anmeldeinformationen führen zu einem 401-Fehler.

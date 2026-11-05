@@ -6,7 +6,7 @@ nav_order: 3800
 parent: Cluster Lifecycle
 ---
 
-We can support the following updates in a running CKS cluster:
+We support the following changes to a running CKS cluster:
 
 **Kubernetes Version Upgrade**
 - Upgrade your cluster to a newer Kubernetes version.
@@ -17,6 +17,7 @@ We can support the following updates in a running CKS cluster:
 **Control Plane Changes**
 
 - Update the flavor type of the control plane.
+- Enable, change or disable the [API server allowlist](/managedk8s/clusterlifecycle/apiallowlist/).
 
 **Machine Deployment Changes**
 
@@ -26,6 +27,7 @@ We can support the following updates in a running CKS cluster:
    - Name
    - Replicas
    - Flavor type
+   - Taints
 
 **Please Note:** We cannot migrate a volume from one Availability Zone (AZ) to another. If you plan to update the machine deployment's AZ, be aware that this may cause issues with the volumes associated with that machine deployment.
 
@@ -36,12 +38,18 @@ We can support the following updates in a running CKS cluster:
 
 **Cluster Autoscaler Feature**
 - Enable or disable the cluster-autoscaler for a specific machine deployment.
-- Adjust the minimum and maximum size of worker nodes to enable autoscaling.
+- Adjust the minimum and maximum number of worker nodes for autoscaling.
+
+**Load Balancer Options**
+- Enable or change cluster-wide [load balancer options](/managedk8s/clusterlifecycle/loadbalancer/#load-balancer-options), such as the balancing algorithm or health monitors.
+
+**Component Extra Args**
+- Pass extra command-line flags to control plane components, the control plane kubelet, or the cluster-autoscaler. See [Component Extra Args](/managedk8s/clusterlifecycle/extraargs/).
 
 ## How to request support for your CKS cluster
-You can find the list of the Support [here](/managedk8s/about/support/)
+You can find our support channels [here](/managedk8s/about/support/).
 
-**In case of requesting changes in the machineDeployment, please specify the machineDeployment where the changes should be applied. A format like `md-name-az-md`**
-**or `cluster-name-az-md`is required so that we refer to the correct machineDeployment.**
+**When requesting changes to a machine deployment, please specify the machine deployment the changes should be applied to. A name in the format `md-name-az-md`**
+**or `cluster-name-az-md` is required so that we can identify the correct machine deployment.**
 
 We will handle the requested changes or reach out for more details if needed before applying them to your cluster.

@@ -6,13 +6,13 @@ parent: Netzwerk
 nav_order: 2300
 ---
 
-# Der Octavia Loadbalancer
+# Der Octavia-Loadbalancer
 
 ## Vorwort
 
-[Octavia](https://wiki.openstack.org/wiki/Octavia) ist eine hochverfügbare und skalierbare Open-Source Load-Balancing-Lösung, die für die Arbeit mit OpenStack entwickelt wurde.
+[Octavia](https://wiki.openstack.org/wiki/Octavia) ist eine hochverfügbare und skalierbare Open-Source-Load-Balancing-Lösung, die für die Arbeit mit OpenStack entwickelt wurde.
 Octavia erledigt das Load-Balancing nach Bedarf, indem es virtuelle Maschinen – auch Amphoren genannt – in seinem Projekt verwaltet und konfiguriert.
-In diesen Amphoren wirkt schlussendlich ein [HAproxy](https://www.haproxy.com/).
+In diesen Amphoren wirkt schlussendlich ein [HAProxy](https://www.haproxy.com/).
 
 Alternativ steht auch der **OVN Loadbalancer Driver** zur Verfügung, welcher ohne Amphora-Instanzen arbeitet. Details hierzu finden sich im Abschnitt [Verwendung des OVN Loadbalancer Drivers](#verwendung-des-ovn-loadbalancer-drivers).
 
@@ -30,11 +30,11 @@ Der OVN-Provider lässt sich derzeit noch nicht über Horizon konfigurieren.
 
 ## Der Start
 
-Für die Nutzung von Octavia ist es notwendig, dass der Client auf dem eigenen System installiert ist. Eine Anleitung für sein System findet man [hier](/openstack/quickstart/osclient/)
+Für die Nutzung von Octavia ist es notwendig, dass der Client auf dem eigenen System installiert ist. Eine Anleitung für das eigene System findet man [hier](/openstack/quickstart/osclient/).
 
-## Erstellung eines Octavia-Ladbalancer
+## Erstellung eines Octavia-Loadbalancers
 
-Wir geben hier die Subnet-ID an in dem der Loadbalancer erstellt werden soll.
+Wir geben hier die Subnet-ID an, in dem der Loadbalancer erstellt werden soll.
 
 ```bash
 $ openstack loadbalancer create --name Beispiel-LB --vip-subnet-id 32259126-dd37-44d5-922c-99d68ee870cd [--provider ovn]
@@ -61,9 +61,10 @@ $ openstack loadbalancer create --name Beispiel-LB --vip-subnet-id 32259126-dd37
 | vip_subnet_id       | 32259126-dd37-44d5-922c-99d68ee870cd |
 +---------------------+--------------------------------------+
 ```
+
 Standardmäßig wird der amphora-Provider verwendet.
 
-Mit dem amphora-Provider spawnt Octavia nun die amphora-Instanzen im Hintergrund.
+Mit dem amphora-Provider spawnt Octavia nun die Amphora-Instanzen im Hintergrund.
 
 ```bash
 $ openstack loadbalancer list
@@ -74,7 +75,7 @@ $ openstack loadbalancer list
 +--------------------------------------+-------------+----------------------------------+--------------+---------------------+----------+
 ```
 
-Mit dem provisioning_status `ACTIVE` ist dieser Vorgang erfolgreich abgeschlossen.
+Mit dem `provisioning_status` `ACTIVE` ist dieser Vorgang erfolgreich abgeschlossen.
 
 ```bash
 $ openstack loadbalancer list
@@ -85,7 +86,7 @@ $ openstack loadbalancer list
 +--------------------------------------+-------------+----------------------------------+--------------+---------------------+----------+
 ```
 
-## Erstellen eines LB-Listener
+## Erstellen eines LB-Listeners
 
 In unserem Beispiel wollen wir einen Listener für den HTTP-Port 80 erstellen.
 
@@ -139,7 +140,7 @@ $ openstack loadbalancer listener list
 
 ## Erstellen eines LB-Pools
 
-Als LB-Pool ist hier eine Ansammlung aller Objekte (Listeners, Member, etc.) für zum Beispiel eine Region gemeint - vergleichbar mit einem Pool an öffentlichen IP-Adressen aus derer man sich eine belegen kann.
+Als LB-Pool ist hier eine Ansammlung aller Objekte (Listener, Member etc.) für zum Beispiel eine Region gemeint - vergleichbar mit einem Pool an öffentlichen IP-Adressen, aus dem man sich eine belegen kann.
 Einen Pool für unser Beispiel erstellt man wie folgt:
 
 ```bash
@@ -170,10 +171,10 @@ $ openstack loadbalancer pool create --name Beispiel-pool --lb-algorithm ROUND_R
 +----------------------+--------------------------------------+
 ```
 
-Hier sei erwähnt, dass man mit `openstack loadbalancer pool create --help` sich alle möglichen Einstellungen anzeigen lassen kann.
+Hier sei erwähnt, dass man sich mit `openstack loadbalancer pool create --help` alle möglichen Einstellungen anzeigen lassen kann.
 Die häufigsten Einstellungen und deren Auswahlmöglichkeiten:
 
-```bash
+```text
 --protocol: {TCP,HTTP,HTTPS,PROXY,PROXYV2,UDP,SCTP}
 --lb-algorithm {SOURCE_IP,ROUND_ROBIN,LEAST_CONNECTIONS,SOURCE_IP_PORT}
 ```
@@ -244,8 +245,8 @@ $ openstack loadbalancer member create --subnet-id 32259126-dd37-44d5-922c-99d68
 +---------------------+--------------------------------------+
 ```
 
-Hier sei erwähnt, dass die beiden IP's aus 10.0.0.* bereits vorhandene, auf Port 80 lauschende Webserver sind, die eine einfache Webseite mit Info's über ihren Servicenamen ausliefern.
-Unter der Vorraussetzung es handelt sich bei diesen Webservern im folgenden Beispiel um ein Ubuntu/Debian und man hat root-Berechtigungen, könnte man die einfache Webseite schnell erstellen mit:
+Hier sei erwähnt, dass die beiden IPs aus 10.0.0.* bereits vorhandene, auf Port 80 lauschende Webserver sind, die eine einfache Webseite mit Infos über ihren Servicenamen ausliefern.
+Unter der Voraussetzung, dass es sich bei diesen Webservern im folgenden Beispiel um Ubuntu/Debian handelt und man root-Berechtigungen hat, könnte man die einfache Webseite schnell erstellen mit:
 
 ```bash
 root@BeispielInstanz1:~# apt-get update; apt-get -y install apache2; echo "you hit: you hit: webserver1" > /var/www/html/index.html
@@ -275,16 +276,16 @@ Nun ist das "interne" Konstrukt des Loadbalancers konfiguriert.
 
 Wir haben nun:
 
-* 2 `member` die über Port 80 den tatsächlichen Service bereitstellen und zwischen denen das Loadbalancing stattfindet,
+* 2 `member`, die über Port 80 den tatsächlichen Service bereitstellen und zwischen denen das Loadbalancing stattfindet,
 * einen `pool` für diese `member`,
 * einen `listener`, der auf Port TCP/80 lauscht und ein `ROUND_ROBIN` zu den beiden Endpunkten macht und
 * einen Loadbalancer, über den wir alle Komponenten vereint haben.
 
-Der `operating_status` `NO_MONITOR` wird unter [healthmonitor](schritt24.md#erstellen-eines-healthmonitor) korrigiert.
+Der `operating_status` `NO_MONITOR` wird unter [Healthmonitor](#erstellen-eines-healthmonitors) korrigiert.
 
-## Erstellen und konfigurieren der Floating-IP
+## Erstellen und Konfigurieren der Floating IP
 
-Damit wir auch den Loadbalancer außerhalb unseres Beispiel-Netzwerk einsetzen können, müssen wir eine FloatingIP reservieren und diese dann mit dem `vip_port_id` des `Beispiel-LB` verknüpfen.
+Damit wir auch den Loadbalancer außerhalb unseres Beispiel-Netzwerks einsetzen können, müssen wir eine Floating IP reservieren und diese dann mit der `vip_port_id` des `Beispiel-LB` verknüpfen.
 
 Mit folgendem Befehl erstellen wir uns eine Floating IP aus dem `provider`-Netz:
 
@@ -317,21 +318,21 @@ $ openstack floating ip create provider
 
 ```
 
-Im nächsten Schritt benötigen wir die vip_port_id des Loadbalancers. Diese bekommt man mit folgendem Befehl heraus:
+Im nächsten Schritt benötigen wir die `vip_port_id` des Loadbalancers. Diese bekommt man mit folgendem Befehl heraus:
 
 ```bash
 $ openstack loadbalancer show Beispiel-LB -f value -c vip_port_id
 37fc5b34-ee07-49c8-b054-a8d591a9679f
 ```
 
-Mit dem folgendem Befehl weisen wir dem Loadbalancer nun die öffentliche IP Adresse zu. Damit ist der LB (und somit auch die Endpunkte dahinter) aus dem Internet erreichbar.
+Mit dem folgenden Befehl weisen wir dem Loadbalancer nun die öffentliche IP-Adresse zu. Damit ist der LB (und somit auch die Endpunkte dahinter) aus dem Internet erreichbar.
 
 ```bash
 openstack floating ip set --port 37fc5b34-ee07-49c8-b054-a8d591a9679f 185.116.247.133
 
 ```
 
-Wir sind soweit, dass wir unser Loadbalancer-Deployment testen können. Mit folgendem Befehl fragen wir unseren Loadbalancer über Port TCP/80 an und bekommen anschließend eine entsprechende Antwort von den einzelnen `member` zurück:
+Wir sind so weit, dass wir unser Loadbalancer-Deployment testen können. Mit folgendem Befehl fragen wir unseren Loadbalancer über Port TCP/80 an und bekommen anschließend eine entsprechende Antwort von den einzelnen `member` zurück:
 
 ```bash
 $ for ((i=1;i<=10;i++)); do curl http://185.116.247.133; sleep 1; done
@@ -345,9 +346,9 @@ you hit: webserver1
 ... (usw.)
 ```
 
-## Erstellen eines healthmonitor
+## Erstellen eines Healthmonitors
 
-Mit dem folgenden Befehl erstellen wir einen Monitor, der bei einem Ausfall eines der Backends genau dieses fehlerhafte Backend aus der Lastverteilung nimmt und somit die Webseite oder Applikation weiterhin sauber ausgeliefert wird.
+Mit dem folgenden Befehl erstellen wir einen Monitor, der bei einem Ausfall eines der Backends genau dieses fehlerhafte Backend aus der Lastverteilung nimmt, sodass die Webseite oder Applikation weiterhin sauber ausgeliefert wird.
 
 ```bash
 $ openstack loadbalancer healthmonitor create --delay 5 --max-retries 2 --timeout 10 --type HTTP --name Beispielmonitor --url-path / Beispiel-pool
@@ -378,11 +379,11 @@ $ openstack loadbalancer healthmonitor create --delay 5 --max-retries 2 --timeou
 
 Der OVN-Provider unterstützt wie schon erwähnt nur L4-Protokolle, also TCP / UDP.
 
-In diesem Beispiel entfernt der Monitor das fehlerhafte Backend aus dem Pool, wenn die Integritätsprüfung (--type HTTP, --url-path / ) alle zwei Fünf-Sekunden-Intervalle fehlschlägt(--delay 5, --max-retries 2, --timeout 10).
+In diesem Beispiel entfernt der Monitor das fehlerhafte Backend aus dem Pool, wenn die Integritätsprüfung (--type HTTP, --url-path /) alle zwei Fünf-Sekunden-Intervalle fehlschlägt (--delay 5, --max-retries 2, --timeout 10).
 
 Wenn der Server wiederhergestellt wird und erneut auf TCP/80 reagiert, wird er erneut zum Pool hinzugefügt.
 
-Ein manueller Failover kann erzwungen werden, indem der Statuscodes des Webservers ungleich "200" ist, oder gar keine Antwort des Webservers erfolgt.
+Ein manueller Failover kann erzwungen werden, indem der Statuscode des Webservers ungleich "200" ist oder gar keine Antwort des Webservers erfolgt.
 
 ```bash
 $ openstack loadbalancer healthmonitor show Beispielmonitor
@@ -413,7 +414,7 @@ $ openstack loadbalancer healthmonitor show Beispielmonitor
 
 Aus unserem Deployment-Beispiel würde das Resultat ungefähr so aussehen:
 
-```bash
+```text
 you hit: webserver1
 Mi 22 Mai 2019 17:09:39 CEST
 you hit: webserver2
@@ -494,7 +495,7 @@ $ openstack loadbalancer listener create --name stats-listener --protocol PROMET
 +-----------------------------+--------------------------------------+
 ```
 
-Sobald der PROMETHEUS-Listener AKTIV ist, können Sie Prometheus so konfigurieren, dass es Metriken vom Load Balancer sammelt, indem Sie die Datei prometheus.yml aktualisieren.
+Sobald der PROMETHEUS-Listener `ACTIVE` ist, können Sie Prometheus so konfigurieren, dass es Metriken vom Load Balancer sammelt, indem Sie die Datei `prometheus.yml` aktualisieren.
 
 ```yaml
 [scrape_configs]
