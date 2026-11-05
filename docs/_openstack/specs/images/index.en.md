@@ -54,29 +54,31 @@ We provide the following Windows images:
 
 ### Using Windows images:
 
-Windows images support automatic password reset using instance metadata:
+Windows images support setting the initial Administrator password using instance metadata:
 
-- Add metadata key `admin_pass` with a desired password.
-- After the instance reboots, the Administrator password is set to the provided value.
-
-{: .warning }
-
-Remove the metadata after the initial setup. The metadata is **not encrypted** and should only be used for initial password setup.
+- Add the metadata key `admin_pass` with the desired password when creating the instance.
+- The password is applied once, during the first boot of the instance. Adding or changing `admin_pass` later has no effect.
 
 Example:
 
 ```
-openstack server set --property admin_pass='MySecurePassword123!' INSTANCE_NAME
+openstack server create \
+  --image IMAGE_NAME \
+  --flavor FLAVOR_NAME \
+  --network NETWORK_NAME \
+  --property admin_pass='MySecurePassword123!' \
+  INSTANCE_NAME
 ```
 
-- The password will be applied after the next reboot.
-- Remove metadata afterwards to secure the instance:
+{: .warning }
+
+The metadata is **not encrypted** and remains readable after the first boot. Remove it once the instance is up:
 
 ```
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-Alternatively, you can connect via SSH and the floating IP to set the Administrator password directly inside the instance:
+To change the Administrator password later, connect via SSH and the floating IP and set it directly inside the instance:
 
 ```
 ssh $FLOATING_IP -l Administrator

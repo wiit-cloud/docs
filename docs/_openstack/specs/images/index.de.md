@@ -52,29 +52,31 @@ Wir stellen folgende Windows-Images zur Verfügung:
 
 ### Verwendung von Windows-Images:
 
-Windows-Images unterstützen das automatische Zurücksetzen des Administrator-Passworts über Instanz-Metadaten:
+Windows-Images unterstützen das Setzen des initialen Administrator-Passworts über Instanz-Metadaten:
 
-- Fügen Sie den Metadaten-Schlüssel `admin_pass` mit einem gewünschten Passwort hinzu.
-- Nach dem Neustart der Instanz wird das Administrator-Passwort auf den angegebenen Wert gesetzt.
-
-{: .warning }
-
-Entfernen Sie die Metadaten nach der Erstkonfiguration. Die Metadaten sind **nicht verschlüsselt** und sollten nur für die initiale Passwortvergabe verwendet werden.
+- Fügen Sie beim Erstellen der Instanz den Metadaten-Schlüssel `admin_pass` mit dem gewünschten Passwort hinzu.
+- Das Passwort wird einmalig beim ersten Start der Instanz gesetzt. Ein späteres Hinzufügen oder Ändern von `admin_pass` hat keine Auswirkung.
 
 Beispiel:
 
 ```
-openstack server set --property admin_pass='MeinSicheresPasswort123' INSTANCE_NAME
+openstack server create \
+  --image IMAGE_NAME \
+  --flavor FLAVOR_NAME \
+  --network NETWORK_NAME \
+  --property admin_pass='MeinSicheresPasswort123' \
+  INSTANCE_NAME
 ```
 
-- Das Passwort wird nach dem nächsten Neustart angewendet.
-- Entfernen Sie anschließend die Metadaten, um die Instanz zu sichern:
+{: .warning }
+
+Die Metadaten sind **nicht verschlüsselt** und bleiben auch nach dem ersten Start lesbar. Entfernen Sie sie, sobald die Instanz läuft:
 
 ```
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-Alternativ können Sie sich über SSH und die Floating IP verbinden und das Administrator-Passwort direkt innerhalb der Instanz setzen:
+Um das Administrator-Passwort später zu ändern, verbinden Sie sich über SSH und die Floating IP und setzen es direkt innerhalb der Instanz:
 
 ```
 ssh $FLOATING_IP -l Administrator
