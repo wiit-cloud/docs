@@ -66,6 +66,7 @@ openstack server create \
   --image IMAGE_NAME \
   --flavor FLAVOR_NAME \
   --network NETWORK_NAME \
+  --key-name KEY_NAME \
   --property admin_pass='MySecurePassword123!' \
   INSTANCE_NAME
 ```
@@ -78,7 +79,9 @@ The metadata is **not encrypted** and remains readable after the first boot. Rem
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-To change the Administrator password later, connect via SSH and the floating IP and set it directly inside the instance:
+On the first login via the GUI console (e.g. the console in the OpenStack Dashboard), Windows requires you to change the initial password. Connecting via RDP is not possible until the initial password has been changed.
+
+If you don't want to use the GUI console, you can alternatively connect via SSH and the floating IP using the public key of the key pair assigned to the instance (`--key-name`), and change the initial password directly inside the instance:
 
 ```
 ssh $FLOATING_IP -l Administrator

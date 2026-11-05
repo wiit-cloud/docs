@@ -64,6 +64,7 @@ openstack server create \
   --image IMAGE_NAME \
   --flavor FLAVOR_NAME \
   --network NETWORK_NAME \
+  --key-name KEY_NAME \
   --property admin_pass='MeinSicheresPasswort123' \
   INSTANCE_NAME
 ```
@@ -76,7 +77,9 @@ Die Metadaten sind **nicht verschlüsselt** und bleiben auch nach dem ersten Sta
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-Um das Administrator-Passwort später zu ändern, verbinden Sie sich über SSH und die Floating IP und setzen es direkt innerhalb der Instanz:
+Bei der ersten Anmeldung über die GUI-Konsole (z. B. die Konsole im OpenStack Dashboard) verlangt Windows, dass Sie das initiale Passwort ändern. Eine Verbindung per RDP ist erst möglich, nachdem das initiale Passwort geändert wurde.
+
+Wenn Sie die GUI-Konsole nicht verwenden möchten, können Sie sich alternativ über SSH und die Floating IP mit dem öffentlichen Schlüssel des der Instanz zugewiesenen Key Pairs (`--key-name`) verbinden und das initiale Passwort direkt innerhalb der Instanz ändern:
 
 ```
 ssh $FLOATING_IP -l Administrator
