@@ -114,6 +114,68 @@ PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
 
 This method avoids storing the password in unencrypted metadata.
 
+### Recommended approach for automation tools
+
+When creating Windows instances with automation tools (e.g. Terraform or Ansible), we recommend not setting `admin_pass`. In this case, cloudbase-init generates a random password for the Administrator account during the first boot. The password is encrypted with the public key of the key pair assigned to the instance (`--key-name`) and stored in the metadata service. Only the holder of the matching private key can decrypt it.
+
+```
+openstack server create \
+  --image IMAGE_NAME \
+  --flavor FLAVOR_NAME \
+  --network NETWORK_NAME \
+  --key-name KEY_NAME \
+  INSTANCE_NAME
+```
+
+{: .note }
+
+> The key pair must be an RSA key pair (`ssh-rsa`). Other key types, such as ed25519, are not supported for password encryption; in that case, no password is stored.
+
+The encrypted password is available a few minutes after the first boot, once cloudbase-init has finished. You can retrieve and decrypt it with the deprecated nova CLI (part of `python-novaclient`, requires `openssl` and a private key in PEM format):
+
+```
+nova get-password INSTANCE_NAME ~/.ssh/id_rsa
+```
+
+Alternatively, use the [nova-password](https://github.com/sapcc/nova-password) tool, which also supports private keys in OpenSSH and PuTTY format:
+
+```
+nova-password --private-key-path ~/.ssh/id_rsa INSTANCE_NAME
+```
+
+Both tools use the OpenStack credentials from your environment (e.g. a sourced `openrc` file).
+
+#### Decrypting the password manually
+
+The Compute API returns the password Base64-encoded and encrypted with RSA (PKCS #1 v1.5). Replace `COMPUTE_URL` with the public compute endpoint shown by `openstack catalog show compute`:
+
+```
+TOKEN=$(openstack token issue -f value -c id)
+SERVER_ID=$(openstack server show INSTANCE_NAME -f value -c id)
+
+curl -s -H "X-Auth-Token: $TOKEN" "COMPUTE_URL/servers/$SERVER_ID/os-server-password" \
+  | jq -r .password \
+  | base64 -d \
+  | openssl pkeyutl -decrypt -inkey ~/.ssh/id_rsa
+```
+
+OpenSSL requires the private key in PEM format. If your key is in OpenSSH format (`-----BEGIN OPENSSH PRIVATE KEY-----`), convert a copy of it first:
+
+```
+cp ~/.ssh/id_rsa ~/.ssh/id_rsa.pem
+ssh-keygen -p -m PEM -f ~/.ssh/id_rsa.pem
+```
+
+#### Automation
+
+For proper automation, we recommend a custom script that operates directly on the Compute API:
+
+1. Retrieve the encrypted password with `GET /servers/{server_id}/os-server-password`.
+2. Decrypt it with the private key of the key pair.
+3. Store it in a secrets management tool such as HashiCorp Vault.
+
+Afterwards, you can delete the encrypted password from the metadata service with `DELETE /servers/{server_id}/os-server-password` (or `nova clear-password INSTANCE_NAME`). This only removes the stored copy; the Administrator password of the instance stays unchanged.
+
 ## Uploading your own images
 
 Instead of using the images we provide, you can upload your own images. The easiest way of doing so is to use the OpenStack CLI.

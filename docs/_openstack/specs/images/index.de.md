@@ -112,6 +112,68 @@ PS C:\Users\Administrator> Set-LocalUser -Name Administrator -Password $Password
 
 Diese Methode vermeidet, dass das Passwort in unverschlüsselten Metadaten gespeichert wird.
 
+### Empfohlenes Vorgehen für Automatisierungstools
+
+Wenn Sie Windows-Instanzen mit Automatisierungstools (z. B. Terraform oder Ansible) erstellen, empfehlen wir, `admin_pass` nicht zu setzen. In diesem Fall generiert cloudbase-init beim ersten Start ein zufälliges Passwort für das Administrator-Konto. Das Passwort wird mit dem öffentlichen Schlüssel des der Instanz zugewiesenen Key Pairs (`--key-name`) verschlüsselt und im Metadaten-Service gespeichert. Nur wer den passenden privaten Schlüssel besitzt, kann es entschlüsseln.
+
+```
+openstack server create \
+  --image IMAGE_NAME \
+  --flavor FLAVOR_NAME \
+  --network NETWORK_NAME \
+  --key-name KEY_NAME \
+  INSTANCE_NAME
+```
+
+{: .note }
+
+> Das Key Pair muss ein RSA-Key-Pair (`ssh-rsa`) sein. Andere Schlüsseltypen wie ed25519 werden für die Passwortverschlüsselung nicht unterstützt; in diesem Fall wird kein Passwort gespeichert.
+
+Das verschlüsselte Passwort ist einige Minuten nach dem ersten Start verfügbar, sobald cloudbase-init abgeschlossen ist. Sie können es mit der veralteten nova-CLI (Teil von `python-novaclient`, benötigt `openssl` und einen privaten Schlüssel im PEM-Format) abrufen und entschlüsseln:
+
+```
+nova get-password INSTANCE_NAME ~/.ssh/id_rsa
+```
+
+Alternativ können Sie das Tool [nova-password](https://github.com/sapcc/nova-password) verwenden, das auch private Schlüssel im OpenSSH- und PuTTY-Format unterstützt:
+
+```
+nova-password --private-key-path ~/.ssh/id_rsa INSTANCE_NAME
+```
+
+Beide Tools verwenden die OpenStack-Zugangsdaten aus Ihrer Umgebung (z. B. aus einer geladenen `openrc`-Datei).
+
+#### Passwort manuell entschlüsseln
+
+Die Compute-API liefert das Passwort Base64-kodiert und mit RSA (PKCS #1 v1.5) verschlüsselt. Ersetzen Sie `COMPUTE_URL` durch den öffentlichen Compute-Endpunkt, den `openstack catalog show compute` anzeigt:
+
+```
+TOKEN=$(openstack token issue -f value -c id)
+SERVER_ID=$(openstack server show INSTANCE_NAME -f value -c id)
+
+curl -s -H "X-Auth-Token: $TOKEN" "COMPUTE_URL/servers/$SERVER_ID/os-server-password" \
+  | jq -r .password \
+  | base64 -d \
+  | openssl pkeyutl -decrypt -inkey ~/.ssh/id_rsa
+```
+
+OpenSSL benötigt den privaten Schlüssel im PEM-Format. Liegt Ihr Schlüssel im OpenSSH-Format vor (`-----BEGIN OPENSSH PRIVATE KEY-----`), konvertieren Sie zuerst eine Kopie davon:
+
+```
+cp ~/.ssh/id_rsa ~/.ssh/id_rsa.pem
+ssh-keygen -p -m PEM -f ~/.ssh/id_rsa.pem
+```
+
+#### Automatisierung
+
+Für eine saubere Automatisierung empfehlen wir ein eigenes Skript, das direkt mit der Compute-API arbeitet:
+
+1. Das verschlüsselte Passwort mit `GET /servers/{server_id}/os-server-password` abrufen.
+2. Es mit dem privaten Schlüssel des Key Pairs entschlüsseln.
+3. Es in einem Secrets-Management-Tool wie HashiCorp Vault ablegen.
+
+Anschließend können Sie das verschlüsselte Passwort mit `DELETE /servers/{server_id}/os-server-password` (oder `nova clear-password INSTANCE_NAME`) aus dem Metadaten-Service löschen. Dadurch wird nur die gespeicherte Kopie entfernt; das Administrator-Passwort der Instanz bleibt unverändert.
+
 ## Upload von eigenen Images
 
 Sie können jederzeit Ihre eigenen Images hochladen, anstatt die von uns bereitgestellten zu nutzen. Am einfachsten funktioniert das über die OpenStack-CLI.
