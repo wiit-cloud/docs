@@ -54,6 +54,10 @@ We provide the following Windows images:
 
 ### Using Windows images:
 
+{: .warning }
+
+> Our Windows images only work with **RSA** SSH key pairs (`ssh-rsa`). If you create an instance with a different key type, such as ed25519, the initialization of the instance by cloudbase-init fails.
+
 Windows images support setting the initial Administrator password using instance metadata:
 
 - Add the metadata key `admin_pass` with the desired password when creating the instance.
@@ -79,7 +83,7 @@ The metadata is **not encrypted** and remains readable after the first boot. Rem
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-On the first login via the GUI console (e.g. the console in the OpenStack Dashboard), Windows requires you to change the initial password. Connecting via RDP is not possible until the initial password has been changed.
+Because the password set via `admin_pass` is transmitted as cleartext metadata, Windows requires you to change it on the first login via the GUI console (e.g. the console in the OpenStack Dashboard). Connecting via RDP is not possible until the initial password has been changed.
 
 If you don't want to use the GUI console, you can alternatively connect via SSH and the floating IP using the public key of the key pair assigned to the instance (`--key-name`), and change the initial password directly inside the instance:
 
@@ -127,9 +131,7 @@ openstack server create \
   INSTANCE_NAME
 ```
 
-{: .note }
-
-> The key pair must be an RSA key pair (`ssh-rsa`). Other key types, such as ed25519, are not supported for password encryption; in that case, no password is stored.
+As the generated password is never visible in cleartext, no password change is required: you can connect via RDP directly with the retrieved password.
 
 The encrypted password is available a few minutes after the first boot, once cloudbase-init has finished. You can retrieve and decrypt it with the deprecated nova CLI (part of `python-novaclient`, requires `openssl` and a private key in PEM format):
 

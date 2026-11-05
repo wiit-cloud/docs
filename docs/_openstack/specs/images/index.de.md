@@ -52,6 +52,10 @@ Wir stellen folgende Windows-Images zur Verfügung:
 
 ### Verwendung von Windows-Images:
 
+{: .warning }
+
+> Unsere Windows-Images funktionieren nur mit **RSA**-SSH-Key-Pairs (`ssh-rsa`). Wenn Sie eine Instanz mit einem anderen Schlüsseltyp wie ed25519 erstellen, schlägt die Initialisierung der Instanz durch cloudbase-init fehl.
+
 Windows-Images unterstützen das Setzen des initialen Administrator-Passworts über Instanz-Metadaten:
 
 - Fügen Sie beim Erstellen der Instanz den Metadaten-Schlüssel `admin_pass` mit dem gewünschten Passwort hinzu.
@@ -77,7 +81,7 @@ Die Metadaten sind **nicht verschlüsselt** und bleiben auch nach dem ersten Sta
 openstack server unset --property admin_pass INSTANCE_NAME
 ```
 
-Bei der ersten Anmeldung über die GUI-Konsole (z. B. die Konsole im OpenStack Dashboard) verlangt Windows, dass Sie das initiale Passwort ändern. Eine Verbindung per RDP ist erst möglich, nachdem das initiale Passwort geändert wurde.
+Da das über `admin_pass` gesetzte Passwort im Klartext in den Metadaten übertragen wird, verlangt Windows bei der ersten Anmeldung über die GUI-Konsole (z. B. die Konsole im OpenStack Dashboard), dass Sie es ändern. Eine Verbindung per RDP ist erst möglich, nachdem das initiale Passwort geändert wurde.
 
 Wenn Sie die GUI-Konsole nicht verwenden möchten, können Sie sich alternativ über SSH und die Floating IP mit dem öffentlichen Schlüssel des der Instanz zugewiesenen Key Pairs (`--key-name`) verbinden und das initiale Passwort direkt innerhalb der Instanz ändern:
 
@@ -125,9 +129,7 @@ openstack server create \
   INSTANCE_NAME
 ```
 
-{: .note }
-
-> Das Key Pair muss ein RSA-Key-Pair (`ssh-rsa`) sein. Andere Schlüsseltypen wie ed25519 werden für die Passwortverschlüsselung nicht unterstützt; in diesem Fall wird kein Passwort gespeichert.
+Da das generierte Passwort nie im Klartext sichtbar ist, ist keine Passwortänderung erforderlich: Sie können sich mit dem abgerufenen Passwort direkt per RDP verbinden.
 
 Das verschlüsselte Passwort ist einige Minuten nach dem ersten Start verfügbar, sobald cloudbase-init abgeschlossen ist. Sie können es mit der veralteten nova-CLI (Teil von `python-novaclient`, benötigt `openssl` und einen privaten Schlüssel im PEM-Format) abrufen und entschlüsseln:
 
