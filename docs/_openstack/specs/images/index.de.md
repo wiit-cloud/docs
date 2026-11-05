@@ -56,6 +56,10 @@ Wir stellen folgende Windows-Images zur Verfügung:
 
 > Unsere Windows-Images funktionieren nur mit **RSA**-SSH-Key-Pairs (`ssh-rsa`). Wenn Sie eine Instanz mit einem anderen Schlüsseltyp wie ed25519 erstellen, schlägt die Initialisierung der Instanz durch cloudbase-init fehl.
 
+{: .warning }
+
+> Die Initialisierung unserer Windows-Images durch cloudbase-init funktioniert derzeit nicht bei Instanzen, die nur eine **IPv6**-Adresse haben. Stellen Sie sicher, dass die Instanz auch eine IPv4-Adresse hat.
+
 Windows-Images unterstützen das Setzen des initialen Administrator-Passworts über Instanz-Metadaten:
 
 - Fügen Sie beim Erstellen der Instanz den Metadaten-Schlüssel `admin_pass` mit dem gewünschten Passwort hinzu.

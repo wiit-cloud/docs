@@ -58,6 +58,10 @@ We provide the following Windows images:
 
 > Our Windows images only work with **RSA** SSH key pairs (`ssh-rsa`). If you create an instance with a different key type, such as ed25519, the initialization of the instance by cloudbase-init fails.
 
+{: .warning }
+
+> The initialization of our Windows images by cloudbase-init currently does not work for instances that only have an **IPv6** address. Make sure the instance also has an IPv4 address.
+
 Windows images support setting the initial Administrator password using instance metadata:
 
 - Add the metadata key `admin_pass` with the desired password when creating the instance.
