@@ -13,12 +13,13 @@ Notable changes on the OpenStack platform are documented here.
 
 ### To be announced
 
-- Local Storage Flavor Availability
-- Windows Images GA
-
 ---
 
 ## Completed
+
+### 2026-11-04
+
+- Windows Images GA
 
 ### 2026-10-19
 
