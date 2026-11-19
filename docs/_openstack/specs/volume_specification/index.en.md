@@ -18,6 +18,8 @@ We have two main volume types:
 * high-iops
 * standard
 
+Both types are also available in an encrypted variant (`standard-enc`, `high-iops-enc`), see [Encrypted Volumes](/openstack/keymanager/encrypted_volumes/).
+
 ## Volume Type List
 
 An overview of the two volume types below:
