@@ -13,6 +13,8 @@ Notable changes on the OpenStack platform are documented here.
 
 ### To be announced
 
+- [Key Manager](/openstack/keymanager/) for secret storage — including [encrypted volume types](/openstack/keymanager/encrypted_volumes/) (`standard-enc`, `high-iops-enc`) and [TLS terminated load balancer listeners](/openstack/keymanager/tls_termination/)
+
 ---
 
 ## Completed

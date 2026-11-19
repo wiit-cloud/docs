@@ -90,7 +90,7 @@ $ openstack loadbalancer list
 
 In unserem Beispiel wollen wir einen Listener für den HTTP-Port 80 erstellen.
 
-Als Listener ist hier - vergleichbar mit anderen LB-Lösungen - der Port des Frontends gemeint.
+Als Listener ist hier - vergleichbar mit anderen LB-Lösungen - der Port des Frontends gemeint. Für HTTPS-Listener, die TLS auf dem Loadbalancer terminieren, siehe [TLS-terminierte Loadbalancer](/openstack/keymanager/tls_termination/).
 
 ```bash
 $ openstack loadbalancer listener create --name Beispiel-listener --protocol HTTP --protocol-port 80 Beispiel-LB
