@@ -30,6 +30,7 @@ While a cluster is paused, we do not make changes to the cluster. Use this only 
 
 * The cluster and your workloads continue to run.
 * We continue to update the status of the WorkloadCluster.
+* [Cluster deletion](/managedk8s/clusterlifecycle/clusterdeletion/). You do not have to resume a cluster before you delete it.
 
 ## Resume the cluster
 
